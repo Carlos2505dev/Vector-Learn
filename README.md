@@ -1,73 +1,217 @@
-# Welcome to your Lovable project
+# Vector Learn - Plataforma Educacional de Vetores
 
-## Project info
+Uma plataforma educacional revolucionária para aprender os fundamentos dos vetores através de visualizações interativas e simuladores 2D/3D.
 
-**URL**: https://lovable.dev/projects/f1f5712d-738d-40b3-aa3b-20f4d480db27
+## 🚀 Tecnologias
 
-## How can I edit this code?
+- **React 18** - Interface moderna e reativa
+- **Vite** - Build tool otimizado
+- **TypeScript** - Tipagem estática
+- **Tailwind CSS** - Design system customizado
+- **Framer Motion** - Animações fluidas
+- **Three.js & React Three Fiber** - Visualizações 3D
+- **KaTeX** - Renderização de fórmulas matemáticas
+- **Lucide React** - Ícones modernos
 
-There are several ways of editing your application.
+## 🎯 Funcionalidades
 
-**Use Lovable**
+### 📚 Conteúdo Educacional
+- **Fundamentos**: Conceitos básicos de vetores, notação, magnitude e componentes
+- **Operações**: Soma, subtração, produto escalar e produto vetorial
+- **Exemplos Práticos**: Aplicações em física, matemática e engenharia
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/f1f5712d-738d-40b3-aa3b-20f4d480db27) and start prompting.
+### 🎮 Simuladores Interativos
+- **Simulador 2D**: Visualização em tempo real com controles deslizantes
+- **Operações Visuais**: Soma, subtração, projeção e produtos
+- **Componentes Dinâmicos**: Visualização de componentes X e Y
+- **Preparado para 3D**: Estrutura pronta para visualizações tridimensionais
 
-Changes made via Lovable will be committed automatically to this repo.
+### 🏆 Sistema de Desafios
+- **Quiz Interativo**: 15+ questões com diferentes níveis
+- **Feedback Imediato**: Explicações detalhadas para cada resposta
+- **Dicas Contextuais**: Ajuda progressiva para o aprendizado
+- **Sistema de Pontuação**: Acompanhamento do progresso
 
-**Use your preferred IDE**
+### 🎨 Design e Acessibilidade
+- **Design System Completo**: Tokens semânticos para cores e espaçamento
+- **Modo Claro/Escuro**: Alternância automática com persistência
+- **Responsivo**: Otimizado para desktop, tablet e mobile
+- **WCAG 2.2 AA**: Conformidade com padrões de acessibilidade
+- **Animações Reduzidas**: Respeita preferências do usuário
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## 🛠️ Instalação e Uso
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### Pré-requisitos
+- Node.js 18+ 
+- npm ou yarn
 
-Follow these steps:
+### Instalação
+```bash
+# Clone o repositório
+git clone <URL_DO_REPOSITORIO>
+cd vector-learn
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+# Instale as dependências
+npm install
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Execute em modo de desenvolvimento
 npm run dev
+
+# Build para produção
+npm run build
+
+# Preview da build de produção
+npm run preview
 ```
 
-**Edit a file directly in GitHub**
+## 📁 Estrutura do Projeto
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+```
+src/
+├── components/           # Componentes reutilizáveis
+│   ├── ui/              # Componentes base (shadcn/ui)
+│   ├── Navigation.tsx   # Navegação principal
+│   ├── Layout.tsx       # Layout base
+│   ├── HeroVector.tsx   # Visualização hero interativa
+│   ├── MathFormula.tsx  # Renderização de fórmulas
+│   ├── ThemeToggle.tsx  # Alternador de tema
+│   └── Vector2DSimulator.tsx # Simulador 2D completo
+├── pages/               # Páginas da aplicação
+│   ├── Home.tsx         # Página inicial
+│   ├── Fundamentos.tsx  # Conceitos básicos
+│   ├── Operacoes.tsx    # Operações com vetores
+│   ├── Simulador.tsx    # Simuladores interativos
+│   └── Desafios.tsx     # Quiz e exercícios
+├── lib/                 # Utilitários e lógica
+│   ├── utils.ts         # Utilidades gerais
+│   └── vector-math.ts   # Operações matemáticas
+├── hooks/               # React hooks customizados
+└── index.css           # Estilos globais e design tokens
+```
 
-**Use GitHub Codespaces**
+## 🎨 Design System
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### Paleta de Cores
+- **Primary (Vector Blue)**: #5B8CFF - Cor principal dos vetores
+- **Secondary (Vector Teal)**: #00D1B2 - Operações secundárias  
+- **Accent (Vector Orange)**: #FF7A59 - Destaques e acentos
+- **Vector Purple**: #8B7CF6 - Visualizações 3D
+- **Vector Green**: #4ADE80 - Estados de sucesso
+- **Vector Red**: #F87171 - Estados de erro
 
-## What technologies are used for this project?
+### Componentes Visuais
+- **Gradientes**: Transições suaves entre cores principais
+- **Sombras**: Sistema de elevação com cores temáticas
+- **Animações**: Transições fluidas com Framer Motion
+- **Grid Responsivo**: Layout adaptativo para todos os dispositivos
 
-This project is built with:
+## 🔧 Funcionalidades Técnicas
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+### Matemática dos Vetores
+- **Operações 2D/3D**: Implementação completa de funções vetoriais
+- **Magnitude**: Cálculo de módulo usando teorema de Pitágoras
+- **Produto Escalar**: Implementação com interpretação geométrica
+- **Produto Vetorial**: Preparado para visualizações 3D
+- **Projeções**: Cálculo de projeção de um vetor sobre outro
 
-## How can I deploy this project?
+### Renderização de Fórmulas
+- **KaTeX**: Renderização matemática de alta qualidade
+- **LaTeX Support**: Suporte completo para notação matemática
+- **Inline/Block**: Fórmulas inline e em blocos
+- **Fallback**: Tratamento gracioso de erros de sintaxe
 
-Simply open [Lovable](https://lovable.dev/projects/f1f5712d-738d-40b3-aa3b-20f4d480db27) and click on Share -> Publish.
+### Simuladores
+- **Tempo Real**: Atualizações instantâneas baseadas em entrada do usuário
+- **SVG Vectorial**: Gráficos escaláveis e nítidos
+- **Coordenadas Matemáticas**: Sistema de coordenadas padrão
+- **Operações Visuais**: Visualização das operações em tempo real
 
-## Can I connect a custom domain to my Lovable project?
+## 🚀 Deploy
 
-Yes, you can!
+### Vercel (Recomendado)
+```bash
+npm run build
+# Deploy via Vercel CLI ou GitHub integration
+```
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+### Netlify
+```bash
+npm run build
+# Upload da pasta dist/ ou conectar via Git
+```
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+### GitHub Pages
+```bash
+npm run build
+# Configure base path no vite.config.ts se necessário
+```
+
+## 🧪 Testes
+
+```bash
+# Testes unitários (configurar)
+npm run test
+
+# Testes E2E (configurar)
+npm run test:e2e
+
+# Cobertura
+npm run test:coverage
+```
+
+## 📊 Performance
+
+### Métricas Alvo
+- **Lighthouse Performance**: ≥ 95
+- **Acessibilidade**: ≥ 95  
+- **Melhores Práticas**: ≥ 95
+- **SEO**: ≥ 95
+
+### Otimizações
+- **Code Splitting**: Carregamento lazy de rotas
+- **Tree Shaking**: Importação seletiva de componentes
+- **Asset Optimization**: Imagens e SVGs otimizados
+- **Bundle Analysis**: Análise de tamanho de bundle
+
+## 🎓 Conteúdo Pedagógico
+
+### Fundamentos
+- Definição de vetor vs escalar
+- Notação matemática padrão
+- Componentes e decomposição
+- Magnitude e vetores unitários
+
+### Operações
+- Soma (regra do paralelogramo)
+- Subtração (vetores opostos)
+- Produto escalar (projeção e ângulo)
+- Produto vetorial (3D, preparado)
+
+### Aplicações
+- Física: força, velocidade, aceleração
+- Computação gráfica: transformações
+- Engenharia: análise estrutural
+- Navegação: GPS e direcionamento
+
+## 🤝 Contribuindo
+
+1. Fork o projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um Pull Request
+
+## 📝 Licença
+
+Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
+
+## 👥 Créditos
+
+- **Desenvolvido com**: React, TypeScript, Tailwind CSS
+- **Matemática**: Implementação baseada em princípios de álgebra linear
+- **Design**: Inspirado em plataformas educacionais modernas
+- **Acessibilidade**: Seguindo diretrizes WCAG 2.2
+
+---
+
+**Vector Learn** - Transformando o aprendizado de matemática através da tecnologia 🚀
