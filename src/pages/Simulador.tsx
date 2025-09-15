@@ -4,6 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Layout } from "@/components/Layout";
 import { Vector2DSimulator } from "@/components/Vector2DSimulator";
+import { Vector3DSimulator } from "@/components/Vector3DSimulator";
 import { Monitor, Box, Info, Lightbulb } from "lucide-react";
 
 const instructions = [
@@ -118,30 +119,7 @@ export default function Simulador() {
           </TabsContent>
 
           <TabsContent value="3d">
-            <Card className="interactive-surface">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Box className="h-5 w-5" />
-                  Simulador 3D (Em Desenvolvimento)
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="text-center py-16">
-                <div className="max-w-md mx-auto">
-                  <Box className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-                  <h3 className="text-lg font-semibold mb-2">Visualização 3D</h3>
-                  <p className="text-muted-foreground mb-6">
-                    O simulador 3D permitirá explorar vetores no espaço tridimensional 
-                    com produtos vetoriais, rotações e muito mais.
-                  </p>
-                  <div className="bg-gradient-primary text-white p-4 rounded-lg">
-                    <p className="text-sm">
-                      🚧 Funcionalidade em desenvolvimento<br />
-                      Em breve: visualização 3D completa com Three.js
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            <Vector3DSimulator />
           </TabsContent>
         </Tabs>
       </motion.section>
