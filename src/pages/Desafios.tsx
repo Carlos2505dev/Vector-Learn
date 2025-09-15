@@ -85,6 +85,131 @@ const questions: Question[] = [
     correctAnswer: 1,
     explanation: "Por definição, o produto vetorial produz um vetor perpendicular aos dois vetores originais, seguindo a regra da mão direita.",
     hint: "Pense na regra da mão direita e na definição do produto vetorial."
+  },
+  {
+    id: "q6",
+    type: "multiple-choice",
+    difficulty: "básico",
+    question: "Como um vetor pode ser representado geometricamente?",
+    options: [
+      "Apenas como um ponto no espaço",
+      "Como uma seta com origem, direção e magnitude",
+      "Como uma linha reta sem direção definida",
+      "Como um círculo com raio definido"
+    ],
+    correctAnswer: 1,
+    explanation: "Um vetor é representado geometricamente como uma seta (segmento orientado) que possui ponto de origem, direção, sentido e magnitude (comprimento).",
+    hint: "Pense em como representamos uma força ou velocidade graficamente."
+  },
+  {
+    id: "q7",
+    type: "calculation",
+    difficulty: "básico",
+    question: "Se um vetor v⃗ faz um ângulo de 30° com o eixo x positivo e tem magnitude 10, qual é sua componente x?",
+    formula: "v_x = |\\vec{v}| \\cos(\\theta)",
+    correctAnswer: 8.66,
+    explanation: "vₓ = |v⃗|cos(θ) = 10 × cos(30°) = 10 × (√3/2) = 10 × 0,866 ≈ 8,66",
+    hint: "Use a função cosseno para encontrar a componente horizontal."
+  },
+  {
+    id: "q8",
+    type: "multiple-choice",
+    difficulty: "básico",
+    question: "Um vetor unitário tem magnitude igual a:",
+    options: [
+      "Zero",
+      "Um",
+      "Infinito",
+      "Depende da direção do vetor"
+    ],
+    correctAnswer: 1,
+    explanation: "Por definição, um vetor unitário sempre tem magnitude igual a 1, independentemente de sua direção.",
+    hint: "Lembre-se da definição de vetor unitário: û = v⃗/|v⃗|"
+  },
+  {
+    id: "q9",
+    type: "calculation",
+    difficulty: "intermediário",
+    question: "Calcule o ângulo entre os vetores u⃗ = (1, 2) e v⃗ = (3, 1). Responda em graus:",
+    formula: "\\cos(\\theta) = \\frac{\\vec{u} \\cdot \\vec{v}}{|\\vec{u}||\\vec{v}|}",
+    correctAnswer: 45,
+    explanation: "u⃗·v⃗ = 1×3 + 2×1 = 5; |u⃗| = √5; |v⃗| = √10; cos(θ) = 5/(√5×√10) = 5/√50 = 1/√2; θ = 45°",
+    hint: "Use a fórmula do produto escalar para encontrar o cosseno do ângulo."
+  },
+  {
+    id: "q10",
+    type: "multiple-choice",
+    difficulty: "intermediário",
+    question: "A projeção do vetor a⃗ sobre o vetor b⃗ é:",
+    options: [
+      "Sempre menor que |a⃗|",
+      "Um vetor na direção de b⃗",
+      "Um escalar que pode ser negativo",
+      "Todas as alternativas anteriores estão corretas"
+    ],
+    correctAnswer: 3,
+    explanation: "A projeção de a⃗ sobre b⃗ é um vetor na direção de b⃗, seu comprimento pode ser menor que |a⃗| e pode ter valor negativo se o ângulo for obtuso.",
+    hint: "Considere a fórmula proj_b(a⃗) = (a⃗·b⃗/|b⃗|²)b⃗"
+  },
+  {
+    id: "q11",
+    type: "calculation",
+    difficulty: "avançado",
+    question: "Calcule a magnitude do produto vetorial |a⃗ × b⃗| onde a⃗ = (2, 1, 3) e b⃗ = (1, 2, 1):",
+    formula: "|\\vec{a} \\times \\vec{b}| = \\sqrt{(a_y b_z - a_z b_y)^2 + (a_z b_x - a_x b_z)^2 + (a_x b_y - a_y b_x)^2}",
+    correctAnswer: 7.07,
+    explanation: "a⃗×b⃗ = (1×1-3×2, 3×1-2×1, 2×2-1×1) = (-5, 1, 3); |a⃗×b⃗| = √(25+1+9) = √35 ≈ 7,07",
+    hint: "Use a definição do produto vetorial em coordenadas e depois calcule a magnitude."
+  },
+  {
+    id: "q12",
+    type: "multiple-choice",
+    difficulty: "avançado",
+    question: "Três vetores a⃗, b⃗ e c⃗ são linearmente independentes se:",
+    options: [
+      "Nenhum deles é combinação linear dos outros dois",
+      "Todos têm a mesma magnitude",
+      "São todos perpendiculares entre si",
+      "Estão todos no mesmo plano"
+    ],
+    correctAnswer: 0,
+    explanation: "Vetores são linearmente independentes quando nenhum pode ser escrito como combinação linear dos outros, garantindo que formem uma base do espaço.",
+    hint: "Pense na definição de independência linear em álgebra linear."
+  },
+  {
+    id: "q13",
+    type: "calculation",
+    difficulty: "avançado",
+    question: "Calcule o produto escalar triplo a⃗·(b⃗ × c⃗) onde a⃗ = (1,2,1), b⃗ = (2,1,0) e c⃗ = (1,1,2):",
+    formula: "\\vec{a} \\cdot (\\vec{b} \\times \\vec{c}) = det\\begin{pmatrix} a_x & a_y & a_z \\\\ b_x & b_y & b_z \\\\ c_x & c_y & c_z \\end{pmatrix}",
+    correctAnswer: -1,
+    explanation: "Usando o determinante: 1×(1×2-0×1) - 2×(2×2-0×1) + 1×(2×1-1×1) = 1×2 - 2×4 + 1×1 = 2 - 8 + 1 = -1",
+    hint: "Use a propriedade de que o produto escalar triplo é igual ao determinante da matriz 3×3."
+  },
+  {
+    id: "q14",
+    type: "multiple-choice",
+    difficulty: "avançado",
+    question: "Em um espaço vetorial tridimensional, quantos vetores linearmente independentes são necessários para formar uma base?",
+    options: [
+      "2 vetores",
+      "3 vetores",
+      "4 vetores",
+      "Depende dos vetores escolhidos"
+    ],
+    correctAnswer: 1,
+    explanation: "Em um espaço vetorial de dimensão n, são necessários exatamente n vetores linearmente independentes para formar uma base. Para R³, são necessários 3 vetores.",
+    hint: "A dimensão do espaço determina o número de vetores da base."
+  },
+  {
+    id: "q15",
+    type: "calculation",
+    difficulty: "avançado",
+    question: "Uma reta passa pelo ponto P(1,2,3) e tem direção do vetor d⃗ = (2,1,-1). Qual é a coordenada z do ponto na reta quando x = 5?",
+    formula: "\\vec{r}(t) = \\vec{P} + t\\vec{d}",
+    correctAnswer: 1,
+    explanation: "Equação da reta: (x,y,z) = (1,2,3) + t(2,1,-1). Para x=5: 5=1+2t → t=2. Logo z = 3 + 2×(-1) = 3 - 2 = 1",
+    hint: "Use a equação paramétrica da reta e encontre o parâmetro t primeiro."
   }
 ];
 
