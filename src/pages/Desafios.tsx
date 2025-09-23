@@ -420,7 +420,7 @@ export default function Desafios() {
                       value={inputAnswer}
                       onChange={(e) => setInputAnswer(e.target.value)}
                       disabled={showResult}
-                      className="w-full p-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 disabled:cursor-not-allowed disabled:opacity-50"
+                      className="w-full p-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 disabled:cursor-not-allowed disabled:opacity-50 text-foreground bg-background"
                       placeholder="Digite sua resposta numérica..."
                     />
                   </div>
