@@ -210,6 +210,26 @@ const questions: Question[] = [
     correctAnswer: 1,
     explanation: "Equação da reta: (x,y,z) = (1,2,3) + t(2,1,-1). Para x=5: 5=1+2t → t=2. Logo z = 3 + 2×(-1) = 3 - 2 = 1",
     hint: "Use a equação paramétrica da reta e encontre o parâmetro t primeiro."
+  },
+  {
+    id: "q16",
+    type: "calculation",
+    difficulty: "intermediário",
+    question: "Calcule a magnitude da projeção do vetor a⃗ = (4, 3) sobre o vetor b⃗ = (1, 0):",
+    formula: "|\\text{proj}_{\\vec{b}}(\\vec{a})| = \\frac{|\\vec{a} \\cdot \\vec{b}|}{|\\vec{b}|}",
+    correctAnswer: 4,
+    explanation: "a⃗·b⃗ = 4×1 + 3×0 = 4; |b⃗| = √(1² + 0²) = 1; |proj_b(a⃗)| = |4|/1 = 4",
+    hint: "A projeção sobre o eixo x é simplesmente a componente x do vetor."
+  },
+  {
+    id: "q17",
+    type: "calculation",
+    difficulty: "avançado",
+    question: "Dados a⃗ = (3, 4) e b⃗ = (2, 1), calcule a magnitude da componente de a⃗ perpendicular a b⃗:",
+    formula: "|\\vec{a}_{\\perp}| = \\sqrt{|\\vec{a}|^2 - |\\text{proj}_{\\vec{b}}(\\vec{a})|^2}",
+    correctAnswer: 2.24,
+    explanation: "a⃗·b⃗ = 10; |b⃗|² = 5; |proj_b(a⃗)|² = (a⃗·b⃗)²/|b⃗|² = 100/5 = 20; |a⃗| = 5; |a⃗_⊥| = √(25 - 20) = √5 ≈ 2.24",
+    hint: "Use o teorema de Pitágoras: a⃗ = proj_b(a⃗) + a⃗_⊥, onde os dois componentes são perpendiculares."
   }
 ];
 

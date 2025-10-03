@@ -78,6 +78,24 @@ const operations = [
       "Campo magnético: F⃗ = q(v⃗ × B⃗)",
       "Área de polígonos e superfícies"
     ]
+  },
+  {
+    id: "projecao",
+    title: "Projeção de Vetores",
+    icon: ArrowRight,
+    color: "text-vector-blue",
+    description: "A projeção de um vetor sobre outro mede a componente de um vetor na direção do outro.",
+    formulas: [
+      "\\text{proj}_{\\vec{b}}(\\vec{a}) = \\frac{\\vec{a} \\cdot \\vec{b}}{|\\vec{b}|^2}\\vec{b}",
+      "\\text{comp}_{\\vec{b}}(\\vec{a}) = \\frac{\\vec{a} \\cdot \\vec{b}}{|\\vec{b}|}",
+      "|\\text{proj}_{\\vec{b}}(\\vec{a})| = |\\vec{a}||\\cos(\\theta)|"
+    ],
+    geometricInterpretation: "A projeção é a 'sombra' do vetor a⃗ na direção de b⃗. O componente escalar mede o comprimento dessa sombra.",
+    applications: [
+      "Trabalho em física: componente da força na direção do deslocamento",
+      "Decomposição de forças em planos inclinados",
+      "Análise de componentes vetoriais em engenharia"
+    ]
   }
 ];
 
@@ -106,6 +124,16 @@ const examples = [
       "cos(θ) = 11/(5 × 2.24) = 0.982",
       "θ = arccos(0.982) = 11.31°"
     ]
+  },
+  {
+    title: "Exemplo: Projeção de Vetores",
+    setup: "Calcule a projeção do vetor a⃗ = (4, 3) sobre o vetor b⃗ = (1, 0).",
+    solution: [
+      "a⃗ · b⃗ = (4)(1) + (3)(0) = 4",
+      "|b⃗|² = 1² + 0² = 1",
+      "proj_b(a⃗) = (a⃗·b⃗/|b⃗|²)b⃗ = (4/1)(1, 0) = (4, 0)",
+      "|proj_b(a⃗)| = 4 (componente horizontal de a⃗)"
+    ]
   }
 ];
 
@@ -131,9 +159,9 @@ const properties = [
     description: "O produto escalar é comutativo"
   },
   {
-    name: "Produto Vetorial Anticomutativo",
-    formula: "\\vec{a} \\times \\vec{b} = -(\\vec{b} \\times \\vec{a})",
-    description: "Trocar ordem inverte o resultado"
+    name: "Distributividade do Produto Escalar",
+    formula: "\\vec{a} \\cdot (\\vec{b} + \\vec{c}) = \\vec{a} \\cdot \\vec{b} + \\vec{a} \\cdot \\vec{c}",
+    description: "O produto escalar distribui sobre a soma"
   }
 ];
 
