@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Book, Calculator, PlayCircle, Zap, Eye, Brain } from "lucide-react";
+import { ArrowRight, Book, Calculator, PlayCircle, Zap, Eye, Brain, Cog, Cpu, Building2, Plane, Car, Gamepad2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -207,6 +207,177 @@ export default function Home() {
             );
           })}
         </div>
+      </section>
+
+      {/* Applications Section */}
+      <section className="py-20 bg-gradient-to-b from-background to-muted/20">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-3xl md:text-5xl font-bold mb-6">
+            Aplicações <span className="text-gradient">Práticas</span> na Engenharia
+          </h2>
+          <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+            Descubra como os vetores são fundamentais em diversas áreas da engenharia, 
+            transformando teoria matemática em soluções reais que moldam nosso mundo
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+          {/* Engenharia Mecânica */}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1, duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <Card className="interactive-surface h-full border-t-4 border-t-vector-blue">
+              <CardContent className="p-8">
+                <div className="w-16 h-16 bg-gradient-to-br from-vector-blue to-vector-cyan rounded-2xl flex items-center justify-center mb-6 shadow-elegant">
+                  <Cog className="h-8 w-8 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
+                  Engenharia Mecânica
+                </h3>
+                <div className="space-y-4 text-muted-foreground">
+                  <div className="flex items-start gap-3">
+                    <Car className="h-5 w-5 text-vector-blue mt-1 flex-shrink-0" />
+                    <div>
+                      <p className="font-semibold text-foreground">Análise de Forças</p>
+                      <p className="text-sm">Decomposição de forças em estruturas, cálculo de tensões e determinação de pontos de equilíbrio em sistemas mecânicos complexos</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <Plane className="h-5 w-5 text-vector-blue mt-1 flex-shrink-0" />
+                    <div>
+                      <p className="font-semibold text-foreground">Dinâmica de Rotação</p>
+                      <p className="text-sm">Momento angular, torque e movimento rotacional em máquinas, turbinas e sistemas aeroespaciais</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <Zap className="h-5 w-5 text-vector-blue mt-1 flex-shrink-0" />
+                    <div>
+                      <p className="font-semibold text-foreground">Cinemática de Mecanismos</p>
+                      <p className="text-sm">Velocidade e aceleração em engrenagens, braços robóticos e sistemas de transmissão automotivos</p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+
+          {/* Engenharia da Computação */}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <Card className="interactive-surface h-full border-t-4 border-t-vector-teal">
+              <CardContent className="p-8">
+                <div className="w-16 h-16 bg-gradient-to-br from-vector-teal to-vector-green rounded-2xl flex items-center justify-center mb-6 shadow-elegant">
+                  <Cpu className="h-8 w-8 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
+                  Engenharia da Computação
+                </h3>
+                <div className="space-y-4 text-muted-foreground">
+                  <div className="flex items-start gap-3">
+                    <Gamepad2 className="h-5 w-5 text-vector-teal mt-1 flex-shrink-0" />
+                    <div>
+                      <p className="font-semibold text-foreground">Computação Gráfica 3D</p>
+                      <p className="text-sm">Transformações, rotações e projeções em jogos, realidade virtual e modelagem 3D de ambientes imersivos</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <Brain className="h-5 w-5 text-vector-teal mt-1 flex-shrink-0" />
+                    <div>
+                      <p className="font-semibold text-foreground">Inteligência Artificial</p>
+                      <p className="text-sm">Representação de dados em espaços vetoriais, machine learning, redes neurais e processamento de linguagem natural</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <Eye className="h-5 w-5 text-vector-teal mt-1 flex-shrink-0" />
+                    <div>
+                      <p className="font-semibold text-foreground">Visão Computacional</p>
+                      <p className="text-sm">Detecção de características, reconhecimento facial e processamento de imagens em carros autônomos e robótica</p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+
+          {/* Engenharia Civil */}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <Card className="interactive-surface h-full border-t-4 border-t-vector-orange">
+              <CardContent className="p-8">
+                <div className="w-16 h-16 bg-gradient-to-br from-vector-orange to-vector-red rounded-2xl flex items-center justify-center mb-6 shadow-elegant">
+                  <Building2 className="h-8 w-8 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
+                  Engenharia Civil
+                </h3>
+                <div className="space-y-4 text-muted-foreground">
+                  <div className="flex items-start gap-3">
+                    <Calculator className="h-5 w-5 text-vector-orange mt-1 flex-shrink-0" />
+                    <div>
+                      <p className="font-semibold text-foreground">Análise Estrutural</p>
+                      <p className="text-sm">Distribuição de cargas em pontes, edifícios e torres, garantindo estabilidade e segurança das construções</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <Zap className="h-5 w-5 text-vector-orange mt-1 flex-shrink-0" />
+                    <div>
+                      <p className="font-semibold text-foreground">Mecânica dos Solos</p>
+                      <p className="text-sm">Análise de tensões e deformações em fundações, contenções e estudos de estabilidade de taludes</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <PlayCircle className="h-5 w-5 text-vector-orange mt-1 flex-shrink-0" />
+                    <div>
+                      <p className="font-semibold text-foreground">Fluidodinâmica Aplicada</p>
+                      <p className="text-sm">Escoamento em barragens, sistemas de drenagem e redes de distribuição de água e saneamento</p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+        </div>
+
+        {/* Highlight Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.8 }}
+          viewport={{ once: true }}
+          className="bg-gradient-to-r from-primary/10 via-accent/10 to-primary/10 rounded-2xl p-8 md:p-12 border border-primary/20"
+        >
+          <div className="text-center max-w-4xl mx-auto">
+            <h3 className="text-2xl md:text-3xl font-bold mb-4">
+              Do Conceito à Realização
+            </h3>
+            <p className="text-lg text-muted-foreground leading-relaxed mb-6">
+              Os vetores são a linguagem universal da engenharia moderna. Desde a construção de arranha-céus 
+              que desafiam a gravidade até algoritmos de IA que revolucionam a tecnologia, passando por 
+              simulações que preveem o comportamento de estruturas antes mesmo de serem construídas.
+            </p>
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              Compreender vetores não é apenas aprender matemática — é desenvolver a capacidade de 
+              modelar, analisar e resolver os desafios mais complexos do mundo real.
+            </p>
+          </div>
+        </motion.div>
       </section>
 
       {/* Call to Action */}
