@@ -104,7 +104,7 @@ export default function Operacoes() {
         <h1 className="text-4xl md:text-5xl font-bold mb-6">
           Operações com <span className="text-gradient">Vetores</span>
         </h1>
-        <p className="text-xl text-muted-foreground max-w-3xl mx-auto">Domine as operações fundamentais: soma, subtração, produto escalar, produto vetorial e projeção. Cada operação tem significado geométrico e aplicações práticas.</p>
+        <p className="text-xl text-muted-foreground max-w-3xl mx-auto">Domine as operações fundamentais: soma, subtração, produto escalar, produto vetorial, produto misto e projeção. Cada operação tem significado geométrico e aplicações práticas.</p>
       </motion.section>
 
       {/* Operations Grid */}
