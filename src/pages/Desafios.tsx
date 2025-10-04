@@ -230,6 +230,26 @@ const questions: Question[] = [
     correctAnswer: 6,
     explanation: "a⃗·b⃗ = 6×1 + 0×0 = 6; |b⃗| = √(1² + 0²) = 1; proj_b(a⃗) = 6/1 = 6",
     hint: "Quando os vetores estão no mesmo eixo, a projeção é simplesmente o valor da componente nessa direção."
+  },
+  {
+    id: "q18",
+    type: "calculation",
+    difficulty: "intermediário",
+    question: "Calcule o produto misto a⃗·(b⃗×c⃗) onde a⃗ = (2,0,0), b⃗ = (0,3,0) e c⃗ = (0,0,4):",
+    formula: "\\vec{a} \\cdot (\\vec{b} \\times \\vec{c}) = det\\begin{pmatrix} a_x & a_y & a_z \\\\ b_x & b_y & b_z \\\\ c_x & c_y & c_z \\end{pmatrix}",
+    correctAnswer: 24,
+    explanation: "Usando o determinante: det = 2×(3×4 - 0×0) - 0×(0×4 - 0×0) + 0×(0×0 - 3×0) = 2×12 = 24. Este é o volume do paralelepípedo.",
+    hint: "Use a propriedade de que o produto misto é igual ao determinante da matriz 3×3. Vetores ortogonais simplificam muito o cálculo!"
+  },
+  {
+    id: "q19",
+    type: "calculation",
+    difficulty: "intermediário",
+    question: "Calcule o volume do paralelepípedo formado pelos vetores a⃗ = (1,1,0), b⃗ = (0,1,1) e c⃗ = (1,0,1):",
+    formula: "V = |\\vec{a} \\cdot (\\vec{b} \\times \\vec{c})|",
+    correctAnswer: 2,
+    explanation: "det = 1×(1×1 - 1×0) - 1×(0×1 - 1×1) + 0×(0×0 - 1×1) = 1×1 - 1×(-1) + 0 = 1 + 1 = 2. Volume = |2| = 2",
+    hint: "O volume é o valor absoluto do produto misto. Calcule o determinante da matriz formada pelos três vetores."
   }
 ];
 

@@ -50,6 +50,15 @@ const operations = [{
   formulas: ["\\text{proj}_{\\vec{b}}(\\vec{a}) = \\frac{\\vec{a} \\cdot \\vec{b}}{|\\vec{b}|^2}\\vec{b}", "\\text{comp}_{\\vec{b}}(\\vec{a}) = \\frac{\\vec{a} \\cdot \\vec{b}}{|\\vec{b}|}", "|\\text{proj}_{\\vec{b}}(\\vec{a})| = |\\vec{a}||\\cos(\\theta)|"],
   geometricInterpretation: "A projeção é a 'sombra' do vetor a⃗ na direção de b⃗. O componente escalar mede o comprimento dessa sombra.",
   applications: ["Trabalho em física: componente da força na direção do deslocamento", "Decomposição de forças em planos inclinados", "Análise de componentes vetoriais em engenharia"]
+}, {
+  id: "produto-misto",
+  title: "Produto Misto",
+  icon: X,
+  color: "text-vector-red",
+  description: "O produto misto combina produto escalar e vetorial: a⃗·(b⃗×c⃗). Seu valor representa o volume do paralelepípedo formado pelos três vetores.",
+  formulas: ["\\vec{a} \\cdot (\\vec{b} \\times \\vec{c}) = det\\begin{pmatrix} a_x & a_y & a_z \\\\ b_x & b_y & b_z \\\\ c_x & c_y & c_z \\end{pmatrix}", "|\\vec{a} \\cdot (\\vec{b} \\times \\vec{c})| = \\text{volume do paralelepípedo}", "\\vec{a} \\cdot (\\vec{b} \\times \\vec{c}) = \\vec{b} \\cdot (\\vec{c} \\times \\vec{a}) = \\vec{c} \\cdot (\\vec{a} \\times \\vec{b})"],
+  geometricInterpretation: "O valor absoluto do produto misto é o volume do paralelepípedo formado pelos três vetores. Se é zero, os vetores são coplanares.",
+  applications: ["Cálculo de volume de sólidos tridimensionais", "Teste de coplanaridade de três vetores", "Análise estrutural: verificação de rigidez espacial"]
 }];
 const examples = [{
   title: "Exemplo: Soma de Velocidades",
