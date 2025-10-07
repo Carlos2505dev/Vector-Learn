@@ -209,32 +209,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Sobre Este Projeto */}
-      <motion.section
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-        className="py-20 mb-12"
-      >
-        <Card className="bg-gradient-secondary text-white overflow-hidden">
-          <CardContent className="p-8 md:p-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center">
-              Sobre Este Projeto
-            </h2>
-            <div className="space-y-6 text-lg">
-              <p className="leading-relaxed">
-                Este projeto foi desenvolvido como material de apoio para o ensino de vetores, 
-                combinando teoria matemática rigorosa com visualizações interativas e aplicações práticas.
-              </p>
-              <p className="leading-relaxed">
-                Nossa missão é tornar conceitos vetoriais acessíveis e interessantes para estudantes 
-                de diversas áreas, especialmente engenharias, física e matemática aplicada.
-              </p>
-            </div>
-          </CardContent>
-        </Card>
-      </motion.section>
 
       {/* Call to Action */}
       <section className="py-16 text-center">
