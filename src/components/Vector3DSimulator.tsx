@@ -8,13 +8,14 @@ import { Slider } from "@/components/ui/slider";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { RefreshCw, Eye, EyeOff, Plus, Minus, Dot, RotateCcw, X } from "lucide-react";
+import { RefreshCw, Eye, EyeOff, Plus, Minus, Dot, RotateCcw, X, Combine } from "lucide-react";
 import { 
   Vector3D, 
   add3D, 
   subtract3D, 
   dot3D, 
   cross3D,
+  mixed3D,
   magnitude3D, 
   angleBetween3D, 
   project3D,
@@ -26,9 +27,10 @@ import * as THREE from "three";
 interface SimulatorState {
   vectorA: Vector3D;
   vectorB: Vector3D;
+  vectorC: Vector3D;
   showComponents: boolean;
   showGrid: boolean;
-  operation: "none" | "add" | "subtract" | "dot" | "cross" | "project";
+  operation: "none" | "add" | "subtract" | "dot" | "cross" | "project" | "mixed";
 }
 
 // 3D Vector Arrow Component
@@ -175,12 +177,14 @@ function Scene3D({ state }: { state: SimulatorState }) {
         <>
           <ComponentLines vector={state.vectorA} color="#ff6b35" />
           <ComponentLines vector={state.vectorB} color="#00d4aa" />
+          {state.operation === "mixed" && <ComponentLines vector={state.vectorC} color="#ff6b9d" />}
         </>
       )}
       
       {/* Main vectors */}
       <VectorArrow vector={state.vectorA} color="#5b8cff" />
       <VectorArrow vector={state.vectorB} color="#00d1b2" />
+      {state.operation === "mixed" && <VectorArrow vector={state.vectorC} color="#ec4899" />}
       
       {/* Operation results */}
       {state.operation === "add" && (
@@ -230,6 +234,15 @@ function Scene3D({ state }: { state: SimulatorState }) {
       >
         b⃗
       </Text>
+      {state.operation === "mixed" && (
+        <Text 
+          position={[state.vectorC.x + 0.2, state.vectorC.y + 0.2, state.vectorC.z + 0.2]} 
+          color="#ec4899" 
+          fontSize={0.3}
+        >
+          c⃗
+        </Text>
+      )}
     </>
   );
 }
@@ -238,6 +251,7 @@ export function Vector3DSimulator() {
   const [state, setState] = useState<SimulatorState>({
     vectorA: { x: 2, y: 1.5, z: 1 },
     vectorB: { x: -1, y: 2, z: 1.5 },
+    vectorC: { x: 1, y: 1, z: 2 },
     showComponents: true,
     showGrid: true,
     operation: "none"
@@ -246,8 +260,10 @@ export function Vector3DSimulator() {
   // Calculate derived values
   const magA = magnitude3D(state.vectorA);
   const magB = magnitude3D(state.vectorB);
+  const magC = magnitude3D(state.vectorC);
   const dotProduct = dot3D(state.vectorA, state.vectorB);
   const crossProduct = cross3D(state.vectorA, state.vectorB);
+  const mixedProduct = mixed3D(state.vectorA, state.vectorB, state.vectorC);
   const angle = radiansToDegrees(angleBetween3D(state.vectorA, state.vectorB));
   const vectorSum = add3D(state.vectorA, state.vectorB);
   const vectorDiff = subtract3D(state.vectorA, state.vectorB);
@@ -267,6 +283,13 @@ export function Vector3DSimulator() {
     }));
   };
 
+  const updateVectorC = (component: 'x' | 'y' | 'z', value: number) => {
+    setState(prev => ({
+      ...prev,
+      vectorC: { ...prev.vectorC, [component]: value }
+    }));
+  };
+
   const setOperation = (operation: SimulatorState["operation"]) => {
     setState(prev => ({ ...prev, operation }));
   };
@@ -276,6 +299,7 @@ export function Vector3DSimulator() {
       ...prev,
       vectorA: { x: 2, y: 1.5, z: 1 },
       vectorB: { x: -1, y: 2, z: 1.5 },
+      vectorC: { x: 1, y: 1, z: 2 },
       operation: "none"
     }));
   };
@@ -413,6 +437,55 @@ export function Vector3DSimulator() {
 
             <Separator />
 
+            {/* Vector C Controls - Only shown when mixed operation is active */}
+            <AnimatePresence>
+              {state.operation === "mixed" && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                >
+                  <Label className="text-pink-500 font-semibold">Vetor c⃗</Label>
+                  <div className="space-y-3 mt-2">
+                    <div>
+                      <Label className="text-xs">Componente X: {state.vectorC.x.toFixed(1)}</Label>
+                      <Slider
+                        value={[state.vectorC.x]}
+                        onValueChange={([value]) => updateVectorC('x', value)}
+                        min={-4}
+                        max={4}
+                        step={0.1}
+                        className="mt-1"
+                      />
+                    </div>
+                    <div>
+                      <Label className="text-xs">Componente Y: {state.vectorC.y.toFixed(1)}</Label>
+                      <Slider
+                        value={[state.vectorC.y]}
+                        onValueChange={([value]) => updateVectorC('y', value)}
+                        min={-4}
+                        max={4}
+                        step={0.1}
+                        className="mt-1"
+                      />
+                    </div>
+                    <div>
+                      <Label className="text-xs">Componente Z: {state.vectorC.z.toFixed(1)}</Label>
+                      <Slider
+                        value={[state.vectorC.z]}
+                        onValueChange={([value]) => updateVectorC('z', value)}
+                        min={-4}
+                        max={4}
+                        step={0.1}
+                        className="mt-1"
+                      />
+                    </div>
+                  </div>
+                  <Separator className="mt-4" />
+                </motion.div>
+              )}
+            </AnimatePresence>
+
             {/* Operations */}
             <div>
               <Label className="font-semibold">Operações 3D</Label>
@@ -453,10 +526,17 @@ export function Vector3DSimulator() {
                   variant={state.operation === "project" ? "default" : "outline"}
                   size="sm"
                   onClick={() => setOperation(state.operation === "project" ? "none" : "project")}
-                  className="col-span-2"
                 >
                   <RotateCcw className="h-4 w-4 mr-1" />
                   Projeção
+                </Button>
+                <Button
+                  variant={state.operation === "mixed" ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setOperation(state.operation === "mixed" ? "none" : "mixed")}
+                >
+                  <Combine className="h-4 w-4 mr-1" />
+                  Misto
                 </Button>
               </div>
             </div>
@@ -495,6 +575,18 @@ export function Vector3DSimulator() {
                 </p>
               </div>
             </div>
+
+            {state.operation === "mixed" && (
+              <div>
+                <Label className="text-pink-500 font-semibold">Vetor c⃗</Label>
+                <div className="mt-2 space-y-1">
+                  <Badge variant="outline">|c⃗| = {magC.toFixed(2)}</Badge>
+                  <p className="text-sm">
+                    <MathFormula formula={`\\vec{c} = (${state.vectorC.x.toFixed(1)}, ${state.vectorC.y.toFixed(1)}, ${state.vectorC.z.toFixed(1)})`} />
+                  </p>
+                </div>
+              </div>
+            )}
             
             <div>
               <Label className="font-semibold">Produtos</Label>
@@ -512,9 +604,21 @@ export function Vector3DSimulator() {
                     </p>
                   </div>
                 )}
-                <p className="text-xs text-muted-foreground">
-                  Ângulo: {angle.toFixed(1)}°
-                </p>
+                {state.operation === "mixed" && (
+                  <div className="space-y-1">
+                    <Badge className="bg-pink-500 text-white">
+                      a⃗ · (b⃗ × c⃗) = {mixedProduct.toFixed(2)}
+                    </Badge>
+                    <p className="text-xs text-muted-foreground">
+                      Volume do paralelepípedo
+                    </p>
+                  </div>
+                )}
+                {state.operation !== "mixed" && (
+                  <p className="text-xs text-muted-foreground">
+                    Ângulo: {angle.toFixed(1)}°
+                  </p>
+                )}
               </div>
             </div>
             

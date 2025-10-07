@@ -229,3 +229,14 @@ export const BASIS_VECTORS_3D = {
   j: { x: 0, y: 1, z: 0 } as Vector3D,
   k: { x: 0, y: 0, z: 1 } as Vector3D,
 };
+
+/**
+ * Calculate the scalar triple product (mixed product) of three 3D vectors
+ * The result is a scalar that represents the volume of the parallelepiped
+ * formed by the three vectors
+ * a · (b × c)
+ */
+export function mixed3D(a: Vector3D, b: Vector3D, c: Vector3D): number {
+  const crossBC = cross3D(b, c);
+  return dot3D(a, crossBC);
+}
