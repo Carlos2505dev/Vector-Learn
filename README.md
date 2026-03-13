@@ -2,6 +2,12 @@
 
 Uma plataforma educacional revolucionária para aprender os fundamentos dos vetores através de visualizações interativas e simuladores 2D/3D.
 
+## 📚 Sobre Este Projeto
+
+**Vector Learn** foi desenvolvida como projeto de graduação em **Engenharia da Computação** pela **Universidade Jorge Amado (Unijorge)** com o objetivo de facilitar o aprendizado de **Vetores** - um conceito fundamental da disciplina de **Análise Espacial**. 
+
+Este projeto foi criado para auxiliar estudantes da Unijorge a compreenderem de forma visual e interativa os conceitos de vetores, operações vetoriais e suas aplicações práticas em engenharia e ciência da computação.
+
 ## 🚀 Tecnologias
 
 - **React 18** - Interface moderna e reativa
@@ -193,24 +199,25 @@ npm run test:coverage
 - Engenharia: análise estrutural
 - Navegação: GPS e direcionamento
 
-## 🤝 Contribuindo
-
-1. Fork o projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Push para a branch (`git push origin feature/AmazingFeature`)
-5. Abra um Pull Request
-
-## 📝 Licença
-
-Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
-
 ## 👥 Créditos
 
+- **Instituição**: Universidade Jorge Amado (Unijorge)
+- **Curso**: Engenharia da Computação
+- **Disciplina**: Análise Espacial
 - **Desenvolvido com**: React, TypeScript, Tailwind CSS
 - **Matemática**: Implementação baseada em princípios de álgebra linear
 - **Design**: Inspirado em plataformas educacionais modernas
 - **Acessibilidade**: Seguindo diretrizes WCAG 2.2
+
+## 🎯 Objetivo Educacional
+
+Este projeto foi desenvolvido para servir como ferramenta de apoio pedagógico, permitindo que os estudantes da Unijorge possam:
+
+- ✅ Visualizar conceitos abstratos de vetores de forma concreta
+- ✅ Experimentar interativamente com operações vetoriais
+- ✅ Exercitar conhecimentos através de desafios práticos
+- ✅ Compreender aplicações reais de vetores em engenharia
+- ✅ Fortalecer fundamentos de análise espacial
 
 ---
 
