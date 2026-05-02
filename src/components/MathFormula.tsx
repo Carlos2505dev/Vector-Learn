@@ -12,14 +12,14 @@ export function MathFormula({ formula, block = false, className = "" }: MathForm
     if (block) {
       return (
         <div className={`math-display ${className}`}>
-          <BlockMath math={formula} />
+          <BlockMath math={formula} settings={{ strict: false }} />
         </div>
       );
     }
     
     return (
       <span className={`math-inline ${className}`}>
-        <InlineMath math={formula} />
+        <InlineMath math={formula} settings={{ strict: false }} />
       </span>
     );
   } catch (error) {

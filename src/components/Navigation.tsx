@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Calculator, Book, Target, PlayCircle, Lightbulb, Layers } from "lucide-react";
+import { Menu, X, Calculator, Book, Target, PlayCircle, Lightbulb, Layers, HelpCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "./ThemeToggle";
 import { motion, AnimatePresence } from "framer-motion";
@@ -11,7 +11,8 @@ const navigationItems = [
   { name: "Operações", href: "/operacoes", icon: Calculator },
   { name: "Simulador", href: "/simulador", icon: PlayCircle },
   { name: "Desafios", href: "/desafios", icon: Target },
-  { name: "Aplicações", href: "/sobre", icon: Layers },
+  { name: "Aplicações", href: "/aplicacoes", icon: Layers },
+  { name: "FAQ", href: "/faq", icon: HelpCircle },
 ];
 
 export function Navigation() {

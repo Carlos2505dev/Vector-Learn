@@ -6,7 +6,7 @@ import { Slider } from "@/components/ui/slider";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { RefreshCw, Eye, EyeOff, Plus, Minus, Dot, RotateCcw } from "lucide-react";
+import { RefreshCw, Eye, EyeOff, Plus, Minus, Dot, RotateCcw, Sparkles } from "lucide-react";
 import { 
   Vector2D, 
   add2D, 
@@ -18,6 +18,9 @@ import {
   radiansToDegrees 
 } from "@/lib/vector-math";
 import { MathFormula } from "./MathFormula";
+import { useSimulatorHistory } from "@/hooks/useSimulatorHistory";
+import { getEasterEggDetector } from "@/hooks/useEasterEggs";
+import { EasterEggNotification } from "./EasterEggBadgeUI";
 
 interface SimulatorState {
   vectorA: Vector2D;
@@ -27,8 +30,15 @@ interface SimulatorState {
   operation: "none" | "add" | "subtract" | "dot" | "project";
 }
 
-export function Vector2DSimulator() {
+export function Vector2DSimulator({ data }: { data?: Partial<SimulatorState> }) {
   const svgRef = useRef<SVGSVGElement>(null);
+  const operationStartTime = useRef<number>(Date.now());
+  const [newEasterEgg, setNewEasterEgg] = useState<any>(null);
+  
+  // Initialize detector and history
+  const detector = getEasterEggDetector();
+  const simulatorHistory = useSimulatorHistory();
+  
   const [state, setState] = useState<SimulatorState>({
     vectorA: { x: 3, y: 2 },
     vectorB: { x: -1, y: 3 },
@@ -36,6 +46,23 @@ export function Vector2DSimulator() {
     showGrid: true,
     operation: "none"
   });
+
+  // Sync with external data if provided
+  useEffect(() => {
+    if (data) {
+      setState(prev => ({
+        ...prev,
+        ...data,
+        vectorA: data.vectorA ? { ...prev.vectorA, ...data.vectorA } : prev.vectorA,
+        vectorB: data.vectorB ? { ...prev.vectorB, ...data.vectorB } : prev.vectorB,
+      }));
+    }
+  }, [data]);
+
+  // Registrar uso do simulador 2D
+  useEffect(() => {
+    detector.recordSimulatorUsage("2D");
+  }, [detector]);
 
   // Calculate derived values
   const magA = magnitude2D(state.vectorA);
@@ -62,6 +89,44 @@ export function Vector2DSimulator() {
 
   const setOperation = (operation: SimulatorState["operation"]) => {
     setState(prev => ({ ...prev, operation }));
+    
+    // Registrar operação e verificar easter eggs
+    const opDuration = (Date.now() - operationStartTime.current) / 1000;
+    
+    // Registrar o tipo de operação realizada
+    const operationMap: Record<string, string> = {
+      add: "adicao",
+      subtract: "subtracao",
+      dot: "dot-product",
+      project: "projecao"
+    };
+    
+    if (operation !== "none") {
+      const opName = operationMap[operation];
+      if (opName) {
+        detector.recordOperation(opName);
+      }
+      detector.recordOperationSpeed(opDuration);
+      
+      // Registrar snapshot para Session Replay
+      simulatorHistory.recordSnapshot({
+        vectorA: state.vectorA,
+        vectorB: state.vectorB,
+        operation: opName,
+        result: operation === "dot" ? dot2D(state.vectorA, state.vectorB) : null,
+        metadata: {
+          description: `Operação: ${operation}`,
+        }
+      });
+    }
+    
+    // Verificar novos easter eggs desbloqueados
+    operationStartTime.current = Date.now();
+    const newBadges = detector.checkAllEasterEggs({});
+    if (newBadges.length > 0) {
+      setNewEasterEgg(newBadges[0]);
+      setTimeout(() => setNewEasterEgg(null), 5000);
+    }
   };
 
   const resetVectors = () => {
@@ -131,7 +196,33 @@ export function Vector2DSimulator() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 relative">
+      {/* Easter Egg Notification */}
+      <AnimatePresence>
+        {newEasterEgg && (
+          <div className="fixed top-20 left-0 right-0 z-50 flex justify-center pointer-events-none">
+            <EasterEggNotification
+              unlockedBadge={newEasterEgg}
+              autoHideAfter={5000}
+            />
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* Session Replay Status Indicator */}
+      {simulatorHistory.history.length > 0 && (
+        <motion.div
+          className="sticky top-4 z-40 max-w-fit mx-auto"
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
+          <Badge className="gap-2 bg-vector-teal/20 text-vector-teal border border-vector-teal/50 hover:bg-vector-teal/30">
+            <Sparkles className="w-3 h-3" />
+            Replay Ativo: {simulatorHistory.history.length} passos
+          </Badge>
+        </motion.div>
+      )}
+
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Visualization */}
         <Card className="lg:col-span-2">
@@ -324,7 +415,7 @@ export function Vector2DSimulator() {
           <CardContent className="space-y-6">
             {/* Vector A Controls */}
             <div>
-              <Label className="text-vector-blue font-semibold">Vetor a⃗</Label>
+              <Label className="text-vector-blue font-semibold flex items-center gap-1">Vetor <MathFormula formula="\\vec{a}" /></Label>
               <div className="space-y-3 mt-2">
                 <div>
                   <Label className="text-xs">Componente X: {state.vectorA.x}</Label>
@@ -355,7 +446,7 @@ export function Vector2DSimulator() {
 
             {/* Vector B Controls */}
             <div>
-              <Label className="text-vector-teal font-semibold">Vetor b⃗</Label>
+              <Label className="text-vector-teal font-semibold flex items-center gap-1">Vetor <MathFormula formula="\\vec{b}" /></Label>
               <div className="space-y-3 mt-2">
                 <div>
                   <Label className="text-xs">Componente X: {state.vectorB.x}</Label>
@@ -439,9 +530,11 @@ export function Vector2DSimulator() {
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div>
-              <Label className="text-vector-blue font-semibold">Vetor a⃗</Label>
+              <Label className="text-vector-blue font-semibold flex items-center gap-1">Vetor <MathFormula formula="\\vec{a}" /></Label>
               <div className="mt-2 space-y-1">
-                <Badge variant="outline">|a⃗| = {magA.toFixed(2)}</Badge>
+                <Badge variant="outline" className="flex items-center gap-1">
+                  <MathFormula formula={`|\\vec{a}| = ${magA.toFixed(2)}`} />
+                </Badge>
                 <p className="text-sm">
                   <MathFormula formula={`\\vec{a} = (${state.vectorA.x.toFixed(1)}, ${state.vectorA.y.toFixed(1)})`} />
                 </p>
@@ -449,9 +542,11 @@ export function Vector2DSimulator() {
             </div>
             
             <div>
-              <Label className="text-vector-teal font-semibold">Vetor b⃗</Label>
+              <Label className="text-vector-teal font-semibold flex items-center gap-1">Vetor <MathFormula formula="\\vec{b}" /></Label>
               <div className="mt-2 space-y-1">
-                <Badge variant="outline">|b⃗| = {magB.toFixed(2)}</Badge>
+                <Badge variant="outline" className="flex items-center gap-1">
+                  <MathFormula formula={`|\\vec{b}| = ${magB.toFixed(2)}`} />
+                </Badge>
                 <p className="text-sm">
                   <MathFormula formula={`\\vec{b} = (${state.vectorB.x.toFixed(1)}, ${state.vectorB.y.toFixed(1)})`} />
                 </p>
@@ -461,8 +556,8 @@ export function Vector2DSimulator() {
             <div>
               <Label className="font-semibold">Produto Escalar</Label>
               <div className="mt-2 space-y-1">
-                <Badge variant="outline" className={state.operation === "dot" ? "bg-primary text-primary-foreground" : ""}>
-                  a⃗ · b⃗ = {dotProduct.toFixed(2)}
+                <Badge variant="outline" className={`flex items-center gap-1 ${state.operation === "dot" ? "bg-primary text-primary-foreground" : ""}`}>
+                  <MathFormula formula={`\\vec{a} \\cdot \\vec{b} = ${dotProduct.toFixed(2)}`} />
                 </Badge>
                 <p className="text-xs text-muted-foreground">
                   Ângulo: {angle.toFixed(1)}°
@@ -474,18 +569,18 @@ export function Vector2DSimulator() {
               <Label className="font-semibold">Operações</Label>
               <div className="mt-2 space-y-1">
                 {state.operation === "add" && (
-                  <Badge className="bg-vector-purple text-white">
-                    |a⃗ + b⃗| = {magnitude2D(vectorSum).toFixed(2)}
+                  <Badge className="bg-vector-purple text-white flex items-center gap-1">
+                    <MathFormula formula={`|\\vec{a} + \\vec{b}| = ${magnitude2D(vectorSum).toFixed(2)}`} />
                   </Badge>
                 )}
                 {state.operation === "subtract" && (
-                  <Badge className="bg-vector-red text-white">
-                    |a⃗ - b⃗| = {magnitude2D(vectorDiff).toFixed(2)}
+                  <Badge className="bg-vector-red text-white flex items-center gap-1">
+                    <MathFormula formula={`|\\vec{a} - \\vec{b}| = ${magnitude2D(vectorDiff).toFixed(2)}`} />
                   </Badge>
                 )}
                 {state.operation === "project" && (
-                  <Badge className="bg-vector-yellow text-black">
-                    |proj| = {magnitude2D(projectionAB).toFixed(2)}
+                  <Badge className="bg-vector-yellow text-black flex items-center gap-1">
+                    <MathFormula formula={`|\\text{proj}| = ${magnitude2D(projectionAB).toFixed(2)}`} />
                   </Badge>
                 )}
                 {state.operation === "none" && (

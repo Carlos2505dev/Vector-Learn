@@ -1,11 +1,18 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Layout } from "@/components/Layout";
 import { Vector2DSimulator } from "@/components/Vector2DSimulator";
 import { Vector3DSimulator } from "@/components/Vector3DSimulator";
-import { Monitor, Box, Info, Lightbulb } from "lucide-react";
+import { Monitor, Box, Info, Lightbulb, Sparkles } from "lucide-react";
+import { useUserProgress } from "@/hooks/useUserProgress";
+import { motion as motionF } from "framer-motion";
+import { Badge } from "@/components/ui/badge";
+import { useSEO, generateBreadcrumbSchema } from "@/hooks/useSEO";
+import { MathFormula } from "@/components/MathFormula";
+import { EquationSolver } from "@/components/EquationSolver";
+import { type ParsedEquation } from "@/lib/equation-parser";
 
 const instructions = [
   {
@@ -45,9 +52,82 @@ const examples = [
 
 export default function Simulador() {
   const [activeTab, setActiveTab] = useState("2d");
+  const [solverResult, setSolverResult] = useState<Partial<ParsedEquation> | null>(null);
+  const { stats, unlockBadgeManually, isUnlocked } = useUserProgress();
+
+  const [isSolving, setIsSolving] = useState(false);
+
+  const handleSolve = (result: ParsedEquation) => {
+    setIsSolving(true);
+    setSolverResult(result);
+    // Automatically switch tabs based on dimension
+    setActiveTab(result.is3D ? "3d" : "2d");
+    
+    // Reset solving state after animation
+    setTimeout(() => setIsSolving(false), 2000);
+
+    // Unlock a badge for using the smart solver
+    if (!isUnlocked("smart-solver-badge")) {
+      unlockBadgeManually("smart-solver-badge");
+      setShowBadgeNotification(true);
+      setTimeout(() => setShowBadgeNotification(false), 5000);
+    }
+  };
+
+  useSEO({
+    title: 'Simulador de Vetores 2D e 3D | Vector Learn',
+    description: 'Explore vetores interativamente com simuladores 2D e 3D em tempo real. Manipule componentes, observe operações geometricamente.',
+    keywords: 'simulador vetores 2D, simulador vetores 3D, visualização vetores, matemática interativa',
+    canonicalUrl: 'https://mindvectors.com/simulador',
+    breadcrumbSchema: generateBreadcrumbSchema([
+      { name: 'Home', url: 'https://mindvectors.com' },
+      { name: 'Simulador', url: 'https://mindvectors.com/simulador' },
+    ]),
+  });
+  const [simulatorAccessTracker, setSimulatorAccessTracker] = useState({ 
+    has2D: false, 
+    has3D: false 
+  });
+  const [showBadgeNotification, setShowBadgeNotification] = useState(false);
+
+  // Track when user accesses simulators for the simulator-master badge
+  useEffect(() => {
+    if (activeTab === "2d" && !simulatorAccessTracker.has2D) {
+      setSimulatorAccessTracker(prev => ({ ...prev, has2D: true }));
+    } else if (activeTab === "3d" && !simulatorAccessTracker.has3D) {
+      setSimulatorAccessTracker(prev => ({ ...prev, has3D: true }));
+      
+      // If both simulators have been accessed, unlock the badge
+      if (simulatorAccessTracker.has2D && !isUnlocked("simulator-master")) {
+        unlockBadgeManually("simulator-master");
+        setShowBadgeNotification(true);
+        setTimeout(() => setShowBadgeNotification(false), 5000);
+      }
+    }
+  }, [activeTab, simulatorAccessTracker, isUnlocked, unlockBadgeManually]);
 
   return (
     <Layout>
+      {/* Badge Unlock Notification */}
+      {showBadgeNotification && (
+        <motion.div
+          initial={{ opacity: 0, y: -20, scale: 0.8 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: -20, scale: 0.8 }}
+          className="fixed top-20 left-1/2 transform -translate-x-1/2 z-50"
+        >
+          <Card className="bg-gradient-primary text-white shadow-2xl">
+            <CardContent className="p-6 flex items-center gap-4">
+              <Sparkles className="h-8 w-8 animate-spin" />
+              <div>
+                <p className="font-bold text-lg">🎉 Novo Badge Desbloqueado!</p>
+                <p className="text-sm opacity-90">🌟 Explorador do Simulador</p>
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
+      )}
+
       {/* Header */}
       <motion.section
         initial={{ opacity: 0, y: 20 }}
@@ -62,6 +142,36 @@ export default function Simulador() {
           Experimente com vetores em tempo real! Ajuste componentes, execute operações 
           e veja os conceitos matemáticos ganharem vida através de visualizações dinâmicas.
         </p>
+
+        {/* Resolvedor Inteligente */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.5, duration: 0.6 }}
+          className="mt-16 max-w-5xl mx-auto relative px-4"
+        >
+          {/* Decorative elements */}
+          <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-40 h-1 bg-gradient-to-r from-transparent via-vector-blue/40 to-transparent" />
+          
+          <div className="flex flex-col items-center justify-center gap-2 mb-8">
+            <motion.div
+              animate={{ 
+                rotate: [0, 10, -10, 0],
+                scale: [1, 1.1, 1]
+              }}
+              transition={{ duration: 4, repeat: Infinity }}
+              className="p-3 bg-vector-blue/10 rounded-2xl border border-vector-blue/20"
+            >
+              <Sparkles className="h-8 w-8 text-vector-blue" />
+            </motion.div>
+            <h2 className="text-3xl font-bold tracking-tight">Resolvedor <span className="text-gradient">Inteligente</span></h2>
+            <p className="text-muted-foreground text-sm max-w-md text-center">
+              Fale com o simulador. Digite equações, use termos como "soma" ou "vetorial" 
+              e deixe a mágica acontecer.
+            </p>
+          </div>
+          <EquationSolver onSolve={handleSolve} />
+        </motion.div>
       </motion.section>
 
       {/* Instructions */}
@@ -101,7 +211,22 @@ export default function Simulador() {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4, duration: 0.6 }}
+        className="relative"
       >
+        {/* Solve Success Effect */}
+        <AnimatePresence>
+          {isSolving && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 1.1 }}
+              className="absolute inset-0 pointer-events-none z-10 rounded-3xl overflow-hidden"
+            >
+              <div className="absolute inset-0 bg-vector-blue/5 backdrop-blur-[2px]" />
+              <div className="absolute inset-0 border-4 border-vector-blue/30 animate-pulse rounded-3xl" />
+            </motion.div>
+          )}
+        </AnimatePresence>
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 mb-8">
             <TabsTrigger value="2d" className="flex items-center gap-2">
@@ -115,11 +240,22 @@ export default function Simulador() {
           </TabsList>
 
           <TabsContent value="2d">
-            <Vector2DSimulator />
+            <Vector2DSimulator data={activeTab === "2d" && solverResult ? {
+              vectorA: solverResult.vectorA,
+              vectorB: solverResult.vectorB,
+              operation: (solverResult.operation === "cross" || solverResult.operation === "mixed") 
+                ? "none" 
+                : solverResult.operation as any
+            } : undefined} />
           </TabsContent>
 
           <TabsContent value="3d">
-            <Vector3DSimulator />
+            <Vector3DSimulator data={activeTab === "3d" && solverResult ? {
+              vectorA: solverResult.vectorA,
+              vectorB: solverResult.vectorB,
+              vectorC: solverResult.vectorC,
+              operation: solverResult.operation as any
+            } : undefined} />
           </TabsContent>
         </Tabs>
       </motion.section>
@@ -151,8 +287,8 @@ export default function Simulador() {
                   <p className="text-sm text-muted-foreground mb-4">{example.description}</p>
                   <div className="bg-muted/50 p-3 rounded-lg">
                     <div className="text-xs space-y-1">
-                      <div>a⃗ = {example.settings.a}</div>
-                      <div>b⃗ = {example.settings.b}</div>
+                      <div className="flex items-center gap-1"><MathFormula formula={`\\vec{a} = ${example.settings.a}`} /></div>
+                      <div className="flex items-center gap-1"><MathFormula formula={`\\vec{b} = ${example.settings.b}`} /></div>
                     </div>
                   </div>
                 </CardContent>

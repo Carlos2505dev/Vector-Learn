@@ -2,8 +2,22 @@ import { motion } from "framer-motion";
 import { Cog, Cpu, Building2, Plane, Car, Gamepad2, Brain, Eye, Calculator, Zap, PlayCircle, ArrowRight } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { Card, CardContent } from "@/components/ui/card";
+import { useSEO, generateBreadcrumbSchema } from "@/hooks/useSEO";
+import { BoatSimulator } from "@/components/BoatSimulator";
+import { InclinedPlaneSimulator } from "@/components/InclinedPlaneSimulator";
 
-export default function Sobre() {
+export default function Aplicacoes() {
+  useSEO({
+    title: 'Aplicações dos Vetores - Engenharia e Tecnologia | Mind Vectors',
+    description: 'Descubra como os vetores são aplicados na engenharia mecânica, computação, civil e inteligência artificial.',
+    keywords: 'aplicações de vetores, engenharia, computação gráfica, física aplicada, vetores na vida real',
+    canonicalUrl: 'https://mindvectors.com/aplicacoes',
+    breadcrumbSchema: generateBreadcrumbSchema([
+      { name: 'Home', url: 'https://mindvectors.com' },
+      { name: 'Aplicações', url: 'https://mindvectors.com/aplicacoes' },
+    ]),
+  });
+
   return (
     <Layout>
       {/* Hero Section */}
@@ -179,6 +193,30 @@ export default function Sobre() {
         </motion.div>
       </section>
 
+      {/* Laboratório de Física Interativo */}
+      <motion.section
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+        className="py-12"
+      >
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Laboratório de <span className="text-gradient">Física Interativo</span>
+          </h2>
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            Experimente os cenários clássicos da física e veja como os vetores 
+            são usados para modelar o movimento e as forças no mundo real.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 gap-12">
+          <BoatSimulator />
+          <InclinedPlaneSimulator />
+        </div>
+      </motion.section>
+
       {/* Como Operações Vetoriais São Aplicadas */}
       <motion.section
         initial={{ opacity: 0, y: 50 }}
@@ -206,7 +244,7 @@ export default function Sobre() {
           >
             <Card className="h-full interactive-surface border-2 hover:border-primary/50 transition-all duration-300">
               <CardContent className="p-6">
-                <div className="w-16 h-16 bg-gradient-primary rounded-2xl flex items-center justify-center mb-4 mx-auto">
+                <div className="w-16 h-16 bg-gradient-to-br from-[#5B8CFF] via-[#3B70F3] to-[#00D1B2] rounded-2xl flex items-center justify-center mb-4 mx-auto">
                   <Cog className="h-8 w-8 text-white" />
                 </div>
                 <h3 className="text-2xl font-bold text-center text-primary mb-6">Engenharia Mecânica</h3>
@@ -280,7 +318,7 @@ export default function Sobre() {
           >
             <Card className="h-full interactive-surface border-2 hover:border-primary/50 transition-all duration-300">
               <CardContent className="p-6">
-                <div className="w-16 h-16 bg-gradient-primary rounded-2xl flex items-center justify-center mb-4 mx-auto">
+                <div className="w-16 h-16 bg-gradient-to-br from-[#00D1B2] via-[#00BFA5] to-[#FF7A59] rounded-2xl flex items-center justify-center mb-4 mx-auto">
                   <Cpu className="h-8 w-8 text-white" />
                 </div>
                 <h3 className="text-2xl font-bold text-center text-primary mb-6">Engenharia da Computação</h3>
@@ -354,7 +392,7 @@ export default function Sobre() {
           >
             <Card className="h-full interactive-surface border-2 hover:border-primary/50 transition-all duration-300">
               <CardContent className="p-6">
-                <div className="w-16 h-16 bg-gradient-primary rounded-2xl flex items-center justify-center mb-4 mx-auto">
+                <div className="w-16 h-16 bg-gradient-to-br from-[#FF7A59] via-[#FF5733] to-[#8E44AD] rounded-2xl flex items-center justify-center mb-4 mx-auto">
                   <Building2 className="h-8 w-8 text-white" />
                 </div>
                 <h3 className="text-2xl font-bold text-center text-primary mb-6">Engenharia Civil</h3>
@@ -428,10 +466,11 @@ export default function Sobre() {
           viewport={{ once: true }}
           className="mt-12"
         >
-          <Card className="bg-gradient-primary text-white">
-            <CardContent className="p-8 text-center">
-              <h3 className="text-2xl font-bold mb-4">Por Que Operações Vetoriais São Essenciais?</h3>
-              <p className="text-lg leading-relaxed max-w-4xl mx-auto">
+          <Card className="bg-gradient-to-br from-[#5B8CFF] via-[#3B70F3] to-[#00D1B2] text-white shadow-2xl border-0 overflow-hidden relative group">
+            <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <CardContent className="p-10 text-center relative z-10">
+              <h3 className="text-3xl font-bold mb-6">Por Que Operações Vetoriais São Essenciais?</h3>
+              <p className="text-xl leading-relaxed max-w-4xl mx-auto opacity-95">
                 Cada operação vetorial tem um propósito específico na engenharia: a soma combina efeitos, 
                 o produto escalar mede alinhamento, o produto vetorial cria perpendiculares, a projeção decompõe 
                 componentes e o produto misto calcula volumes. Dominar essas operações é dominar a linguagem da engenharia moderna.

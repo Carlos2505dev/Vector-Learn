@@ -4,7 +4,7 @@ Uma plataforma educacional revolucionária para aprender os fundamentos dos veto
 
 ## 📚 Sobre Este Projeto
 
-**Vector Learn** foi desenvolvida como projeto de graduação em **Engenharia da Computação** pela **Universidade Jorge Amado (Unijorge)** com o objetivo de facilitar o aprendizado de **Vetores** - um conceito fundamental da disciplina de **Análise Espacial**. 
+**Vector Learn** foi desenvolvida como projeto de graduação em **Engenharia da Computação** pela **Universidade Jorge Amado (Unijorge)** com o objetivo de facilitar o aprendizado de **Vetores** - um conceito fundamental da disciplina de **Análise Espacial**.
 
 Este projeto foi criado para auxiliar estudantes da Unijorge a compreenderem de forma visual e interativa os conceitos de vetores, operações vetoriais e suas aplicações práticas em engenharia e ciência da computação.
 
@@ -22,23 +22,27 @@ Este projeto foi criado para auxiliar estudantes da Unijorge a compreenderem de 
 ## 🎯 Funcionalidades
 
 ### 📚 Conteúdo Educacional
+
 - **Fundamentos**: Conceitos básicos de vetores, notação, magnitude e componentes
 - **Operações**: Soma, subtração, produto escalar e produto vetorial
 - **Exemplos Práticos**: Aplicações em física, matemática e engenharia
 
 ### 🎮 Simuladores Interativos
+
 - **Simulador 2D**: Visualização em tempo real com controles deslizantes
 - **Operações Visuais**: Soma, subtração, projeção e produtos
 - **Componentes Dinâmicos**: Visualização de componentes X e Y
 - **Preparado para 3D**: Estrutura pronta para visualizações tridimensionais
 
 ### 🏆 Sistema de Desafios
+
 - **Quiz Interativo**: 15+ questões com diferentes níveis
 - **Feedback Imediato**: Explicações detalhadas para cada resposta
 - **Dicas Contextuais**: Ajuda progressiva para o aprendizado
 - **Sistema de Pontuação**: Acompanhamento do progresso
 
 ### 🎨 Design e Acessibilidade
+
 - **Design System Completo**: Tokens semânticos para cores e espaçamento
 - **Modo Claro/Escuro**: Alternância automática com persistência
 - **Responsivo**: Otimizado para desktop, tablet e mobile
@@ -48,10 +52,12 @@ Este projeto foi criado para auxiliar estudantes da Unijorge a compreenderem de 
 ## 🛠️ Instalação e Uso
 
 ### Pré-requisitos
-- Node.js 18+ 
+
+- Node.js 18+
 - npm ou yarn
 
 ### Instalação
+
 ```bash
 # Clone o repositório
 git clone <URL_DO_REPOSITORIO>
@@ -98,6 +104,7 @@ src/
 ## 🎨 Design System
 
 ### Paleta de Cores
+
 - **Primary (Vector Blue)**: #5B8CFF - Cor principal dos vetores
 - **Secondary (Vector Teal)**: #00D1B2 - Operações secundárias  
 - **Accent (Vector Orange)**: #FF7A59 - Destaques e acentos
@@ -106,6 +113,7 @@ src/
 - **Vector Red**: #F87171 - Estados de erro
 
 ### Componentes Visuais
+
 - **Gradientes**: Transições suaves entre cores principais
 - **Sombras**: Sistema de elevação com cores temáticas
 - **Animações**: Transições fluidas com Framer Motion
@@ -114,6 +122,7 @@ src/
 ## 🔧 Funcionalidades Técnicas
 
 ### Matemática dos Vetores
+
 - **Operações 2D/3D**: Implementação completa de funções vetoriais
 - **Magnitude**: Cálculo de módulo usando teorema de Pitágoras
 - **Produto Escalar**: Implementação com interpretação geométrica
@@ -121,12 +130,14 @@ src/
 - **Projeções**: Cálculo de projeção de um vetor sobre outro
 
 ### Renderização de Fórmulas
+
 - **KaTeX**: Renderização matemática de alta qualidade
 - **LaTeX Support**: Suporte completo para notação matemática
 - **Inline/Block**: Fórmulas inline e em blocos
 - **Fallback**: Tratamento gracioso de erros de sintaxe
 
 ### Simuladores
+
 - **Tempo Real**: Atualizações instantâneas baseadas em entrada do usuário
 - **SVG Vectorial**: Gráficos escaláveis e nítidos
 - **Coordenadas Matemáticas**: Sistema de coordenadas padrão
@@ -135,18 +146,21 @@ src/
 ## 🚀 Deploy
 
 ### Vercel (Recomendado)
+
 ```bash
 npm run build
 # Deploy via Vercel CLI ou GitHub integration
 ```
 
 ### Netlify
+
 ```bash
 npm run build
 # Upload da pasta dist/ ou conectar via Git
 ```
 
 ### GitHub Pages
+
 ```bash
 npm run build
 # Configure base path no vite.config.ts se necessário
@@ -168,12 +182,14 @@ npm run test:coverage
 ## 📊 Performance
 
 ### Métricas Alvo
+
 - **Lighthouse Performance**: ≥ 95
 - **Acessibilidade**: ≥ 95  
 - **Melhores Práticas**: ≥ 95
 - **SEO**: ≥ 95
 
 ### Otimizações
+
 - **Code Splitting**: Carregamento lazy de rotas
 - **Tree Shaking**: Importação seletiva de componentes
 - **Asset Optimization**: Imagens e SVGs otimizados
@@ -182,18 +198,21 @@ npm run test:coverage
 ## 🎓 Conteúdo Pedagógico
 
 ### Fundamentos
+
 - Definição de vetor vs escalar
 - Notação matemática padrão
 - Componentes e decomposição
 - Magnitude e vetores unitários
 
 ### Operações
+
 - Soma (regra do paralelogramo)
 - Subtração (vetores opostos)
 - Produto escalar (projeção e ângulo)
 - Produto vetorial (3D, preparado)
 
 ### Aplicações
+
 - Física: força, velocidade, aceleração
 - Computação gráfica: transformações
 - Engenharia: análise estrutural
@@ -201,7 +220,6 @@ npm run test:coverage
 
 ## 👥 Créditos
 
-- **Instituição**: Universidade Jorge Amado (Unijorge)
 - **Curso**: Engenharia da Computação
 - **Disciplina**: Análise Espacial
 - **Desenvolvido com**: React, TypeScript, Tailwind CSS

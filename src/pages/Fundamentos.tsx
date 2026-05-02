@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Layout } from "@/components/Layout";
 import { MathFormula } from "@/components/MathFormula";
+import { useSEO, generateBreadcrumbSchema, generateLearningResourceSchema } from "@/hooks/useSEO";
 
 const concepts = [
   {
@@ -67,24 +68,39 @@ const examples = [
     title: "Exemplo 1: Velocidade de um Carro",
     problem: "Um carro se move a 60 km/h em direção ao nordeste (45°). Quais são as componentes da velocidade?",
     solution: [
-      "Dados: |v| = 60 km/h, θ = 45°",
-      "v_x = 60 × cos(45°) = 60 × 0.707 = 42.4 km/h",
-      "v_y = 60 × sin(45°) = 60 × 0.707 = 42.4 km/h",
-      "Portanto: v⃗ = (42.4, 42.4) km/h"
+      "\\text{Dados: } |\\vec{v}| = 60 \\text{ km/h}, \\theta = 45^\\circ",
+      "v_x = 60 \\times \\cos(45^\\circ) = 60 \\times 0.707 = 42.4 \\text{ km/h}",
+      "v_y = 60 \\times \\sin(45^\\circ) = 60 \\times 0.707 = 42.4 \\text{ km/h}",
+      "\\text{Portanto: } \\vec{v} = (42.4, 42.4) \\text{ km/h}"
     ]
   },
   {
     title: "Exemplo 2: Força Resultante",
     problem: "Duas forças atuam sobre um objeto: F₁ = (3, 4) N e F₂ = (1, -2) N. Qual a força resultante?",
     solution: [
-      "F⃗_resultante = F⃗₁ + F⃗₂",
-      "F⃗_resultante = (3, 4) + (1, -2) = (4, 2) N",
-      "|F⃗_resultante| = √(4² + 2²) = √20 = 4.47 N"
+      "\\vec{F}_{\\text{resultante}} = \\vec{F}_1 + \\vec{F}_2",
+      "\\vec{F}_{\\text{resultante}} = (3, 4) + (1, -2) = (4, 2) \\text{ N}",
+      "|\\vec{F}_{\\text{resultante}}| = \\sqrt{4^2 + 2^2} = \\sqrt{20} \\approx 4.47 \\text{ N}"
     ]
   }
 ];
 
 export default function Fundamentos() {
+  useSEO({
+    title: 'Fundamentos de Vetores - Conceitos Básicos | Vector Learn',
+    description: 'Aprenda os fundamentos de vetores: notação, componentes, magnitude e operações básicas com exemplos práticos e visualizações.',
+    keywords: 'fundamentos vetores, notação vetorial, magnitude, componentes, física básica',
+    canonicalUrl: 'https://mindvectors.com/fundamentos',
+    breadcrumbSchema: generateBreadcrumbSchema([
+      { name: 'Home', url: 'https://mindvectors.com' },
+      { name: 'Fundamentos', url: 'https://mindvectors.com/fundamentos' },
+    ]),
+    learningResourceSchema: generateLearningResourceSchema(
+      'Fundamentos de Vetores',
+      'Conceitos básicos de vetores: notação, componentes e magnitude'
+    ),
+  });
+
   return (
     <Layout>
       {/* Header */}
@@ -243,9 +259,9 @@ export default function Fundamentos() {
                     <p className="font-medium text-sm mb-2 text-primary">Solução:</p>
                     <ol className="space-y-2">
                       {example.solution.map((step, i) => (
-                        <li key={i} className="text-sm flex">
+                        <li key={i} className="text-sm flex items-center">
                           <span className="text-vector-teal font-bold mr-2">{i + 1}.</span>
-                          <span>{step}</span>
+                          <MathFormula formula={step} />
                         </li>
                       ))}
                     </ol>
@@ -265,7 +281,8 @@ export default function Fundamentos() {
         viewport={{ once: true }}
         className="mb-16"
       >
-        <Card className="bg-gradient-primary text-white">
+        <Card className="bg-gradient-to-br from-[#5B8CFF] via-[#3B70F3] to-[#00D1B2] text-white shadow-2xl border-0 overflow-hidden relative group">
+          <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           <CardHeader>
             <CardTitle className="text-2xl text-center">Fórmulas Essenciais</CardTitle>
           </CardHeader>

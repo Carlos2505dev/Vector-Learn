@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Grid, Text, Line } from "@react-three/drei";
 import { motion, AnimatePresence } from "framer-motion";
@@ -247,7 +247,7 @@ function Scene3D({ state }: { state: SimulatorState }) {
   );
 }
 
-export function Vector3DSimulator() {
+export function Vector3DSimulator({ data }: { data?: Partial<SimulatorState> }) {
   const [state, setState] = useState<SimulatorState>({
     vectorA: { x: 2, y: 1.5, z: 1 },
     vectorB: { x: -1, y: 2, z: 1.5 },
@@ -256,6 +256,19 @@ export function Vector3DSimulator() {
     showGrid: true,
     operation: "none"
   });
+
+  // Sync with external data if provided
+  useEffect(() => {
+    if (data) {
+      setState(prev => ({
+        ...prev,
+        ...data,
+        vectorA: data.vectorA ? { ...prev.vectorA, ...data.vectorA } : prev.vectorA,
+        vectorB: data.vectorB ? { ...prev.vectorB, ...data.vectorB } : prev.vectorB,
+        vectorC: data.vectorC ? { ...prev.vectorC, ...data.vectorC } : prev.vectorC,
+      }));
+    }
+  }, [data]);
 
   // Calculate derived values
   const magA = magnitude3D(state.vectorA);
@@ -355,7 +368,7 @@ export function Vector3DSimulator() {
           <CardContent className="space-y-6">
             {/* Vector A Controls */}
             <div>
-              <Label className="text-vector-blue font-semibold">Vetor a⃗</Label>
+              <Label className="text-vector-blue font-semibold flex items-center gap-1">Vetor <MathFormula formula="\\vec{a}" /></Label>
               <div className="space-y-3 mt-2">
                 <div>
                   <Label className="text-xs">Componente X: {state.vectorA.x.toFixed(1)}</Label>
@@ -397,7 +410,7 @@ export function Vector3DSimulator() {
 
             {/* Vector B Controls */}
             <div>
-              <Label className="text-vector-teal font-semibold">Vetor b⃗</Label>
+              <Label className="text-vector-teal font-semibold flex items-center gap-1">Vetor <MathFormula formula="\\vec{b}" /></Label>
               <div className="space-y-3 mt-2">
                 <div>
                   <Label className="text-xs">Componente X: {state.vectorB.x.toFixed(1)}</Label>
@@ -445,7 +458,7 @@ export function Vector3DSimulator() {
                   animate={{ opacity: 1, height: "auto" }}
                   exit={{ opacity: 0, height: 0 }}
                 >
-                  <Label className="text-pink-500 font-semibold">Vetor c⃗</Label>
+                  <Label className="text-pink-500 font-semibold flex items-center gap-1">Vetor <MathFormula formula="\\vec{c}" /></Label>
                   <div className="space-y-3 mt-2">
                     <div>
                       <Label className="text-xs">Componente X: {state.vectorC.x.toFixed(1)}</Label>
@@ -557,9 +570,11 @@ export function Vector3DSimulator() {
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div>
-              <Label className="text-vector-blue font-semibold">Vetor a⃗</Label>
+              <Label className="text-vector-blue font-semibold flex items-center gap-1">Vetor <MathFormula formula="\\vec{a}" /></Label>
               <div className="mt-2 space-y-1">
-                <Badge variant="outline">|a⃗| = {magA.toFixed(2)}</Badge>
+                <Badge variant="outline" className="flex items-center gap-1">
+                  <MathFormula formula={`|\\vec{a}| = ${magA.toFixed(2)}`} />
+                </Badge>
                 <p className="text-sm">
                   <MathFormula formula={`\\vec{a} = (${state.vectorA.x.toFixed(1)}, ${state.vectorA.y.toFixed(1)}, ${state.vectorA.z.toFixed(1)})`} />
                 </p>
@@ -567,9 +582,11 @@ export function Vector3DSimulator() {
             </div>
             
             <div>
-              <Label className="text-vector-teal font-semibold">Vetor b⃗</Label>
+              <Label className="text-vector-teal font-semibold flex items-center gap-1">Vetor <MathFormula formula="\\vec{b}" /></Label>
               <div className="mt-2 space-y-1">
-                <Badge variant="outline">|b⃗| = {magB.toFixed(2)}</Badge>
+                <Badge variant="outline" className="flex items-center gap-1">
+                  <MathFormula formula={`|\\vec{b}| = ${magB.toFixed(2)}`} />
+                </Badge>
                 <p className="text-sm">
                   <MathFormula formula={`\\vec{b} = (${state.vectorB.x.toFixed(1)}, ${state.vectorB.y.toFixed(1)}, ${state.vectorB.z.toFixed(1)})`} />
                 </p>
@@ -578,9 +595,11 @@ export function Vector3DSimulator() {
 
             {state.operation === "mixed" && (
               <div>
-                <Label className="text-pink-500 font-semibold">Vetor c⃗</Label>
+                <Label className="text-pink-500 font-semibold flex items-center gap-1">Vetor <MathFormula formula="\\vec{c}" /></Label>
                 <div className="mt-2 space-y-1">
-                  <Badge variant="outline">|c⃗| = {magC.toFixed(2)}</Badge>
+                  <Badge variant="outline" className="flex items-center gap-1">
+                    <MathFormula formula={`|\\vec{c}| = ${magC.toFixed(2)}`} />
+                  </Badge>
                   <p className="text-sm">
                     <MathFormula formula={`\\vec{c} = (${state.vectorC.x.toFixed(1)}, ${state.vectorC.y.toFixed(1)}, ${state.vectorC.z.toFixed(1)})`} />
                   </p>
@@ -591,13 +610,13 @@ export function Vector3DSimulator() {
             <div>
               <Label className="font-semibold">Produtos</Label>
               <div className="mt-2 space-y-1">
-                <Badge variant="outline" className={state.operation === "dot" ? "bg-primary text-primary-foreground" : ""}>
-                  a⃗ · b⃗ = {dotProduct.toFixed(2)}
+                <Badge variant="outline" className={`flex items-center gap-1 ${state.operation === "dot" ? "bg-primary text-primary-foreground" : ""}`}>
+                  <MathFormula formula={`\\vec{a} \\cdot \\vec{b} = ${dotProduct.toFixed(2)}`} />
                 </Badge>
                 {state.operation === "cross" && (
                   <div className="space-y-1">
-                    <Badge className="bg-vector-yellow text-black">
-                      |a⃗ × b⃗| = {magnitude3D(crossProduct).toFixed(2)}
+                    <Badge className="bg-vector-yellow text-black flex items-center gap-1">
+                      <MathFormula formula={`|\\vec{a} \\times \\vec{b}| = ${magnitude3D(crossProduct).toFixed(2)}`} />
                     </Badge>
                     <p className="text-xs">
                       <MathFormula formula={`\\vec{a} \\times \\vec{b} = (${crossProduct.x.toFixed(1)}, ${crossProduct.y.toFixed(1)}, ${crossProduct.z.toFixed(1)})`} />
@@ -606,8 +625,8 @@ export function Vector3DSimulator() {
                 )}
                 {state.operation === "mixed" && (
                   <div className="space-y-1">
-                    <Badge className="bg-pink-500 text-white">
-                      a⃗ · (b⃗ × c⃗) = {mixedProduct.toFixed(2)}
+                    <Badge className="bg-pink-500 text-white flex items-center gap-1">
+                      <MathFormula formula={`\\vec{a} \\cdot (\\vec{b} \\times \\vec{c}) = ${mixedProduct.toFixed(2)}`} />
                     </Badge>
                     <p className="text-xs text-muted-foreground">
                       Volume do paralelepípedo
@@ -626,18 +645,18 @@ export function Vector3DSimulator() {
               <Label className="font-semibold">Operações</Label>
               <div className="mt-2 space-y-1">
                 {state.operation === "add" && (
-                  <Badge className="bg-vector-purple text-white">
-                    |a⃗ + b⃗| = {magnitude3D(vectorSum).toFixed(2)}
+                  <Badge className="bg-vector-purple text-white flex items-center gap-1">
+                    <MathFormula formula={`|\\vec{a} + \\vec{b}| = ${magnitude3D(vectorSum).toFixed(2)}`} />
                   </Badge>
                 )}
                 {state.operation === "subtract" && (
-                  <Badge className="bg-vector-red text-white">
-                    |a⃗ - b⃗| = {magnitude3D(vectorDiff).toFixed(2)}
+                  <Badge className="bg-vector-red text-white flex items-center gap-1">
+                    <MathFormula formula={`|\\vec{a} - \\vec{b}| = ${magnitude3D(vectorDiff).toFixed(2)}`} />
                   </Badge>
                 )}
                 {state.operation === "project" && (
-                  <Badge className="bg-vector-yellow text-black">
-                    |proj_b⃗(a⃗)| = {magnitude3D(projectionAB).toFixed(2)}
+                  <Badge className="bg-vector-yellow text-black flex items-center gap-1">
+                    <MathFormula formula={`|\\text{proj}_{\\vec{b}}(\\vec{a})| = ${magnitude3D(projectionAB).toFixed(2)}`} />
                   </Badge>
                 )}
                 {state.operation === "none" && (
