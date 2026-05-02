@@ -35,7 +35,7 @@ function generateHTMLReport(data: UserProgressReport): string {
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Relatório de Progresso - Mind Vectors</title>
+      <title>Relatório de Progresso - Vector Learn</title>
       <style>
         * {
           margin: 0;
@@ -183,7 +183,7 @@ function generateHTMLReport(data: UserProgressReport): string {
       <div class="container">
         <div class="header">
           <h1>🎓 Relatório de Progresso</h1>
-          <p>Mind Vectors - Aprendizado de Vetores</p>
+          <p>Vector Learn - Aprendizado de Vetores</p>
         </div>
         
         <div class="content">
@@ -278,7 +278,7 @@ function generateHTMLReport(data: UserProgressReport): string {
 
           <!-- Footer -->
           <div class="footer">
-            <p>Este relatório foi gerado automaticamente por Mind Vectors</p>
+            <p>Este relatório foi gerado automaticamente por Vector Learn</p>
             <p>© 2026 - Todos os direitos reservados</p>
           </div>
         </div>
@@ -341,11 +341,11 @@ export function ProgressReportExporter({ data, onExported }: ProgressReportExpor
     • Questões respondidas: ${data.totalAnswers}
     • Badges desbloqueados: ${data.badgesUnlocked}
     
-    Quer aprender vetores também? Visite Mind Vectors!
+    Quer aprender vetores também? Visite Vector Learn!
     
     #Educação #Matemática #Vetores #Aprendizado`;
 
-    const url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent("https://mind-vectors.com")}`;
+    const url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent("https://vector-learn.com")}`;
     window.open(url, "_blank");
   };
 

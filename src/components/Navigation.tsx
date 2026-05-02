@@ -29,18 +29,13 @@ export function Navigation() {
     <header className="sticky top-0 z-50 w-full backdrop-blur-glass border-b border-border/40">
       <nav className="container mx-auto px-4 h-16 flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="flex items-center space-x-2 group">
-          <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-            <svg
-              viewBox="0 0 24 24"
-              className="w-5 h-5 text-white"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <path d="M12 2L2 7v10l10 5 10-5V7l-10-5z" />
-              <path d="M12 12L2 7l10 5 10-5-10 5z" />
-            </svg>
+        <Link to="/" className="flex items-center space-x-3 group">
+          <div className="w-10 h-10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+            <img 
+              src="/logomarca.webp" 
+              alt="Vector Learn Logo" 
+              className="w-full h-full object-contain"
+            />
           </div>
           <span className="text-xl font-bold text-gradient">Vector Learn</span>
         </Link>

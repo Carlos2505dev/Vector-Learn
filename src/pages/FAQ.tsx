@@ -19,15 +19,15 @@ const faqData: FAQItem[] = [
   {
     id: "q1",
     category: "Geral",
-    question: "O que é Mind Vectors?",
-    answer: "Mind Vectors é uma plataforma educacional inovadora criada para ajudar estudantes universitários a compreender vetores através de visualizações interativas, simuladores 3D e exercícios práticos. Desenvolvida como projeto de graduação em Engenharia da Computação.",
+    question: "O que é Vector Learn?",
+    answer: "Vector Learn é uma plataforma educacional inovadora criada para ajudar estudantes universitários a compreender vetores através de visualizações interativas, simuladores 3D e exercícios práticos. Desenvolvida como projeto de graduação em Engenharia da Computação.",
     tags: ["início", "sobre"]
   },
   {
     id: "q2",
     category: "Geral",
     question: "A plataforma é totalmente gratuita?",
-    answer: "Sim! Mind Vectors é 100% gratuita. Todos os conteúdos, simuladores e desafios estão disponíveis sem custo. Queremos democratizar o aprendizado de vetores para todos os estudantes.",
+    answer: "Sim! Vector Learn é 100% gratuita. Todos os conteúdos, simuladores e desafios estão disponíveis sem custo. Queremos democratizar o aprendizado de vetores para todos os estudantes.",
     tags: ["preço", "acesso"]
   },
   {
@@ -146,7 +146,7 @@ const faqData: FAQItem[] = [
     id: "q19",
     category: "Conteúdo",
     question: "Posso usar a plataforma offline?",
-    answer: "Mind Vectors requer uma conexão inicial com a internet para carregar os recursos 3D e simuladores, mas após carregados, a maioria das funcionalidades pode funcionar temporariamente sem rede dependendo do cache do navegador.",
+    answer: "Vector Learn requer uma conexão inicial com a internet para carregar os recursos 3D e simuladores, mas após carregados, a maioria das funcionalidades pode funcionar temporariamente sem rede dependendo do cache do navegador.",
     tags: ["offline", "acesso"]
   }
 ];
@@ -159,11 +159,11 @@ export default function FAQ() {
   useSEO({
     title: 'Perguntas Frequentes (FAQ) - Vector Learn',
     description: 'Encontre respostas para as perguntas mais comuns sobre vetores, nossa plataforma e como aproveitar ao máximo o aprendizado interativo.',
-    keywords: 'FAQ vetores, perguntas frequentes, ajuda, suporte, mind vectors',
-    canonicalUrl: 'https://mindvectors.com/faq',
+    keywords: 'FAQ vetores, perguntas frequentes, ajuda, suporte, Vector Learn',
+    canonicalUrl: 'https://vectorlearn.com/faq',
     breadcrumbSchema: generateBreadcrumbSchema([
-      { name: 'Home', url: 'https://mindvectors.com' },
-      { name: 'FAQ', url: 'https://mindvectors.com/faq' },
+      { name: 'Home', url: 'https://vectorlearn.com' },
+      { name: 'FAQ', url: 'https://vectorlearn.com/faq' },
     ]),
     faqSchema: generateFAQSchema(faqData.map(item => ({
       question: item.question,
@@ -202,7 +202,7 @@ export default function FAQ() {
             Dúvidas <span className="text-gradient">Frequentes</span>
           </h1>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            Encontre respostas para as perguntas mais comuns sobre Mind Vectors. 
+            Encontre respostas para as perguntas mais comuns sobre Vector Learn. 
             Se não encontrar o que procura, não hesite em nos contactar!
           </p>
         </motion.div>

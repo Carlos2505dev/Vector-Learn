@@ -129,7 +129,7 @@ export function Certificate({ certificate, onDownload, onShare }: CertificatePro
               transition={{ delay: 0.4 }}
               className="text-xs text-muted-foreground"
             >
-              <p>Emitido por Mind Vectors • Certificação Profissional em Vetores</p>
+              <p>Emitido por Vector Learn • Certificação Profissional em Vetores</p>
             </motion.div>
           </CardContent>
         </Card>

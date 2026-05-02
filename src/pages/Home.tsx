@@ -13,7 +13,7 @@ import { useSEO, generateEducationalAppSchema } from "@/hooks/useSEO";
 const tutorialSteps: TutorialStep[] = [
   {
     id: "step1",
-    title: "Bem-vindo ao Mind Vectors!",
+    title: "Bem-vindo ao Vector Learn!",
     description: "Uma plataforma revolucionária para aprender vetores de forma visual e interativa. Vamos te mostrar como começar.",
     hint: "Este é o primeiro passo do seu aprendizado!"
   },
@@ -88,7 +88,7 @@ const quickAccess = [
     title: "Operações",
     description: "Soma, produto escalar e mais",
     icon: Calculator,
-    href: "/operacoes", 
+    href: "/operacoes",
     color: "text-vector-teal",
     badge: "Intermediário",
     stats: "8 módulos",
@@ -113,7 +113,7 @@ export default function Home() {
     title: 'Vector Learn - Aprenda Vetores de Forma Visual e Interativa',
     description: 'Plataforma educacional revolucionária com simuladores 3D interativos, desafios e tutoriais para dominar vetores em matemática e física.',
     keywords: 'aprenda vetores, simulador vetores, física interativa, matemática visual, educação online, vetores 3D',
-    canonicalUrl: 'https://mindvectors.com/',
+    canonicalUrl: 'https://vectorlearn.com/',
     learningResourceSchema: generateEducationalAppSchema(),
   });
 
@@ -142,7 +142,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative min-h-[600px] flex items-center justify-center overflow-visible">
         <div className="absolute inset-0 bg-gradient-mesh opacity-40" />
-        
+
         <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center px-4 py-8">
           {/* Hero Content */}
           <motion.div
@@ -151,7 +151,7 @@ export default function Home() {
             transition={{ duration: 0.8 }}
             className="text-center lg:text-left"
           >
-            <motion.h1 
+            <motion.h1
               className="text-5xl md:text-6xl font-bold mb-6 leading-tight"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -161,17 +161,17 @@ export default function Home() {
               <span className="text-gradient">vetores</span>{" "}
               muda como você vê o mundo
             </motion.h1>
-            
-            <motion.p 
+
+            <motion.p
               className="text-xl text-muted-foreground mb-8 max-w-2xl"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.8 }}
             >
-              Descubra o poder dos vetores através de visualizações interativas, 
+              Descubra o poder dos vetores através de visualizações interativas,
               simuladores 3D e exercícios práticos. Uma nova forma de aprender matemática.
             </motion.p>
-            
+
             <motion.div
               className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
               initial={{ opacity: 0, y: 20 }}
@@ -184,7 +184,7 @@ export default function Home() {
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
-              
+
               <Button asChild variant="outline" className="btn-ghost">
                 <Link to="/simulador">
                   Explorar Simulador
@@ -211,7 +211,7 @@ export default function Home() {
       {/* Features Section - "Por que escolher VectorLen?" */}
       <section className="py-24 relative overflow-hidden">
         <div className="absolute inset-0 to-transparent opacity-30" />
-        
+
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -229,9 +229,9 @@ export default function Home() {
             <span className="text-[#5B8CFF] dark:text-[#5B8CFF] font-semibold text-sm">POR QUE SOMOS DIFERENTES</span>
           </motion.div>
 
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 px-4 max-w-4xl mx-auto leading-tight">
             Por que escolher
-            <span className="block text-gradient"> Mind Vectors</span>
+            <span className="block text-gradient pb-1">Vector Learn</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
             Uma plataforma criada especificamente para universitários que querem dominar vetores sem dor de cabeça
@@ -255,7 +255,7 @@ export default function Home() {
               >
                 <Card className="interactive-surface h-full relative overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-shadow duration-300">
                   <div className={`absolute top-0 right-0 w-40 h-40 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500 rounded-full -mr-20 -mt-20`} />
-                  
+
                   <CardContent className="p-8 relative z-10">
                     <motion.div
                       className={`w-16 h-16 bg-gradient-to-br ${feature.gradient} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}
@@ -263,10 +263,10 @@ export default function Home() {
                     >
                       <Icon className="h-8 w-8 text-white" />
                     </motion.div>
-                    
+
                     <h3 className="text-2xl font-bold mb-3">{feature.title}</h3>
                     <p className="text-muted-foreground mb-4 leading-relaxed">{feature.description}</p>
-                    
+
                     <div className="pt-4 border-t border-white/10">
                       <p className="text-sm font-semibold text-vector-teal flex items-center gap-2">
                         <CheckCircle2 className="w-4 h-4" />
@@ -300,9 +300,9 @@ export default function Home() {
             <span className="text-[#00D1B2] dark:text-[#00D1B2] font-semibold text-sm">SEU PONTO DE PARTIDA</span>
           </motion.div>
 
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Comece sua  
-            <span className="block text-gradient"> Jornada Agora</span>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 px-4 max-w-4xl mx-auto leading-tight">
+            Comece sua
+            <span className="block text-gradient pb-1">Jornada Agora</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
             Escolha o caminho que combina com você. Cada trilha é cuidadosamente desenhada para máximo aprendizado
@@ -327,7 +327,7 @@ export default function Home() {
                 <Link to={item.href} className="block h-full">
                   <Card className="interactive-surface group cursor-pointer h-full relative overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-300">
                     <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#00D1B2] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    
+
                     <CardContent className="p-8 flex flex-col h-full">
                       {/* Badge */}
                       <div className="flex items-center justify-between mb-6">
@@ -390,14 +390,14 @@ export default function Home() {
             <span className="text-[#00D1B2] font-semibold text-sm">SUAS CONQUISTAS</span>
           </motion.div>
 
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Desbloqueie{" "}
-            <span className="text-gradient">Badges & Achievements</span>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 px-4 max-w-4xl mx-auto leading-tight">
+            Desbloqueie
+            <span className="text-gradient block pb-1">Badges & Achievements</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
             Ganhe badges exclusivos conforme você estuda e domina novos conceitos em vetores
           </p>
-          
+
           {/* Quick Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto mt-8">
             <div className="p-4 rounded-lg bg-muted/50 border border-border">
@@ -425,7 +425,7 @@ export default function Home() {
           transition={{ delay: 0.2 }}
           viewport={{ once: true, margin: "-100px" }}
         >
-          <BadgeSystem 
+          <BadgeSystem
             unlockedBadges={stats.unlockedBadges}
             layout="grid"
             showLocked={true}
@@ -461,11 +461,11 @@ export default function Home() {
           </motion.div>
 
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Respostas para  
+            Respostas para
             <span className="block text-gradient"> Suas Dúvidas</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            Temos respostas para as perguntas mais comuns sobre Mind Vectors. Se não encontrar o que procura, não hesite em nos contactar!
+            Temos respostas para as perguntas mais comuns sobre Vector Learn. Se não encontrar o que procura, não hesite em nos contactar!
           </p>
         </motion.div>
 
@@ -480,7 +480,7 @@ export default function Home() {
             {
               icon: Zap,
               question: "Posso usar no mobile?",
-              answer: "Sim! Mind Vectors é totalmente responsivo e funciona em qualquer dispositivo.",
+              answer: "Sim! Vector Learn é totalmente responsivo e funciona em qualquer dispositivo.",
               href: "/faq"
             },
             {
@@ -544,7 +544,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-br from-[#FF7A59]/20 via-[#5B8CFF]/20 to-[#00D1B2]/20 rounded-3xl blur-3xl -z-10" />
           <div className="absolute top-0 right-10 w-72 h-72 bg-[#FF7A59] rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse" />
           <div className="absolute bottom-0 left-10 w-72 h-72 bg-[#5B8CFF] rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse" style={{ animationDelay: "2s" }} />
-          
+
           <div className="relative z-10 bg-gradient-to-br from-[#FF7A59] via-[#FF5733] to-[#8E44AD] rounded-3xl p-12 md:p-16 text-white overflow-hidden shadow-2xl border border-white/10 group">
             <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             <div className="absolute top-0 right-0 opacity-10">
@@ -566,7 +566,7 @@ export default function Home() {
               <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
                 Pronto para dominar os vetores?
               </h2>
-              
+
               <p className="text-lg opacity-95 mb-8 max-w-2xl leading-relaxed">
                 Junte-se a milhares de estudantes que descobriram uma nova forma de aprender matemática. Comece hoje, veja resultados em uma semana. Garantido ou seu dinheiro de volta.
               </p>

@@ -78,10 +78,10 @@ export default function Simulador() {
     title: 'Simulador de Vetores 2D e 3D | Vector Learn',
     description: 'Explore vetores interativamente com simuladores 2D e 3D em tempo real. Manipule componentes, observe operações geometricamente.',
     keywords: 'simulador vetores 2D, simulador vetores 3D, visualização vetores, matemática interativa',
-    canonicalUrl: 'https://mindvectors.com/simulador',
+    canonicalUrl: 'https://vectorlearn.com/simulador',
     breadcrumbSchema: generateBreadcrumbSchema([
-      { name: 'Home', url: 'https://mindvectors.com' },
-      { name: 'Simulador', url: 'https://mindvectors.com/simulador' },
+      { name: 'Home', url: 'https://vectorlearn.com' },
+      { name: 'Simulador', url: 'https://vectorlearn.com/simulador' },
     ]),
   });
   const [simulatorAccessTracker, setSimulatorAccessTracker] = useState({ 

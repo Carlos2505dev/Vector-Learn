@@ -8,13 +8,13 @@ import { InclinedPlaneSimulator } from "@/components/InclinedPlaneSimulator";
 
 export default function Aplicacoes() {
   useSEO({
-    title: 'Aplicações dos Vetores - Engenharia e Tecnologia | Mind Vectors',
+    title: 'Aplicações dos Vetores - Engenharia e Tecnologia | Vector Learn',
     description: 'Descubra como os vetores são aplicados na engenharia mecânica, computação, civil e inteligência artificial.',
     keywords: 'aplicações de vetores, engenharia, computação gráfica, física aplicada, vetores na vida real',
-    canonicalUrl: 'https://mindvectors.com/aplicacoes',
+    canonicalUrl: 'https://vectorlearn.com/aplicacoes',
     breadcrumbSchema: generateBreadcrumbSchema([
-      { name: 'Home', url: 'https://mindvectors.com' },
-      { name: 'Aplicações', url: 'https://mindvectors.com/aplicacoes' },
+      { name: 'Home', url: 'https://vectorlearn.com' },
+      { name: 'Aplicações', url: 'https://vectorlearn.com/aplicacoes' },
     ]),
   });
 

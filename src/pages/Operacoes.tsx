@@ -132,10 +132,10 @@ export default function Operacoes() {
     title: 'Operações Vetoriais - Soma, Produto Escalar e Vetorial | Vector Learn',
     description: 'Domine operações vetoriais: soma, subtração, produto escalar, produto vetorial e projeção com exemplos práticos e visualizações.',
     keywords: 'operações vetoriais, produto escalar, produto vetorial, soma de vetores, física avançada',
-    canonicalUrl: 'https://mindvectors.com/operacoes',
+    canonicalUrl: 'https://vectorlearn.com/operacoes',
     breadcrumbSchema: generateBreadcrumbSchema([
-      { name: 'Home', url: 'https://mindvectors.com' },
-      { name: 'Operações', url: 'https://mindvectors.com/operacoes' },
+      { name: 'Home', url: 'https://vectorlearn.com' },
+      { name: 'Operações', url: 'https://vectorlearn.com/operacoes' },
     ]),
     learningResourceSchema: generateLearningResourceSchema(
       'Operações Vetoriais',

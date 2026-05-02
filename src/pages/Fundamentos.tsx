@@ -90,10 +90,10 @@ export default function Fundamentos() {
     title: 'Fundamentos de Vetores - Conceitos Básicos | Vector Learn',
     description: 'Aprenda os fundamentos de vetores: notação, componentes, magnitude e operações básicas com exemplos práticos e visualizações.',
     keywords: 'fundamentos vetores, notação vetorial, magnitude, componentes, física básica',
-    canonicalUrl: 'https://mindvectors.com/fundamentos',
+    canonicalUrl: 'https://vectorlearn.com/fundamentos',
     breadcrumbSchema: generateBreadcrumbSchema([
-      { name: 'Home', url: 'https://mindvectors.com' },
-      { name: 'Fundamentos', url: 'https://mindvectors.com/fundamentos' },
+      { name: 'Home', url: 'https://vectorlearn.com' },
+      { name: 'Fundamentos', url: 'https://vectorlearn.com/fundamentos' },
     ]),
     learningResourceSchema: generateLearningResourceSchema(
       'Fundamentos de Vetores',

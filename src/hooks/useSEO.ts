@@ -40,14 +40,14 @@ export const useSEO = (config: SEOConfig) => {
     // Atualizar Open Graph tags
     updateMetaTag('property', 'og:title', config.ogTitle || config.title);
     updateMetaTag('property', 'og:description', config.ogDescription || config.description);
-    updateMetaTag('property', 'og:image', config.ogImage || 'https://mindvectors.com/og-image.jpg');
+    updateMetaTag('property', 'og:image', config.ogImage || 'https://vectorlearn.com/og-image.jpg');
     updateMetaTag('property', 'og:url', config.canonicalUrl || window.location.href);
     updateMetaTag('property', 'og:type', config.ogType || 'website');
 
     // Atualizar Twitter tags
     updateMetaTag('name', 'twitter:title', config.twitterTitle || config.ogTitle || config.title);
     updateMetaTag('name', 'twitter:description', config.twitterDescription || config.ogDescription || config.description);
-    updateMetaTag('name', 'twitter:image', config.twitterImage || config.ogImage || 'https://mindvectors.com/og-image.jpg');
+    updateMetaTag('name', 'twitter:image', config.twitterImage || config.ogImage || 'https://vectorlearn.com/og-image.jpg');
     updateMetaTag('name', 'twitter:card', config.twitterCard || 'summary_large_image');
 
     // Atualizar canonical URL
@@ -144,7 +144,7 @@ export const generateLearningResourceSchema = (
   author: {
     '@type': 'Organization',
     name: 'Vector Learn',
-    url: 'https://mindvectors.com',
+    url: 'https://vectorlearn.com',
   },
 });
 
@@ -155,10 +155,10 @@ export const generateEducationalAppSchema = () => ({
   '@context': 'https://schema.org',
   '@type': 'EducationalWebApplication',
   name: 'Vector Learn',
-  alternateName: 'Mind Vectors',
+  alternateName: 'Vector Learn',
   description:
     'Plataforma educacional para aprender vetores com visualizações 3D interativas',
-  url: 'https://mindvectors.com',
+  url: 'https://vectorlearn.com',
   applicationCategory: 'Educational',
   about: {
     '@type': 'Thing',

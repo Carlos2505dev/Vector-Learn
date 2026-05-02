@@ -7,7 +7,7 @@ Disallow: /.env
 Disallow: /.git
 
 # Sitemaps
-Sitemap: https://mindvectors.com/sitemap.xml
+Sitemap: https://vectorlearn.com/sitemap.xml
 
 # AI Chatbots and LLM Crawlers
 User-agent: GPTBot

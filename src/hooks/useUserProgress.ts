@@ -39,7 +39,7 @@ const DEFAULT_STATS: UserStats = {
   averageTime: 0,
 };
 
-const STORAGE_KEY = "mind-vectors-user-progress";
+const STORAGE_KEY = "vector-learn-user-progress";
 
 export function useUserProgress() {
   const [stats, setStats] = useState<UserStats>(DEFAULT_STATS);
