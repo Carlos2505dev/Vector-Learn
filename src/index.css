@@ -1,17 +1,15 @@
+@import "katex/dist/katex.min.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* KaTeX styles */
-@import "katex/dist/katex.min.css";
 
 /* Vector Education System - Design Tokens */
 @layer base {
   :root {
     /* Brand Colors - Educational Vector Theme */
-    --vector-blue: 224 82% 67%; /* #5B8CFF - Primary vector color */
-    --vector-teal: 175 100% 42%; /* #00D1B2 - Secondary operations */
-    --vector-orange: 17 100% 67%; /* #FF7A59 - Accent highlights */
+    --vector-blue: 224 75% 50%; /* Darkened for accessibility */
+    --vector-teal: 175 100% 35%; /* Darkened for accessibility */
+    --vector-orange: 17 90% 55%; /* Adjusted for contrast */
     
     /* Extended Palette */
     --vector-purple: 250 69% 69%; /* #8B7CF6 - 3D space */
@@ -28,7 +26,7 @@
     /* Text Colors */
     --text-primary-light: 210 24% 8%; /* #0B0F14 */
     --text-primary-dark: 210 40% 92%; /* #E6EDF6 */
-    --text-secondary-light: 215 16% 47%; /* #64748B */
+    --text-secondary-light: 215 25% 35%; /* Darkened for accessibility */
     --text-secondary-dark: 215 20% 65%; /* #94A3B8 */
     
     /* Interactive States */
@@ -180,7 +178,7 @@
   }
 
   .btn-ghost {
-    @apply bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300;
+    @apply bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 font-bold;
   }
 
   /* Animation Classes */
@@ -204,7 +202,9 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-size: 200% 200%;
-    animation: gradient-shift 3s ease infinite;
+    animation: gradient-shift 4s ease-in-out infinite;
+    will-change: filter;
+    backface-visibility: hidden;
   }
 
   .grid-dots {
@@ -239,10 +239,10 @@
 
 @keyframes gradient-shift {
   0%, 100% {
-    background-position: 0% 50%;
+    filter: hue-rotate(0deg) brightness(1);
   }
   50% {
-    background-position: 100% 50%;
+    filter: hue-rotate(10deg) brightness(1.15);
   }
 }
 

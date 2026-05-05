@@ -2,9 +2,9 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![Lighthouse Score](https://img.shields.io/badge/Lighthouse-100-brightgreen)
-![React](https://img.shields.io/badge/React-18-blue)
-![TypeScript](https://img.shielsds.io/badge/TypeScript-5-blue)
-![Three.js](https://img.shields.io/badge/Three.js-r160-black)
+![Stacks](https://skillicons.dev/icons?i=html,css,js,ts,react)
+!![Ferramentas](https://skillicons.dev/icons?i=git,github,vscode)
+![Deploy](https://img.shields.io/badge/Deploy-Vercel-44526c?style=for-the-badge&logo=vercel&logoColor=white)
 
 Uma plataforma educacional de ponta desenvolvida para transformar a complexidade da **Análise Espacial** em uma experiência visual, interativa e gamificada.
 

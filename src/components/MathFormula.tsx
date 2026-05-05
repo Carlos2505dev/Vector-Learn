@@ -8,18 +8,22 @@ interface MathFormulaProps {
 }
 
 export function MathFormula({ formula, block = false, className = "" }: MathFormulaProps) {
+  const cleanFormula = formula?.trim() || "";
+  
+  if (!cleanFormula) return null;
+
   try {
     if (block) {
       return (
         <div className={`math-display ${className}`}>
-          <BlockMath math={formula} settings={{ strict: false }} />
+          <BlockMath math={cleanFormula} settings={{ strict: false }} />
         </div>
       );
     }
     
     return (
       <span className={`math-inline ${className}`}>
-        <InlineMath math={formula} settings={{ strict: false }} />
+        <InlineMath math={cleanFormula} settings={{ strict: false }} />
       </span>
     );
   } catch (error) {

@@ -62,21 +62,21 @@ export function InclinedPlaneSimulator() {
               <g transform={`translate(200, ${250 - 150 * Math.tan(angleRad)}) rotate(${-angle})`}>
                 <rect x="-20" y="-40" width="40" height="40" fill="#666" rx="4" />
                 
-                {/* Weight Vector (P) */}
-                <line x1="0" y1="-20" x2="0" y2={weight / 2} stroke="hsl(var(--vector-red))" strokeWidth="3" markerEnd="url(#arrow-orange)" />
-                <text x="5" y={weight / 2 + 15} fill="hsl(var(--vector-red))" className="text-[10px] font-bold">P</text>
+                {/* Weight Vector (P) - Should point straight down globally */}
+                <line x1="0" y1="-20" x2={-px / 2} y2={py / 2 - 20} stroke="hsl(var(--vector-red))" strokeWidth="3" markerEnd="url(#arrow-orange)" />
+                <text x={-px / 2 - 10} y={py / 2} fill="hsl(var(--vector-red))" className="text-[10px] font-bold">P</text>
 
                 {/* Normal Vector (N) */}
                 <line x1="0" y1="-20" x2="0" y2="-70" stroke="hsl(var(--vector-blue))" strokeWidth="3" markerEnd="url(#arrow-blue)" />
                 <text x="5" y="-75" fill="hsl(var(--vector-blue))" className="text-[10px] font-bold">N</text>
 
-                {/* Px Vector */}
-                <line x1="0" y1="-20" x2={px / 2} y2="-20" stroke="hsl(var(--vector-orange))" strokeWidth="2" strokeDasharray="2,2" markerEnd="url(#arrow-orange)" />
-                <text x={px / 2 + 5} y="-25" fill="hsl(var(--vector-orange))" className="text-[10px] font-bold">Px</text>
+                {/* Px Vector - Should point down the plane */}
+                <line x1="0" y1="-20" x2={-px / 2} y2="-20" stroke="hsl(var(--vector-orange))" strokeWidth="2" strokeDasharray="2,2" markerEnd="url(#arrow-orange)" />
+                <text x={-px / 2 - 20} y="-25" fill="hsl(var(--vector-orange))" className="text-[10px] font-bold">Px</text>
 
                 {/* Py Vector */}
-                <line x1="0" y1="-20" x2="0" y2={py / 2} stroke="hsl(var(--vector-teal))" strokeWidth="2" strokeDasharray="2,2" />
-                <text x="-25" y={py / 2} fill="hsl(var(--vector-teal))" className="text-[10px] font-bold">Py</text>
+                <line x1="0" y1="-20" x2="0" y2={py / 2 - 20} stroke="hsl(var(--vector-teal))" strokeWidth="2" strokeDasharray="2,2" />
+                <text x="-25" y={py / 2 - 10} fill="hsl(var(--vector-teal))" className="text-[10px] font-bold">Py</text>
               </g>
             </svg>
           </div>
@@ -125,8 +125,12 @@ export function InclinedPlaneSimulator() {
                   <span>Componente Py (Normal):</span>
                   <Badge variant="outline" className="font-mono text-vector-teal">{py.toFixed(1)} N</Badge>
                 </div>
-                <div className="pt-2 border-t mt-2">
-                  <MathFormula formula="P_x = P \\cdot \\sin(\\theta) \\quad P_y = P \\cdot \\cos(\\theta)" block />
+                <div className="pt-4 border-t mt-2 space-y-4">
+                  <MathFormula formula={String.raw`\vec{P} = \vec{P}_x + \vec{P}_y`} block />
+                  <div className="grid grid-cols-2 gap-4">
+                    <MathFormula formula={String.raw`|P_x| = P \sin(\theta)`} />
+                    <MathFormula formula={String.raw`|P_y| = P \cos(\theta)`} />
+                  </div>
                 </div>
               </div>
             </div>

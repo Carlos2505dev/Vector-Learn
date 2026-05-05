@@ -505,7 +505,7 @@ export default function Home() {
                       <div className="w-12 h-12 bg-[#5B8CFF]/10 rounded-lg flex items-center justify-center mx-auto mb-4 group-hover:bg-[#5B8CFF]/20 transition-colors">
                         <Icon className="w-6 h-6 text-[#5B8CFF]" />
                       </div>
-                      <h4 className="font-semibold mb-2">{item.question}</h4>
+                      <h3 className="font-semibold mb-2">{item.question}</h3>
                       <p className="text-sm text-muted-foreground">{item.answer}</p>
                     </CardContent>
                   </Card>

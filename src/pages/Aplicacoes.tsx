@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Cog, Cpu, Building2, Plane, Car, Gamepad2, Brain, Eye, Calculator, Zap, PlayCircle, ArrowRight } from "lucide-react";
+import { Code, Cpu, Database, Network, Shield, Search, Terminal, Gamepad2, Brain, Eye, Calculator, Zap, PlayCircle, ArrowRight, Layers, Globe } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { Card, CardContent } from "@/components/ui/card";
 import { useSEO, generateBreadcrumbSchema } from "@/hooks/useSEO";
@@ -9,7 +9,7 @@ import { InclinedPlaneSimulator } from "@/components/InclinedPlaneSimulator";
 export default function Aplicacoes() {
   useSEO({
     title: 'Aplicações dos Vetores - Engenharia e Tecnologia | Vector Learn',
-    description: 'Descubra como os vetores são aplicados na engenharia mecânica, computação, civil e inteligência artificial.',
+    description: 'Descubra como os vetores são aplicados na engenharia de software, ciência da computação e inteligência artificial.',
     keywords: 'aplicações de vetores, engenharia, computação gráfica, física aplicada, vetores na vida real',
     canonicalUrl: 'https://vectorlearn.com/aplicacoes',
     breadcrumbSchema: generateBreadcrumbSchema([
@@ -29,11 +29,11 @@ export default function Aplicacoes() {
           className="text-center mb-8"
         >
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            Aplicações <span className="text-gradient">Práticas</span> na Engenharia
+            Aplicações <span className="text-gradient">Práticas</span> na Tecnologia
           </h1>
           <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-            Descubra como os vetores são fundamentais em diversas áreas da engenharia, 
-            transformando teoria matemática em soluções reais que moldam nosso mundo
+            Descubra como os vetores são fundamentais em diversas áreas da tecnologia, 
+            transformando lógica matemática em soluções digitais que moldam nosso mundo
           </p>
         </motion.div>
       </section>
@@ -41,7 +41,7 @@ export default function Aplicacoes() {
       {/* Applications Section */}
       <section className="py-12">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-          {/* Engenharia Mecânica */}
+          {/* Engenharia de Software */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -51,31 +51,31 @@ export default function Aplicacoes() {
             <Card className="interactive-surface h-full border-t-4 border-t-vector-blue">
               <CardContent className="p-8">
                 <div className="w-16 h-16 bg-gradient-to-br from-vector-blue to-vector-cyan rounded-2xl flex items-center justify-center mb-6 shadow-elegant">
-                  <Cog className="h-8 w-8 text-white" />
+                  <Code className="h-8 w-8 text-white" />
                 </div>
                 <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
-                  Engenharia Mecânica
+                  Engenharia de Software
                 </h3>
                 <div className="space-y-4 text-muted-foreground">
                   <div className="flex items-start gap-3">
-                    <Car className="h-5 w-5 text-vector-blue mt-1 flex-shrink-0" />
+                    <Layers className="h-5 w-5 text-vector-blue mt-1 flex-shrink-0" />
                     <div>
-                      <p className="font-semibold text-foreground">Análise de Forças</p>
-                      <p className="text-sm">Decomposição de forças em estruturas, cálculo de tensões e determinação de pontos de equilíbrio em sistemas mecânicos complexos</p>
+                      <p className="font-semibold text-foreground">Arquitetura de Sistemas</p>
+                      <p className="text-sm">Modelagem de dependências, escalabilidade de microsserviços e design de padrões estruturais complexos</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
-                    <Plane className="h-5 w-5 text-vector-blue mt-1 flex-shrink-0" />
+                    <Globe className="h-5 w-5 text-vector-blue mt-1 flex-shrink-0" />
                     <div>
-                      <p className="font-semibold text-foreground">Dinâmica de Rotação</p>
-                      <p className="text-sm">Momento angular, torque e movimento rotacional em máquinas, turbinas e sistemas aeroespaciais</p>
+                      <p className="font-semibold text-foreground">Desenvolvimento Web e Mobile</p>
+                      <p className="text-sm">Criação de layouts responsivos, animações fluidas e interfaces baseadas em coordenadas vetoriais</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
-                    <Zap className="h-5 w-5 text-vector-blue mt-1 flex-shrink-0" />
+                    <Terminal className="h-5 w-5 text-vector-blue mt-1 flex-shrink-0" />
                     <div>
-                      <p className="font-semibold text-foreground">Cinemática de Mecanismos</p>
-                      <p className="text-sm">Velocidade e aceleração em engrenagens, braços robóticos e sistemas de transmissão automotivos</p>
+                      <p className="font-semibold text-foreground">DevOps e Automação</p>
+                      <p className="text-sm">Pipeline de CI/CD, monitoramento de performance em tempo real e orquestração de containers</p>
                     </div>
                   </div>
                 </div>
@@ -125,7 +125,7 @@ export default function Aplicacoes() {
             </Card>
           </motion.div>
 
-          {/* Engenharia Civil */}
+          {/* Ciência da Computação */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -135,31 +135,31 @@ export default function Aplicacoes() {
             <Card className="interactive-surface h-full border-t-4 border-t-vector-orange">
               <CardContent className="p-8">
                 <div className="w-16 h-16 bg-gradient-to-br from-vector-orange to-vector-red rounded-2xl flex items-center justify-center mb-6 shadow-elegant">
-                  <Building2 className="h-8 w-8 text-white" />
+                  <Database className="h-8 w-8 text-white" />
                 </div>
                 <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
-                  Engenharia Civil
+                  Ciência da Computação
                 </h3>
                 <div className="space-y-4 text-muted-foreground">
                   <div className="flex items-start gap-3">
-                    <Calculator className="h-5 w-5 text-vector-orange mt-1 flex-shrink-0" />
+                    <Search className="h-5 w-5 text-vector-orange mt-1 flex-shrink-0" />
                     <div>
-                      <p className="font-semibold text-foreground">Análise Estrutural</p>
-                      <p className="text-sm">Distribuição de cargas em pontes, edifícios e torres, garantindo estabilidade e segurança das construções</p>
+                      <p className="font-semibold text-foreground">Algoritmos e Otimização</p>
+                      <p className="text-sm">Processamento de grandes volumes de dados, busca eficiente e algoritmos de ordenação complexos</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
-                    <Zap className="h-5 w-5 text-vector-orange mt-1 flex-shrink-0" />
+                    <Shield className="h-5 w-5 text-vector-orange mt-1 flex-shrink-0" />
                     <div>
-                      <p className="font-semibold text-foreground">Mecânica dos Solos</p>
-                      <p className="text-sm">Análise de tensões e deformações em fundações, contenções e estudos de estabilidade de taludes</p>
+                      <p className="font-semibold text-foreground">Criptografia e Segurança</p>
+                      <p className="text-sm">Protocolos de segurança, proteção de dados e integridade de sistemas distribuídos</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
-                    <PlayCircle className="h-5 w-5 text-vector-orange mt-1 flex-shrink-0" />
+                    <Network className="h-5 w-5 text-vector-orange mt-1 flex-shrink-0" />
                     <div>
-                      <p className="font-semibold text-foreground">Fluidodinâmica Aplicada</p>
-                      <p className="text-sm">Escoamento em barragens, sistemas de drenagem e redes de distribuição de água e saneamento</p>
+                      <p className="font-semibold text-foreground">Redes e Sistemas</p>
+                      <p className="text-sm">Comunicação entre sistemas, protocolos de rede e arquitetura de computadores de alto desempenho</p>
                     </div>
                   </div>
                 </div>
@@ -181,9 +181,9 @@ export default function Aplicacoes() {
               Do Conceito à Realização
             </h3>
             <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-              Os vetores são a linguagem universal da engenharia moderna. Desde a construção de arranha-céus 
-              que desafiam a gravidade até algoritmos de IA que revolucionam a tecnologia, passando por 
-              simulações que preveem o comportamento de estruturas antes mesmo de serem construídas.
+              Os vetores são a linguagem universal da tecnologia moderna. Desde o desenvolvimento de 
+              sistemas escaláveis até algoritmos de IA que revolucionam a sociedade, passando por 
+              simulações que processam bilhões de dados em frações de segundo.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
               Compreender vetores não é apenas aprender matemática — é desenvolver a capacidade de 
@@ -227,15 +227,15 @@ export default function Aplicacoes() {
       >
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Operações Vetoriais nas <span className="text-gradient">Engenharias</span>
+            Operações Vetoriais na <span className="text-gradient">Tecnologia</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Veja como cada operação vetorial resolve problemas específicos em diferentes áreas da engenharia
+            Veja como cada operação vetorial resolve problemas específicos em diferentes áreas da tecnologia
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Engenharia Mecânica */}
+          {/* Engenharia de Software */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -245,64 +245,64 @@ export default function Aplicacoes() {
             <Card className="h-full interactive-surface border-2 hover:border-primary/50 transition-all duration-300">
               <CardContent className="p-6">
                 <div className="w-16 h-16 bg-gradient-to-br from-[#5B8CFF] via-[#3B70F3] to-[#00D1B2] rounded-2xl flex items-center justify-center mb-4 mx-auto">
-                  <Cog className="h-8 w-8 text-white" />
+                  <Code className="h-8 w-8 text-white" />
                 </div>
-                <h3 className="text-2xl font-bold text-center text-primary mb-6">Engenharia Mecânica</h3>
+                <h3 className="text-2xl font-bold text-center text-primary mb-6">Engenharia de Software</h3>
                 
                 <div className="space-y-4">
                   <div className="bg-muted/50 p-4 rounded-lg">
                     <div className="flex items-start gap-3 mb-2">
-                      <Plane className="h-5 w-5 text-vector-blue mt-1 flex-shrink-0" />
+                      <Layers className="h-5 w-5 text-vector-blue mt-1 flex-shrink-0" />
                       <div>
                         <h4 className="font-semibold text-vector-blue mb-1">Soma de Vetores</h4>
                         <p className="text-sm text-muted-foreground">
-                          Calcular força resultante em estruturas e mecanismos, composição de velocidades
+                          Composição de estados em aplicações e balanceamento de carga distribuída
                         </p>
                       </div>
                     </div>
                   </div>
-
+ 
                   <div className="bg-muted/50 p-4 rounded-lg">
                     <div className="flex items-start gap-3 mb-2">
-                      <Car className="h-5 w-5 text-vector-teal mt-1 flex-shrink-0" />
+                      <Terminal className="h-5 w-5 text-vector-teal mt-1 flex-shrink-0" />
                       <div>
-                        <h4 className="font-semibold text-vector-teal mb-1">Produto Vetorial</h4>
+                        <h4 className="font-semibold text-vector-teal mb-1">Produto Escalar</h4>
                         <p className="text-sm text-muted-foreground">
-                          Calcular momento e torque em eixos rotativos, velocidade angular
+                          Análise de similaridade em sistemas de recomendação e busca de código
                         </p>
                       </div>
                     </div>
                   </div>
-
+ 
                   <div className="bg-muted/50 p-4 rounded-lg">
                     <div className="flex items-start gap-3 mb-2">
-                      <Zap className="h-5 w-5 text-vector-purple mt-1 flex-shrink-0" />
+                      <Globe className="h-5 w-5 text-vector-purple mt-1 flex-shrink-0" />
                       <div>
-                        <h4 className="font-semibold text-vector-purple mb-1">Produto Escalar</h4>
+                        <h4 className="font-semibold text-vector-purple mb-1">Produto Vetorial</h4>
                         <p className="text-sm text-muted-foreground">
-                          Determinar trabalho mecânico, potência e projeções de forças
+                          Transformações de UI e renderização de elementos gráficos dinâmicos
                         </p>
                       </div>
                     </div>
                   </div>
-
+ 
                   <div className="bg-muted/50 p-4 rounded-lg">
                     <div className="flex items-start gap-3 mb-2">
                       <ArrowRight className="h-5 w-5 text-vector-orange mt-1 flex-shrink-0" />
                       <div>
-                        <h4 className="font-semibold text-vector-orange mb-1">Produto Misto</h4>
+                        <h4 className="font-semibold text-vector-orange mb-1">Projeção</h4>
                         <p className="text-sm text-muted-foreground">
-                          Verificar rigidez espacial de estruturas tridimensionais
+                          Mapeamento de fluxos de dados e visualização de métricas de performance
                         </p>
                       </div>
                     </div>
                   </div>
                 </div>
-
+ 
                 <div className="bg-primary/5 p-4 rounded-lg border border-primary/20 mt-4">
                   <h5 className="font-semibold text-sm mb-2 text-primary">Exemplo Real:</h5>
                   <p className="text-sm text-muted-foreground">
-                    Braço robótico: produto vetorial calcula torques nas juntas, produto escalar determina o trabalho realizado.
+                    Sistemas escaláveis: vetores de estado gerenciam a carga entre servidores de forma otimizada.
                   </p>
                 </div>
               </CardContent>
@@ -383,7 +383,7 @@ export default function Aplicacoes() {
             </Card>
           </motion.div>
 
-          {/* Engenharia Civil */}
+          {/* Ciência da Computação */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -393,18 +393,18 @@ export default function Aplicacoes() {
             <Card className="h-full interactive-surface border-2 hover:border-primary/50 transition-all duration-300">
               <CardContent className="p-6">
                 <div className="w-16 h-16 bg-gradient-to-br from-[#FF7A59] via-[#FF5733] to-[#8E44AD] rounded-2xl flex items-center justify-center mb-4 mx-auto">
-                  <Building2 className="h-8 w-8 text-white" />
+                  <Database className="h-8 w-8 text-white" />
                 </div>
-                <h3 className="text-2xl font-bold text-center text-primary mb-6">Engenharia Civil</h3>
+                <h3 className="text-2xl font-bold text-center text-primary mb-6">Ciência da Computação</h3>
                 
                 <div className="space-y-4">
                   <div className="bg-muted/50 p-4 rounded-lg">
                     <div className="flex items-start gap-3 mb-2">
-                      <Building2 className="h-5 w-5 text-vector-blue mt-1 flex-shrink-0" />
+                      <Search className="h-5 w-5 text-vector-blue mt-1 flex-shrink-0" />
                       <div>
-                        <h4 className="font-semibold text-vector-blue mb-1">Soma de Vetores</h4>
+                        <h4 className="font-semibold text-vector-blue mb-1">Soma Vetorial</h4>
                         <p className="text-sm text-muted-foreground">
-                          Equilíbrio de forças em treliças, análise de cargas distribuídas
+                          Agregação de dados em espaços multidimensionais para Big Data
                         </p>
                       </div>
                     </div>
@@ -412,11 +412,11 @@ export default function Aplicacoes() {
 
                   <div className="bg-muted/50 p-4 rounded-lg">
                     <div className="flex items-start gap-3 mb-2">
-                      <Calculator className="h-5 w-5 text-vector-teal mt-1 flex-shrink-0" />
+                      <Shield className="h-5 w-5 text-vector-teal mt-1 flex-shrink-0" />
                       <div>
-                        <h4 className="font-semibold text-vector-teal mb-1">Projeção</h4>
+                        <h4 className="font-semibold text-vector-teal mb-1">Produto Escalar</h4>
                         <p className="text-sm text-muted-foreground">
-                          Calcular tensões normais e cisalhantes em planos de ruptura
+                          Mecanismos de busca e ranqueamento de documentos por similaridade de cosseno
                         </p>
                       </div>
                     </div>
@@ -424,11 +424,11 @@ export default function Aplicacoes() {
 
                   <div className="bg-muted/50 p-4 rounded-lg">
                     <div className="flex items-start gap-3 mb-2">
-                      <Zap className="h-5 w-5 text-vector-purple mt-1 flex-shrink-0" />
+                      <Network className="h-5 w-5 text-vector-purple mt-1 flex-shrink-0" />
                       <div>
                         <h4 className="font-semibold text-vector-purple mb-1">Produto Vetorial</h4>
                         <p className="text-sm text-muted-foreground">
-                          Calcular áreas de terrenos e orientação de superfícies topográficas
+                          Geometria computacional para detecção de colisões e física de objetos
                         </p>
                       </div>
                     </div>
@@ -440,7 +440,7 @@ export default function Aplicacoes() {
                       <div>
                         <h4 className="font-semibold text-vector-orange mb-1">Produto Misto</h4>
                         <p className="text-sm text-muted-foreground">
-                          Determinar volumes de escavação e aterro em obras de terraplanagem
+                          Verificação de consistência em volumes de dados e modelagem espacial
                         </p>
                       </div>
                     </div>
@@ -450,7 +450,7 @@ export default function Aplicacoes() {
                 <div className="bg-primary/5 p-4 rounded-lg border border-primary/20 mt-4">
                   <h5 className="font-semibold text-sm mb-2 text-primary">Exemplo Real:</h5>
                   <p className="text-sm text-muted-foreground">
-                    Ponte: soma de forças para equilíbrio, projeção para tensões e produto misto para calcular volumes.
+                    Motores de busca: vetores de palavras (embeddings) usam o produto escalar para encontrar resultados relevantes.
                   </p>
                 </div>
               </CardContent>
@@ -471,9 +471,9 @@ export default function Aplicacoes() {
             <CardContent className="p-10 text-center relative z-10">
               <h3 className="text-3xl font-bold mb-6">Por Que Operações Vetoriais São Essenciais?</h3>
               <p className="text-xl leading-relaxed max-w-4xl mx-auto opacity-95">
-                Cada operação vetorial tem um propósito específico na engenharia: a soma combina efeitos, 
-                o produto escalar mede alinhamento, o produto vetorial cria perpendiculares, a projeção decompõe 
-                componentes e o produto misto calcula volumes. Dominar essas operações é dominar a linguagem da engenharia moderna.
+                Cada operação vetorial tem um propósito específico na tecnologia: a soma combina estados, 
+                o produto escalar mede similaridade, o produto vetorial cria transformações visuais, a projeção 
+                reduz dimensionalidade e o produto misto valida dados espaciais. Dominar essas operações é dominar a base da computação moderna.
               </p>
             </CardContent>
           </Card>

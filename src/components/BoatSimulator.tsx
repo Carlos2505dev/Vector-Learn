@@ -139,8 +139,12 @@ export function BoatSimulator() {
                   <span>Ângulo de deriva:</span>
                   <Badge variant="outline" className="font-mono">{resultantAngle.toFixed(1)}°</Badge>
                 </div>
-                <div className="pt-2 border-t mt-2">
-                  <MathFormula formula="\\vec{V}_{res} = \\vec{V}_{barco} + \\vec{V}_{rio}" block />
+                <div className="pt-4 border-t mt-2 space-y-4">
+                  <MathFormula formula={String.raw`\vec{V}_{res} = \vec{V}_{barco} + \vec{V}_{rio}`} block />
+                  <div className="flex flex-wrap gap-4 justify-center">
+                    <MathFormula formula={String.raw`V_{res,x} = V_{b,x} + V_{rio}`} />
+                    <MathFormula formula={String.raw`V_{res,y} = V_{b,y}`} />
+                  </div>
                 </div>
               </div>
             </div>
