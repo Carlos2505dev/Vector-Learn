@@ -1,109 +1,142 @@
 # Vector Learn 🚀
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-![Lighthouse Score](https://img.shields.io/badge/Lighthouse-100-brightgreen)
-![Stacks](https://skillicons.dev/icons?i=html,css,js,ts,react)
-!![Ferramentas](https://skillicons.dev/icons?i=git,github,vscode)
-![Deploy](https://img.shields.io/badge/Deploy-Vercel-44526c?style=for-the-badge&logo=vercel&logoColor=white)
-
-Uma plataforma educacional de ponta desenvolvida para transformar a complexidade da **Análise Espacial** em uma experiência visual, interativa e gamificada.
+> **Uma plataforma interativa para estudantes dominarem vetores e análise espacial através de simuladores 3D, desafios práticos e gamificação.**
 
 ---
 
-## 🌟 Do Problema à Solução
+![Vector Learn - Simulador Interativo de Vetores](./public/hero/hero_section.png)
 
-### **Situação**
+*Pensar em vetores muda como você vê o mundo — Visualize, simule e domine conceitos em 3D*
 
-O aprendizado de vetores e análise espacial no ensino superior frequentemente esbarra em abstrações matemáticas densas, onde os alunos têm dificuldade em visualizar como fórmulas se traduzem em movimento e força no mundo real.
-
-### **Tarefa**
-
-Meu objetivo foi projetar e desenvolver uma solução "full-experience" que não apenas apresentasse o conteúdo, mas permitisse que o estudante manipulasse a física do ambiente, recebendo feedback imediato através de simuladores 2D/3D e um ecossistema de gamificação.
-
-### **Ação**
-
-Arquitetada com **React 18** e **Vite**, utilizei **Three.js** (React Three Fiber) para criar um ambiente 3D imersivo. Desenvolvi um motor matemático robusto em **TypeScript** para garantir precisão nas operações vetoriais. A interface foi construída com **Tailwind CSS** e **Radix UI**, garantindo um Design System coeso e acessível (WCAG 2.2 AA), enquanto o **Framer Motion** foi aplicado para micro-interações que elevam o UX.
-
-### **Resultado**
-
-A Vector-Learn tornou-se uma ferramenta pedagógica de alto impacto, alcançando scores máximos de performance e acessibilidade. Hoje, conta com múltiplos simuladores (Barco, Plano Inclinado, 3D), um sistema de quiz adaptativo e dashboards de progresso que transformam o estudo em uma jornada de conquistas.
+**Acesse agora:** [Vector Learn](https://vectorlearn-murex.vercel.app/) | Experimente sem criar conta
 
 ---
 
-## 🚀 Começando
+## 📊 Badges & Status
 
-Siga estas instruções para configurar o projeto localmente.
+| Qualidade | Status |
+|-----------|--------|
+| [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) | Licença MIT |
+| ![Lighthouse Score](https://img.shields.io/badge/Lighthouse-100-brightgreen) | Performance Perfeita |
+| ![Deploy](https://img.shields.io/badge/Deploy-Vercel-44526c?style=for-the-badge&logo=vercel&logoColor=white) | Hospedado na Vercel |
+
+---
+
+## 🎯 O que é Vector Learn?
+
+**Vector Learn** é uma plataforma educacional inovadora criada para transformar o aprendizado de vetores e análise espacial. Diferente dos métodos tradicionais baseados apenas em fórmulas e abstrações, a plataforma oferece uma **experiência visual, interativa e gamificada** onde estudantes podem:
+
+✨ **Visualizar conceitos matemáticos complexos** em tempo real através de simuladores 3D  
+🎮 **Interagir fisicamente** com vetores, forças e operações vetoriais  
+🏆 **Competir e progredir** através de um sistema de gamificação com badges, leaderboards e desafios  
+📊 **Acompanhar seu aprendizado** com dashboards detalhados de progresso  
+
+---
+
+##  Por que Vector Learn?
+
+### O Problema
+Estudantes de engenharia, física e computação enfrentam dificuldades ao aprender vetores porque:
+- Conceitos são abstratos e difíceis de visualizar
+- Fórmulas não mostram como funcionam na prática
+- Falta engajamento e motivação
+
+### A Solução
+Vector Learn resolve isto através de:
+- **Simuladores imersivos** que trazem abstração para a realidade visual
+- **Feedback imediato** enquanto você manipula vetores e realiza operações
+- **Gamificação inteligente** que transforma estudo em jornada de conquistas
+- **Conteúdo progressivo** de fundamentos a aplicações avançadas
+
+---
+
+## ⚙️ Stack Tecnológica
+
+Vector Learn foi arquitetada com as **tecnologias mais modernas e performáticas** da web:
+
+| Camada | Tecnologias |
+|--------|-------------|
+| **Build & Development** | ![Vite](https://skillicons.dev/icons?i=vite) Vite – Builds 10x mais rápidos e HMR instantâneo |
+| **Frontend Framework** | ![React](https://skillicons.dev/icons?i=react) React 18 – Componentes reativos e otimizados |
+| **Linguagem** | ![TypeScript](https://skillicons.dev/icons?i=ts) TypeScript – Tipagem estática e segurança |
+| **Estilização** | ![Tailwind](https://skillicons.dev/icons?i=tailwindcss) Tailwind CSS + Shadcn/UI – Design System acessível |
+| **3D & Animações** | ![Three.js](https://skillicons.dev/icons?i=threejs) Three.js + React Three Fiber + Framer Motion |
+| **Matemática & Fórmulas** | **KaTeX** – Renderização ultra-rápida de LaTeX |
+| **Visualização de Dados** | **Recharts** – Dashboards limpos e responsivos |
+| **Ferramentas** | ![Git](https://skillicons.dev/icons?i=git) ![GitHub](https://skillicons.dev/icons?i=github) ![VSCode](https://skillicons.dev/icons?i=vscode) |
+| **Deploy** | ![Vercel](https://img.shields.io/badge/Vercel-000000?style=flat&logo=vercel) Infraestrutura global |
+
+### 🎯 Decisões Técnicas Chave
+
+- **Vite vs CRA**: Vite oferece builds 10x mais rápidos e HMR (Hot Module Replacement) instantâneo, otimizando significativamente o fluxo de desenvolvimento
+- **Three.js + React Three Fiber**: Renderização 3D de alta performance sem comprometer FPS, essencial para simuladores fluidos
+- **TypeScript**: Tipagem rigorosa especialmente crítica em cálculos matemáticos vetoriais onde erros são custosos
+- **Tailwind + Shadcn/UI**: Abordagem utilitária combinada com componentes base acessíveis (WCAG 2.2 AA)
+
+---
+
+## 🚀 Quick Start
 
 ### Pré-requisitos
 
-* Node.js (v18 ou superior)
+* Node.js v18+
 * npm, yarn ou bun
 
 ### Instalação
 
-1. Clone o repositório:
+```bash
+# Clone o repositório
+git clone https://github.com/Carlos2505dev/Vector-Learn.git
+cd Vector-Learn
 
-   ```bash
-   git clone https://github.com/Carlos2505dev/Vector-Learn.git
-   ```
+# Instale as dependências
+npm install
+# ou
+bun install
 
-2. Entre no diretório:
+# Inicie o servidor de desenvolvimento
+npm run dev
+```
 
-   ```bash
-   cd Vector-Learn
-   ```
-
-3. Instale as dependências:
-
-   ```bash
-   npm install
-   # ou
-   bun install
-   ```
-
-4. Inicie o servidor de desenvolvimento:
-
-   ```bash
-   npm run dev
-   ```
+O servidor estará disponível em **http://localhost:5173**
 
 ---
 
-## 🛠️ Stack Tecnológica & Decisões Técnicas
+## 🎮 Funcionalidades Principais
 
-Eu seleciono apenas as melhores ferramentas para garantir que o projeto seja escalável, performático e mantenha um padrão de código de nível industrial:
+### 🕹️ Simuladores Interativos Avançados
 
-* **React 18 & Vite**: A escolha pelo Vite em vez do CRA garante builds 10x mais rápidos e um HMR (Hot Module Replacement) instantâneo, otimizando o fluxo de desenvolvimento.
-* **Three.js + React Three Fiber**: Para renderização 3D de alta performance, permitindo visualizações complexas sem comprometer o FPS.
-* **TypeScript**: Tipagem estática rigorosa para prevenir erros em tempo de execução, especialmente crítica em cálculos matemáticos vetoriais.
-* **Tailwind CSS & Shadcn/UI**: Utilizo uma abordagem utilitária combinada com componentes acessíveis para um design premium e consistente.
-* **Framer Motion**: Essencial para animações baseadas em estado, tornando a transição entre conceitos matemáticos algo fluido e natural.
-* **KaTeX**: A engine mais rápida da web para renderização de fórmulas matemáticas LaTeX.
-* **Recharts**: Para dashboards de análise de desempenho do aluno com visualizações de dados limpas.
+A Vector Learn oferece múltiplos ambientes de simulação onde os estudantes experimentam conceitos em tempo real:
 
----
+| Simulador | Descrição | Conceitos |
+|-----------|-----------|-----------|
+| 🚤 **Barco** | Interaja com vetores de propulsão e correnteza em ambiente aquático | Soma vetorial, componentes |
+| 📐 **Plano Inclinado** | Visualize decomposição de forças gravitacionais em objetos em rampa | Decomposição de forças, Normal e Peso |
+| 🏗️ **3D Explorer** | Manipule livremente vetores em 3D com rotação orbital e zoom | Vetores em 3 dimensões, Magnitude |
+| 🔄 **Comparador** | Analise lado-a-lado magnitude, direção e operações entre vetores | Análise comparativa, Aplicações |
 
-## 🎯 Funcionalidades Principais
+### 🏆 Sistema de Gamificação & Engajamento
 
-### 🕹️ Simuladores Avançados
+O aprendizado se transforma em jornada de conquistas com:
 
-* **Simulador de Barco**: Aplicação prática de soma vetorial (correnteza vs. propulsão).
-* **Plano Inclinado**: Decomposição de forças gravitacionais e normais.
-* **Visualizador 3D**: Exploração de eixos X, Y e Z com manipulação orbital.
-* **Comparador de Vetores**: Ferramenta para análise visual de magnitude e direção.
+- **🎖️ Badges de Desempenho**: Conquistas automáticas ao atingir marcos de aprendizado
+- **🥇 Leaderboard Dinâmico**: Ranking em tempo real incentivando competição saudável  
+- **🔥 Streaks & Consistência**: Contador de dias consecutivos de estudo com recompensas
+- **📜 Certificados**: Geração automática ao completar trilhas de desafios
+- **🎯 Desafios Adaptativos**: Quiz inteligente que se ajusta ao seu nível
 
-### 🏆 Ecossistema de Gamificação
+### 📚 Conteúdo Educacional Progressivo
 
-* **Sistema de Badges**: Conquistas automáticas por marcos de aprendizado.
-* **Leaderboard**: Ranking em tempo real para incentivar a competição saudável.
-* **Streaks & Onboarding**: Tutorial interativo para novos usuários e incentivo à constância.
-* **Certificação**: Geração de certificados ao completar trilhas de desafios.
+- **Fundamentos**: De escalares a vetores e operações básicas
+- **Operações**: Soma, subtração, produto escalar, produto vetorial com visualização geométrica
+- **Aplicações Reais**: Casos práticos em Física, Engenharia e Computação Gráfica
+- **Modo de Teste**: Avaliações estruturadas com feedback automático
 
-### 📚 Conteúdo Pedagógico
+### 📊 Análise de Progresso
 
-* **Fundamentos**: De escalares a tensores iniciais.
-* **Operações**: Soma, Subtração, Produto Escalar e Vetorial com visualização geométrica.
-* **Aplicações Reais**: Casos de uso em Física, Engenharia e Computação Gráfica.
+- **Dashboard Pessoal**: Visualizando seu desempenho ao longo do tempo
+- **Relatórios Detalhados**: Análise de quais conceitos precisa reforçar
+- **Exportação de Certificados**: Comprovação do aprendizado concluído
 
 ---
 
