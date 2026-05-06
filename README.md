@@ -4,7 +4,7 @@
 
 ---
 
-![Vector Learn - Simulador Interativo de Vetores](./public/hero/hero_section.png)
+![Vector Learn - Simulador Interativo de Vetores](./public/hero/hero_section.jpg)
 
 *Pensar em vetores muda como você vê o mundo — Visualize, simule e domine conceitos em 3D*
 
