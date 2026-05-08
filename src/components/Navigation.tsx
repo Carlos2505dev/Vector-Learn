@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Calculator, Book, Target, PlayCircle, Lightbulb, Layers, HelpCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -15,7 +15,7 @@ const navigationItems = [
   { name: "FAQ", href: "/faq", icon: HelpCircle },
 ];
 
-export function Navigation() {
+export const Navigation = memo(function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
 
@@ -30,13 +30,14 @@ export function Navigation() {
       <nav className="container mx-auto px-4 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center space-x-3 group">
-          <div className="w-10 h-10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-            <img 
-              src="/logomarca.webp" 
-              alt="Vector Learn Logo" 
-              className="w-full h-full object-contain"
-            />
-          </div>
+          <img 
+            src="/logomarca.webp" 
+            alt="Vector Learn Logo" 
+            className="w-10 h-10 object-contain group-hover:scale-110 transition-transform duration-300"
+            width="40"
+            height="40"
+            loading="eager"
+          />
           <span className="text-xl font-bold text-gradient">Vector Learn</span>
         </Link>
 
@@ -134,4 +135,4 @@ export function Navigation() {
       </AnimatePresence>
     </header>
   );
-}
+});

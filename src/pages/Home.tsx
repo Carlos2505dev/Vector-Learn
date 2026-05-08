@@ -151,22 +151,17 @@ export default function Home() {
             transition={{ duration: 0.8 }}
             className="text-center lg:text-left"
           >
-            <motion.h1
-              className="text-5xl md:text-6xl font-bold mb-6 leading-tight"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.8 }}
-            >
+            <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
               Pensar em{" "}
               <span className="text-gradient">vetores</span>{" "}
               muda como você vê o mundo
-            </motion.h1>
+            </h1>
 
             <motion.p
               className="text-xl text-muted-foreground mb-8 max-w-2xl"
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.8 }}
+              transition={{ delay: 0.1, duration: 0.5 }}
             >
               Descubra o poder dos vetores através de visualizações interativas,
               simuladores 3D e exercícios práticos. Uma nova forma de aprender matemática.
@@ -174,9 +169,9 @@ export default function Home() {
 
             <motion.div
               className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.8 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
             >
               <Button asChild className="btn-hero">
                 <Link to="/fundamentos">

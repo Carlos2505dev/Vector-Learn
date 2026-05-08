@@ -9,14 +9,28 @@ interface HeroVectorProps {
 
 export function HeroVector({ className = "" }: HeroVectorProps) {
   const svgRef = useRef<SVGSVGElement>(null);
+  const rectRef = useRef<DOMRect | null>(null);
   const [mouseVector, setMouseVector] = useState<Vector2D>({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
 
+  const updateRect = () => {
+    if (svgRef.current) {
+      rectRef.current = svgRef.current.getBoundingClientRect();
+    }
+  };
+
   useEffect(() => {
+    updateRect();
+    window.addEventListener("resize", updateRect);
+    
     const handleMouseMove = (e: MouseEvent) => {
-      if (!svgRef.current) return;
+      if (!rectRef.current) {
+        updateRect();
+      }
       
-      const rect = svgRef.current.getBoundingClientRect();
+      if (!rectRef.current) return;
+      
+      const rect = rectRef.current;
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
       
@@ -26,7 +40,11 @@ export function HeroVector({ className = "" }: HeroVectorProps) {
       setMouseVector({ x, y });
     };
 
-    const handleMouseEnter = () => setIsHovering(true);
+    const handleMouseEnter = () => {
+      updateRect();
+      setIsHovering(true);
+    };
+    
     const handleMouseLeave = () => setIsHovering(false);
 
     const svg = svgRef.current;
@@ -37,6 +55,7 @@ export function HeroVector({ className = "" }: HeroVectorProps) {
     }
 
     return () => {
+      window.removeEventListener("resize", updateRect);
       if (svg) {
         svg.removeEventListener("mousemove", handleMouseMove);
         svg.removeEventListener("mouseenter", handleMouseEnter);

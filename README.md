@@ -2,6 +2,10 @@
 
 > **Uma plataforma interativa para estudantes dominarem vetores e análise espacial através de simuladores 3D, desafios práticos e gamificação.**
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![Lighthouse Score](https://img.shields.io/badge/Lighthouse-100-brightgreen)
+![Deploy](https://img.shields.io/badge/Deploy-Vercel-44526c?style=for-the-badge&logo=vercel&logoColor=white)
+
 ---
 
 ![Vector Learn - Simulador Interativo de Vetores](./public/hero/hero_section.jpg)
@@ -9,16 +13,6 @@
 *Pensar em vetores muda como você vê o mundo — Visualize, simule e domine conceitos em 3D*
 
 **Acesse agora:** [Vector Learn](https://vectorlearn-murex.vercel.app/) | Experimente sem criar conta
-
----
-
-## 📊 Badges & Status
-
-| Qualidade | Status |
-|-----------|--------|
-| [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) | Licença MIT |
-| ![Lighthouse Score](https://img.shields.io/badge/Lighthouse-100-brightgreen) | Performance Perfeita |
-| ![Deploy](https://img.shields.io/badge/Deploy-Vercel-44526c?style=for-the-badge&logo=vercel&logoColor=white) | Hospedado na Vercel |
 
 ---
 

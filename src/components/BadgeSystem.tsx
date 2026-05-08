@@ -1,6 +1,4 @@
 import { motion } from "framer-motion";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Trophy, Zap, Target, Star, Sparkles, Medal } from "lucide-react";
 
 // 6 Badges específicos do usuário
@@ -95,43 +93,38 @@ export function BadgeSystem({ unlockedBadges, layout = "grid", showLocked = true
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: index * 0.05 }}
+              className={`interactive-surface border-2 p-4 text-center relative overflow-hidden cursor-pointer hover:shadow-lg transition-all rounded-lg ${
+                isUnlocked
+                  ? `${rarityBgColors[badgeDef.rarity]}`
+                  : "opacity-40 grayscale"
+              } ${rarityBorderColors[badgeDef.rarity]}`}
             >
-              <Card
-                className={`interactive-surface border-2 p-4 text-center relative overflow-hidden cursor-pointer hover:shadow-lg transition-all ${
-                  isUnlocked
-                    ? `${rarityBgColors[badgeDef.rarity]}`
-                    : "opacity-40 grayscale"
-                } ${rarityBorderColors[badgeDef.rarity]}`}
+              <motion.div
+                animate={isUnlocked ? { scale: [1, 1.15, 1] } : {}}
+                transition={{ repeat: Infinity, duration: 2, repeatDelay: 1 }}
+                className="mb-3 flex justify-center"
               >
-                <CardContent className="p-0">
-                  <motion.div
-                    animate={isUnlocked ? { scale: [1, 1.15, 1] } : {}}
-                    transition={{ repeat: Infinity, duration: 2, repeatDelay: 1 }}
-                    className="mb-3 flex justify-center"
-                  >
-                    <Icon className="w-8 h-8" />
-                  </motion.div>
+                <Icon className="w-8 h-8" />
+              </motion.div>
 
-                  <Badge className={`mb-2 ${rarityBadgeColors[badgeDef.rarity]}`}>
-                    {badgeDef.rarity === "common"
-                      ? "Comum"
-                      : badgeDef.rarity === "rare"
-                      ? "Raro"
-                      : badgeDef.rarity === "epic"
-                      ? "Épico"
-                      : "Lendário"}
-                  </Badge>
+              <div className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 mb-2 border-transparent text-white ${rarityBadgeColors[badgeDef.rarity]}`}>
+                {badgeDef.rarity === "common"
+                  ? "Comum"
+                  : badgeDef.rarity === "rare"
+                  ? "Raro"
+                  : badgeDef.rarity === "epic"
+                  ? "Épico"
+                  : "Lendário"}
+              </div>
 
-                  <p className="font-bold text-sm mb-1">{badgeDef.name}</p>
-                  <p className="text-xs text-muted-foreground">{badgeDef.description}</p>
+              <p className="font-bold text-sm mb-1">{badgeDef.name}</p>
+              <p className="text-xs text-muted-foreground">{badgeDef.description}</p>
 
-                  {isUnlocked && (
-                    <motion.p className="text-xs text-vector-teal mt-2 font-semibold">
-                      ✓ Desbloqueado
-                    </motion.p>
-                  )}
-                </CardContent>
-              </Card>
+              {isUnlocked && (
+                <motion.p className="text-xs text-vector-teal mt-2 font-semibold">
+                  ✓ Desbloqueado
+                </motion.p>
+              )}
             </motion.div>
           );
         })}
@@ -156,35 +149,32 @@ export function BadgeSystem({ unlockedBadges, layout = "grid", showLocked = true
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.05 }}
+              className={`interactive-surface border-l-4 rounded-lg border bg-card text-card-foreground shadow-sm p-4 flex items-center gap-4 ${rarityBgColors[badgeDef.rarity]} ${isUnlocked ? "" : "opacity-40 grayscale"} ${rarityBorderColors[badgeDef.rarity]}`}
             >
-              <Card className={`interactive-surface border-l-4 ${rarityBgColors[badgeDef.rarity]} ${isUnlocked ? "" : "opacity-40 grayscale"} ${rarityBorderColors[badgeDef.rarity]}`}>
-                <CardContent className="p-4 flex items-center gap-4">
-                  <div className="flex-shrink-0">
-                    <Icon className="w-6 h-6" />
-                  </div>
+              <div className="flex-shrink-0">
+                <Icon className="w-6 h-6" />
+              </div>
 
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-1">
-                      <p className="font-bold">{badgeDef.name}</p>
-                      <Badge className={`text-xs ${rarityBadgeColors[badgeDef.rarity]}`}>
-                        {badgeDef.rarity.charAt(0).toUpperCase() + badgeDef.rarity.slice(1)}
-                      </Badge>
-                    </div>
-                    <p className="text-sm text-muted-foreground">{badgeDef.description}</p>
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-1">
+                  <p className="font-bold">{badgeDef.name}</p>
+                  <div className={`inline-flex items-center rounded-full border px-2 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent text-white ${rarityBadgeColors[badgeDef.rarity]}`}>
+                    {badgeDef.rarity.charAt(0).toUpperCase() + badgeDef.rarity.slice(1)}
                   </div>
+                </div>
+                <p className="text-sm text-muted-foreground">{badgeDef.description}</p>
+              </div>
 
-                  {isUnlocked && (
-                    <div className="text-right">
-                      <p className="text-sm font-semibold text-vector-teal">✓</p>
-                      {unlockedData && (
-                        <p className="text-xs text-muted-foreground">
-                          {new Date(unlockedData.unlockedAt).toLocaleDateString("pt-BR")}
-                        </p>
-                      )}
-                    </div>
+              {isUnlocked && (
+                <div className="text-right">
+                  <p className="text-sm font-semibold text-vector-teal">✓</p>
+                  {unlockedData && (
+                    <p className="text-xs text-muted-foreground">
+                      {new Date(unlockedData.unlockedAt).toLocaleDateString("pt-BR")}
+                    </p>
                   )}
-                </CardContent>
-              </Card>
+                </div>
+              )}
             </motion.div>
           );
         })}

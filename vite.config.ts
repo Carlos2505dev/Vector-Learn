@@ -17,21 +17,19 @@ export default defineConfig(({ mode }) => ({
     },
   },
   build: {
+    target: 'esnext',
+    minify: 'esbuild',
+    cssCodeSplit: true,
     rollupOptions: {
       output: {
         manualChunks: {
           'three-vendor': ['three', '@react-three/fiber', '@react-three/drei'],
           'recharts-vendor': ['recharts'],
-          'ui-vendor': [
-            '@radix-ui/react-accordion',
-            '@radix-ui/react-dialog',
-            '@radix-ui/react-dropdown-menu',
-            '@radix-ui/react-popover',
-            '@radix-ui/react-tooltip'
-          ],
+          'motion-vendor': ['framer-motion'],
         }
       }
     },
     chunkSizeWarningLimit: 1000,
+    sourcemap: false,
   },
 }));

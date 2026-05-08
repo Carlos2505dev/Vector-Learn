@@ -22,7 +22,7 @@ import {
   radiansToDegrees 
 } from "@/lib/vector-math";
 import { MathFormula } from "./MathFormula";
-import * as THREE from "three";
+import { Vector3 } from "three";
 
 interface SimulatorState {
   vectorA: Vector3D;
@@ -46,7 +46,7 @@ function VectorArrow({ vector, color, startPoint = { x: 0, y: 0, z: 0 }, scale =
     z: startPoint.z + vector.z * scale
   };
   
-  const direction = new THREE.Vector3(vector.x, vector.y, vector.z).normalize();
+  const direction = new Vector3(vector.x, vector.y, vector.z).normalize();
   const length = magnitude3D(vector) * scale;
   
   if (length < 0.1) return null;
