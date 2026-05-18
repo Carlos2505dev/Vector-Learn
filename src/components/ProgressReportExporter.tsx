@@ -1,9 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Download, Share2, Loader2 } from "lucide-react";
+import { Download, Share2, Loader2, FileJson } from "lucide-react";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { usePDFExport } from "@/hooks/usePDFExport";
+import { ProgressReportData } from "@/lib/pdf-types";
 
 interface UserProgressReport {
   userName: string;
@@ -16,9 +18,22 @@ interface UserProgressReport {
   maxStreak: number;
   badgesUnlocked: number;
   testsCompleted: number;
+  totalXP?: number;
+  currentLevel?: number;
+  studyHours?: number;
   topicAccuracy: {
     [topic: string]: number;
   };
+  recentBadges?: Array<{
+    name: string;
+    unlockedAt: Date;
+    rarity: "common" | "rare" | "epic" | "legendary";
+  }>;
+  weeklyProgress?: Array<{
+    date: string;
+    xpGained: number;
+    questionsAnswered: number;
+  }>;
 }
 
 /**
@@ -289,27 +304,38 @@ function generateHTMLReport(data: UserProgressReport): string {
 }
 
 /**
- * Converte HTML para PDF e faz download
+ * Converte HTML para PDF e faz download usando jsPDF + html2canvas
  */
 async function downloadPDF(htmlContent: string, fileName: string) {
   try {
-    // Tentar usar html2pdf se disponível
-    if (typeof (window as any).html2pdf !== "undefined") {
-      const element = document.createElement("div");
-      element.innerHTML = htmlContent;
-      (window as any).html2pdf().set({ margin: 5, filename: fileName }).save(element);
-    } else {
-      // Fallback: abrir em nova aba e deixar usuário salvar como PDF
-      const blob = new Blob([htmlContent], { type: "text/html" });
-      const url = URL.createObjectURL(blob);
-      const iframe = document.createElement("iframe");
-      iframe.style.display = "none";
-      iframe.src = url;
-      document.body.appendChild(iframe);
-      setTimeout(() => iframe.contentWindow?.print(), 100);
-    }
+    const element = document.createElement("div");
+    element.innerHTML = htmlContent;
+    element.style.position = "absolute";
+    element.style.left = "-9999px";
+    document.body.appendChild(element);
+
+    // Dinâmico: espera 100ms para garantir que o DOM está renderizado
+    setTimeout(async () => {
+      try {
+        const { generatePDFFromHTML } = await import("@/lib/pdf-generator");
+        await generatePDFFromHTML(element, { 
+          fileName: `${fileName}.pdf`,
+          quality: 2,
+        });
+      } finally {
+        document.body.removeChild(element);
+      }
+    }, 100);
   } catch (error) {
     console.error("Erro ao gerar PDF:", error);
+    // Fallback: abrir em nova aba e deixar usuário salvar como PDF
+    const blob = new Blob([htmlContent], { type: "text/html" });
+    const url = URL.createObjectURL(blob);
+    const iframe = document.createElement("iframe");
+    iframe.style.display = "none";
+    iframe.src = url;
+    document.body.appendChild(iframe);
+    setTimeout(() => iframe.contentWindow?.print(), 100);
   }
 }
 
@@ -319,17 +345,87 @@ interface ProgressReportExporterProps {
 }
 
 /**
- * Componente para exportar relatório
+ * Componente para exportar relatório em múltiplos formatos (PDF e JSON)
  */
 export function ProgressReportExporter({ data, onExported }: ProgressReportExporterProps) {
   const [isGenerating, setIsGenerating] = useState(false);
+  const { exportProgressReport, exportProgressJSON, isLoading, error, clearError } = usePDFExport();
 
   const handleDownloadPDF = async () => {
     setIsGenerating(true);
-    const html = generateHTMLReport(data);
-    const fileName = `Relatorio_${data.userName}_${data.reportDate.toISOString().split("T")[0]}.html`;
-    await downloadPDF(html, fileName);
-    setIsGenerating(false);
+    try {
+      const reportData: ProgressReportData = {
+        studentName: data.userName,
+        reportDate: data.reportDate,
+        weekStartDate: data.weekStartDate,
+        totalAnswers: data.totalAnswers,
+        totalCorrectAnswers: data.correctAnswers,
+        averageAccuracy: data.averageAccuracy,
+        currentStreak: data.currentStreak,
+        maxStreak: data.maxStreak,
+        badgesUnlocked: data.badgesUnlocked,
+        testsCompleted: data.testsCompleted,
+        totalXP: data.totalXP ?? 0,
+        currentLevel: data.currentLevel ?? 1,
+        studyHours: data.studyHours ?? 0,
+        topicAccuracy: Object.entries(data.topicAccuracy).reduce(
+          (acc, [topic, accuracy]) => ({
+            ...acc,
+            [topic]: {
+              accuracy: accuracy as number,
+              questionsAttempted: Math.round(data.totalAnswers * (accuracy as number / 100)),
+            },
+          }),
+          {}
+        ),
+        recentBadges: data.recentBadges ?? [],
+        weeklyProgress: data.weeklyProgress ?? [],
+      };
+
+      const result = await exportProgressReport(reportData, {
+        fileName: `Relatorio_${data.userName}_${data.reportDate.toISOString().split("T")[0]}.pdf`,
+      });
+
+      if (result.success) {
+        onExported?.();
+      } else {
+        alert(`Erro ao gerar PDF: ${result.error}`);
+      }
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+
+  const handleDownloadJSON = () => {
+    const reportData: ProgressReportData = {
+      studentName: data.userName,
+      reportDate: data.reportDate,
+      weekStartDate: data.weekStartDate,
+      totalAnswers: data.totalAnswers,
+      totalCorrectAnswers: data.correctAnswers,
+      averageAccuracy: data.averageAccuracy,
+      currentStreak: data.currentStreak,
+      maxStreak: data.maxStreak,
+      badgesUnlocked: data.badgesUnlocked,
+      testsCompleted: data.testsCompleted,
+      totalXP: data.totalXP ?? 0,
+      currentLevel: data.currentLevel ?? 1,
+      studyHours: data.studyHours ?? 0,
+      topicAccuracy: Object.entries(data.topicAccuracy).reduce(
+        (acc, [topic, accuracy]) => ({
+          ...acc,
+          [topic]: {
+            accuracy: accuracy as number,
+            questionsAttempted: Math.round(data.totalAnswers * (accuracy as number / 100)),
+          },
+        }),
+        {}
+      ),
+      recentBadges: data.recentBadges ?? [],
+      weeklyProgress: data.weeklyProgress ?? [],
+    };
+
+    exportProgressJSON(reportData, `ProgressBackup_${data.reportDate.toISOString().split("T")[0]}.json`);
     onExported?.();
   };
 
@@ -377,20 +473,29 @@ export function ProgressReportExporter({ data, onExported }: ProgressReportExpor
           <div className="space-y-2">
             <Button
               onClick={handleDownloadPDF}
-              disabled={isGenerating}
+              disabled={isGenerating || isLoading}
               className="w-full gap-2 bg-vector-teal hover:bg-vector-teal/90"
             >
-              {isGenerating ? (
+              {isGenerating || isLoading ? (
                 <>
                   <Loader2 className="w-4 h-4 animate-spin" />
-                  Gerando...
+                  Gerando PDF...
                 </>
               ) : (
                 <>
                   <Download className="w-4 h-4" />
-                  Baixar PDF
+                  Baixar PDF Profissional
                 </>
               )}
+            </Button>
+
+            <Button
+              onClick={handleDownloadJSON}
+              variant="outline"
+              className="w-full gap-2"
+            >
+              <FileJson className="w-4 h-4" />
+              Exportar como JSON (Backup)
             </Button>
 
             <Button
@@ -403,10 +508,26 @@ export function ProgressReportExporter({ data, onExported }: ProgressReportExpor
             </Button>
           </div>
 
+          {/* Error Message */}
+          {error && (
+            <div className="p-3 rounded-lg bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800">
+              <p className="text-xs text-red-700 dark:text-red-300">
+                ⚠️ {error}
+              </p>
+              <Button
+                onClick={clearError}
+                variant="ghost"
+                className="mt-2 h-auto p-0 text-xs"
+              >
+                Descartar
+              </Button>
+            </div>
+          )}
+
           {/* Info */}
           <div className="p-2 rounded-lg bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800">
             <p className="text-xs text-blue-700 dark:text-blue-300">
-              💡 Mostre seu progresso! Compartilhe seu relatório para motivar outros alunos.
+              💡 Baixe seu relatório profissional em PDF ou faça backup em JSON. Compartilhe no LinkedIn para motivar outros alunos!
             </p>
           </div>
         </CardContent>

@@ -3,8 +3,10 @@ import { ArrowRight, Plus, Minus, X, Dot } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Layout } from "@/components/Layout";
 import { MathFormula } from "@/components/MathFormula";
+import { CalculusIIModule } from "@/components/CalculusIIModule";
 import { useSEO, generateBreadcrumbSchema, generateLearningResourceSchema } from "@/hooks/useSEO";
 
 const operations = [{
@@ -147,17 +149,17 @@ export default function Operacoes() {
   return (
     <Layout>
       {/* Header */}
-      <motion.section 
-        initial={{ opacity: 0, y: 20 }} 
-        animate={{ opacity: 1, y: 0 }} 
-        transition={{ duration: 0.8 }} 
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
         className="text-center mb-16"
       >
         <h1 className="text-4xl md:text-5xl font-bold mb-6">
           Operações com <span className="text-gradient">Vetores</span>
         </h1>
         <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-          Domine as operações fundamentais: soma, subtração, produto escalar, produto vetorial, produto misto e projeção. 
+          Domine as operações fundamentais: soma, subtração, produto escalar, produto vetorial, produto misto e projeção.
           Cada operação tem significado geométrico e aplicações práticas.
         </p>
       </motion.section>
@@ -168,11 +170,11 @@ export default function Operacoes() {
           {operations.map((operation, index) => {
             const Icon = operation.icon;
             return (
-              <motion.div 
-                key={operation.id} 
-                initial={{ opacity: 0, y: 50 }} 
-                whileInView={{ opacity: 1, y: 0 }} 
-                transition={{ delay: index * 0.1, duration: 0.6 }} 
+              <motion.div
+                key={operation.id}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1, duration: 0.6 }}
                 viewport={{ once: true }}
               >
                 <Card className="interactive-surface h-full">
@@ -188,19 +190,19 @@ export default function Operacoes() {
                     <p className="text-muted-foreground leading-relaxed">
                       {operation.description}
                     </p>
-                    
+
                     <div className="space-y-2">
                       <h4 className="font-semibold text-sm text-primary">Fórmulas:</h4>
                       {operation.formulas.map((formula, i) => (
                         <MathFormula key={i} formula={formula} block />
                       ))}
                     </div>
-                    
+
                     <div className="bg-muted/50 p-3 rounded-lg">
                       <h4 className="font-semibold text-sm mb-2">Interpretação Geométrica:</h4>
                       <p className="text-sm">{operation.geometricInterpretation}</p>
                     </div>
-                    
+
                     <div>
                       <h4 className="font-semibold text-sm text-primary mb-2">Aplicações:</h4>
                       <ul className="space-y-1">
@@ -218,22 +220,22 @@ export default function Operacoes() {
       </section>
 
       {/* Examples Section */}
-      <motion.section 
-        initial={{ opacity: 0, y: 50 }} 
-        whileInView={{ opacity: 1, y: 0 }} 
-        transition={{ duration: 0.8 }} 
-        viewport={{ once: true }} 
+      <motion.section
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
         className="mb-16"
       >
         <h2 className="text-3xl font-bold text-center mb-8">Exemplos Resolvidos</h2>
-        
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {examples.map((example, index) => (
-            <motion.div 
-              key={example.title} 
-              initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }} 
-              whileInView={{ opacity: 1, x: 0 }} 
-              transition={{ delay: index * 0.2, duration: 0.6 }} 
+            <motion.div
+              key={example.title}
+              initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ delay: index * 0.2, duration: 0.6 }}
               viewport={{ once: true }}
             >
               <Card className="interactive-surface">
@@ -244,7 +246,7 @@ export default function Operacoes() {
                   <div className="bg-muted/50 p-4 rounded-lg">
                     <p className="font-medium text-sm mb-2">Situação:</p>
                     <p className="text-sm mb-3">{example.setup}</p>
-                    
+
                     {example.vectors && Array.isArray(example.vectors) ? (
                       <div className="space-y-1">
                         {example.vectors.map((v, i) => (
@@ -259,7 +261,7 @@ export default function Operacoes() {
                       </div>
                     )}
                   </div>
-                  
+
                   <div>
                     <p className="font-medium text-sm mb-2 text-primary">Solução:</p>
                     <ol className="space-y-2">
@@ -279,22 +281,22 @@ export default function Operacoes() {
       </motion.section>
 
       {/* Properties Section */}
-      <motion.section 
-        initial={{ opacity: 0, y: 50 }} 
-        whileInView={{ opacity: 1, y: 0 }} 
-        transition={{ duration: 0.8 }} 
-        viewport={{ once: true }} 
+      <motion.section
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
         className="mb-16"
       >
         <h2 className="text-3xl font-bold text-center mb-8">Propriedades Importantes</h2>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {properties.map((property, index) => (
-            <motion.div 
-              key={property.name} 
-              initial={{ opacity: 0, scale: 0.9 }} 
-              whileInView={{ opacity: 1, scale: 1 }} 
-              transition={{ delay: index * 0.1, duration: 0.4 }} 
+            <motion.div
+              key={property.name}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ delay: index * 0.1, duration: 0.4 }}
               viewport={{ once: true }}
             >
               <Card className="interactive-surface text-center">
@@ -312,11 +314,11 @@ export default function Operacoes() {
       </motion.section>
 
       {/* Special Cases Section */}
-      <motion.section 
-        initial={{ opacity: 0, y: 50 }} 
-        whileInView={{ opacity: 1, y: 0 }} 
-        transition={{ duration: 0.8 }} 
-        viewport={{ once: true }} 
+      <motion.section
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
         className="mb-16"
       >
         <Card className="bg-gradient-to-br from-[#FF7A59] via-[#FF5733] to-[#8E44AD] text-white overflow-hidden border-none shadow-2xl relative group">
@@ -337,7 +339,7 @@ export default function Operacoes() {
                 </div>
                 <h3 className="text-xl font-bold tracking-tight">Vetores Paralelos</h3>
               </div>
-              
+
               <div className="grid gap-4">
                 {[
                   { label: "Mesmo sentido", formula: "|\\vec{a} + \\vec{b}| = |\\vec{a}| + |\\vec{b}|" },
@@ -345,7 +347,7 @@ export default function Operacoes() {
                   { label: "Produto escalar", formula: "\\vec{a} \\cdot \\vec{b} = - |\\vec{a}||\\vec{b}|" },
                   { label: "Produto vetorial", formula: "\\vec{a} \\times \\vec{b} = \\vec{0}" }
                 ].map((item, i) => (
-                  <motion.div 
+                  <motion.div
                     key={i}
                     whileHover={{ x: 5 }}
                     className="flex flex-col p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300"
@@ -358,7 +360,7 @@ export default function Operacoes() {
                 ))}
               </div>
             </div>
-            
+
             {/* Vetores Perpendiculares */}
             <div className="space-y-6">
               <div className="flex items-center gap-3 border-b border-white/20 pb-3">
@@ -367,7 +369,7 @@ export default function Operacoes() {
                 </div>
                 <h3 className="text-xl font-bold tracking-tight">Vetores Perpendiculares</h3>
               </div>
-              
+
               <div className="grid gap-4">
                 {[
                   { label: "Soma (Pitágoras)", formula: "|\\vec{a} + \\vec{b}| = \\sqrt{|\\vec{a}|^2 + |\\vec{b}|^2}" },
@@ -375,7 +377,7 @@ export default function Operacoes() {
                   { label: "Produto vetorial", formula: "|\\vec{a} \\times \\vec{b}| = |\\vec{a}||\\vec{b}|" },
                   { label: "Ângulo entre eles", formula: "\\theta = 90^\\circ" }
                 ].map((item, i) => (
-                  <motion.div 
+                  <motion.div
                     key={i}
                     whileHover={{ x: 5 }}
                     className="flex flex-col p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300"
@@ -392,33 +394,23 @@ export default function Operacoes() {
         </Card>
       </motion.section>
 
-      {/* Summary Highlight Section */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
+      {/* Cálculo II Module */}
+      <motion.section
+        initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.4, duration: 0.6 }}
+        transition={{ duration: 0.8 }}
         viewport={{ once: true }}
-        className="mb-16"
+        className="mb-16 mt-20"
       >
-        <Card className="bg-gradient-to-br from-[#5B8CFF] via-[#3B70F3] to-[#00D1B2] text-white shadow-2xl border-0 overflow-hidden relative group">
-          <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-          <CardContent className="p-10 text-center relative z-10">
-            <h3 className="text-3xl font-bold mb-6">Por Que Operações Vetoriais São Essenciais?</h3>
-            <p className="text-xl leading-relaxed max-w-4xl mx-auto opacity-95">
-              Cada operação vetorial tem um propósito específico na engenharia: a soma combina efeitos, 
-              o produto escalar mede alinhamento, o produto vetorial cria perpendiculares, a projeção decompõe 
-              componentes e o produto misto calcula volumes. Dominar essas operações é dominar a linguagem da engenharia moderna.
-            </p>
-          </CardContent>
-        </Card>
-      </motion.div>
+        <CalculusIIModule />
+      </motion.section>
 
-      {/* Navigation */}
-      <motion.section 
-        initial={{ opacity: 0, y: 50 }} 
-        whileInView={{ opacity: 1, y: 0 }} 
-        transition={{ duration: 0.8 }} 
-        viewport={{ once: true }} 
+      {/* Próximo Passo */}
+      <motion.section
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
         className="text-center"
       >
         <h2 className="text-2xl font-bold mb-4">Próximo Passo</h2>

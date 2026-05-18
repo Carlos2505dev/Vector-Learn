@@ -191,12 +191,12 @@ src/
 * [ ] **Autenticação**: Integração com Supabase Auth (Social Login e JWT).
 * [ ] **Mind-Bot IA**: Chatbot para tirar dúvidas em tempo real.
 * [ ] **Dashboard de Professor**: Ferramenta para gestão de turmas e acompanhamento de métricas.
-* [ ] **Exportação de PDF**: Relatórios detalhados de desempenho e certificados.
-* [ ] **Módulo de Cálculo II**: Integração com integrais de linha e campos vetoriais.
-* [ ] **Simulador de Fluidos**: Vetores aplicados à dinâmica de fluidos.
+* [x] **Exportação de PDF**: Relatórios detalhados de desempenho e certificados.
+* [x] **Módulo de Cálculo II**: Integração com integrais de linha e campos vetoriais.
 * [ ] **Teste de nível e nivelamento**: Mini quiz para avaliar o conhecimento e adaptar a dificuldade.
 * [ ] **Inserção de questões de vestibulares e Enem**: Banco de dados de questões oficiais para treinamento.
 * [ ] **Inserção de Anúncios**: Estratégia de monetização via Adsense ou plataformas similares.
+* [x] **Simulador de Fluidos**: Vetores aplicados à dinâmica de fluidos.
 
 ---
 

@@ -1,8 +1,10 @@
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Download, Share2, Copy, Award } from "lucide-react";
+import { Download, Share2, Copy, Award, Loader2 } from "lucide-react";
 import { useState } from "react";
+import { usePDFExport } from "@/hooks/usePDFExport";
+import { CertificateData as PDFCertificateData } from "@/lib/pdf-types";
 
 export interface CertificateData {
   studentName: string;
@@ -12,6 +14,8 @@ export interface CertificateData {
   level: "iniciante" | "intermediario" | "avancado" | "mestre";
   hoursSpent: number;
   certificateUrl?: string;
+  finalScore?: number;
+  totalXP?: number;
 }
 
 interface CertificateProps {
@@ -22,6 +26,7 @@ interface CertificateProps {
 
 export function Certificate({ certificate, onDownload, onShare }: CertificateProps) {
   const [copied, setCopied] = useState(false);
+  const { exportCertificate, isLoading, error, clearError } = usePDFExport();
 
   const levelColors = {
     iniciante: "from-blue-500 to-vector-blue",
@@ -42,6 +47,33 @@ export function Certificate({ certificate, onDownload, onShare }: CertificatePro
     navigator.clipboard.writeText(url);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleDownloadPDF = async () => {
+    try {
+      const pdfCertificate: PDFCertificateData = {
+        studentName: certificate.studentName,
+        studentId: certificate.certificateId,
+        completionDate: new Date(certificate.completionDate),
+        certificateId: certificate.certificateId,
+        courseName: certificate.courseName,
+        level: certificate.level,
+        hoursSpent: certificate.hoursSpent,
+        totalXP: certificate.totalXP ?? 0,
+        finalScore: certificate.finalScore ?? 85,
+        verificationUrl: `${window.location.origin}/?cert=${certificate.certificateId}`,
+      };
+
+      const result = await exportCertificate(pdfCertificate, {
+        fileName: `Certificado_${certificate.certificateId}.pdf`,
+      });
+
+      if (result.success) {
+        onDownload?.();
+      }
+    } catch (err) {
+      console.error("Erro ao baixar certificado:", err);
+    }
   };
 
   return (
@@ -143,11 +175,21 @@ export function Certificate({ certificate, onDownload, onShare }: CertificatePro
         className="flex gap-3 flex-wrap justify-center"
       >
         <Button
-          onClick={onDownload}
+          onClick={handleDownloadPDF}
+          disabled={isLoading}
           className="gap-2 bg-vector-blue hover:bg-vector-blue/90"
         >
-          <Download className="w-4 h-4" />
-          Baixar PDF
+          {isLoading ? (
+            <>
+              <Loader2 className="w-4 h-4 animate-spin" />
+              Gerando...
+            </>
+          ) : (
+            <>
+              <Download className="w-4 h-4" />
+              Baixar PDF
+            </>
+          )}
         </Button>
 
         <Button
@@ -168,6 +210,26 @@ export function Certificate({ certificate, onDownload, onShare }: CertificatePro
           Compartilhar
         </Button>
       </motion.div>
+
+      {/* Error Message */}
+      {error && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="p-4 bg-red-50 dark:bg-red-950/30 rounded-lg border border-red-200 dark:border-red-800"
+        >
+          <p className="text-sm text-red-700 dark:text-red-300">
+            ⚠️ {error}
+          </p>
+          <Button
+            onClick={clearError}
+            variant="ghost"
+            className="mt-2 h-auto p-0 text-xs"
+          >
+            Descartar
+          </Button>
+        </motion.div>
+      )}
 
       {/* Share Preview */}
       <motion.div

@@ -5,7 +5,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Layout } from "@/components/Layout";
 import { Vector2DSimulator } from "@/components/Vector2DSimulator";
 import { Vector3DSimulator } from "@/components/Vector3DSimulator";
-import { Monitor, Box, Info, Lightbulb, Sparkles } from "lucide-react";
+import { FluidDynamicsSimulator } from "@/components/FluidDynamicsSimulator";
+import { Monitor, Box, Info, Lightbulb, Sparkles, Wind } from "lucide-react";
 import { useUserProgress } from "@/hooks/useUserProgress";
 import { motion as motionF } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
@@ -35,17 +36,17 @@ const instructions = [
 const examples = [
   {
     title: "Velocidades Perpendiculares",
-    description: "Configure a⃗ = (3, 0) e b⃗ = (0, 3) para ver vetores perpendiculares",
+    description: <>Configure <MathFormula formula="\vec{a}" /> = (3, 0) e <MathFormula formula="\vec{b}" /> = (0, 3) para ver vetores perpendiculares</>,
     settings: { a: "(3, 0)", b: "(0, 3)" }
   },
   {
     title: "Vetores Opostos",
-    description: "Use a⃗ = (2, 1) e b⃗ = (-2, -1) para explorar vetores opostos",
+    description: <>Use <MathFormula formula="\vec{a}" /> = (2, 1) e <MathFormula formula="\vec{b}" /> = (-2, -1) para explorar vetores opostos</>,
     settings: { a: "(2, 1)", b: "(-2, -1)" }
   },
   {
     title: "Soma Clássica",
-    description: "Experimente a⃗ = (1, 2) e b⃗ = (3, -1) para ver a regra do paralelogramo",
+    description: <>Experimente <MathFormula formula="\vec{a}" /> = (1, 2) e <MathFormula formula="\vec{b}" /> = (3, -1) para ver a regra do paralelogramo</>,
     settings: { a: "(1, 2)", b: "(3, -1)" }
   }
 ];
@@ -228,7 +229,7 @@ export default function Simulador() {
           )}
         </AnimatePresence>
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 mb-8">
+          <TabsList className="grid w-full max-w-2xl mx-auto grid-cols-3 mb-8">
             <TabsTrigger value="2d" className="flex items-center gap-2">
               <Monitor className="h-4 w-4" />
               Simulador 2D
@@ -236,6 +237,10 @@ export default function Simulador() {
             <TabsTrigger value="3d" className="flex items-center gap-2">
               <Box className="h-4 w-4" />
               Visualização 3D
+            </TabsTrigger>
+            <TabsTrigger value="fluidos" className="flex items-center gap-2">
+              <Wind className="h-4 w-4" />
+              Dinâmica de Fluidos
             </TabsTrigger>
           </TabsList>
 
@@ -256,6 +261,10 @@ export default function Simulador() {
               vectorC: solverResult.vectorC,
               operation: solverResult.operation as any
             } : undefined} />
+          </TabsContent>
+
+          <TabsContent value="fluidos">
+            <FluidDynamicsSimulator />
           </TabsContent>
         </Tabs>
       </motion.section>
