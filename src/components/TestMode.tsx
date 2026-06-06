@@ -13,6 +13,7 @@ export interface TestQuestion {
   correctAnswer: number;
   category: string;
   difficulty: "básico" | "intermediário" | "avançado";
+  explanation?: string;
 }
 
 export interface TestResult {
@@ -54,6 +55,8 @@ export function TestMode({
   const [timeRemaining, setTimeRemaining] = useState(timeLimit);
   const [questionStartTime, setQuestionStartTime] = useState(Date.now());
   const [testSession, setTestSession] = useState<TestSession | null>(null);
+  const [showExplanation, setShowExplanation] = useState(false);
+  const [currentSelection, setCurrentSelection] = useState<number | null>(null);
 
   // Timer effect
   useEffect(() => {
@@ -75,16 +78,24 @@ export function TestMode({
   const isLastQuestion = currentQuestionIndex === questions.length - 1;
 
   const handleAnswerSelect = (optionIndex: number) => {
+    if (showExplanation) return;
+    setCurrentSelection(optionIndex);
+    setShowExplanation(true);
+  };
+
+  const handleNextQuestion = () => {
     const timeSpent = Math.round((Date.now() - questionStartTime) / 1000);
     const newResult: TestResult = {
       questionId: currentQuestion.id,
-      selectedAnswer: optionIndex,
-      correct: optionIndex === currentQuestion.correctAnswer,
+      selectedAnswer: currentSelection!,
+      correct: currentSelection === currentQuestion.correctAnswer,
       timeSpent
     };
 
     const updatedResults = [...results, newResult];
     setResults(updatedResults);
+    setShowExplanation(false);
+    setCurrentSelection(null);
 
     if (isLastQuestion) {
       handleFinish(updatedResults);
@@ -245,32 +256,63 @@ export function TestMode({
 
             {/* Options */}
             <div className="space-y-3">
-              {currentQuestion.options.map((option, index) => (
-                <motion.button
-                  key={index}
-                  onClick={() => handleAnswerSelect(index)}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="w-full p-4 text-left rounded-lg border-2 border-border hover:border-vector-blue transition-all hover:bg-muted/50"
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="w-6 h-6 rounded-full border-2 border-border flex items-center justify-center">
-                      <span className="text-sm font-bold">{String.fromCharCode(65 + index)}</span>
+              {currentQuestion.options.map((option, index) => {
+                let btnClass = "w-full p-4 text-left rounded-lg border-2 transition-all ";
+                if (showExplanation) {
+                  if (index === currentQuestion.correctAnswer) {
+                    btnClass += "border-green-500 bg-green-50 dark:bg-green-900/20";
+                  } else if (index === currentSelection) {
+                    btnClass += "border-red-500 bg-red-50 dark:bg-red-900/20";
+                  } else {
+                    btnClass += "border-border opacity-50";
+                  }
+                } else {
+                  btnClass += "border-border hover:border-vector-blue hover:bg-muted/50";
+                }
+
+                return (
+                  <motion.button
+                    key={index}
+                    onClick={() => handleAnswerSelect(index)}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    whileHover={showExplanation ? {} : { scale: 1.02 }}
+                    whileTap={showExplanation ? {} : { scale: 0.98 }}
+                    className={btnClass}
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-6 h-6 rounded-full border-2 border-border flex items-center justify-center">
+                        <span className="text-sm font-bold">{String.fromCharCode(65 + index)}</span>
+                      </div>
+                      <span className="flex-1">
+                        {option.includes('\\') || option.includes('_') || option.includes('^') ? (
+                          <MathFormula formula={option} />
+                        ) : (
+                          option
+                        )}
+                      </span>
                     </div>
-                    <span className="flex-1">
-                      {option.includes('\\') || option.includes('_') || option.includes('^') ? (
-                        <MathFormula formula={option} />
-                      ) : (
-                        option
-                      )}
-                    </span>
-                  </div>
-                </motion.button>
-              ))}
+                  </motion.button>
+                );
+              })}
             </div>
+
+            {showExplanation && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mt-6 p-4 bg-muted rounded-lg border border-border"
+              >
+                <h3 className="font-bold mb-2">Resolução:</h3>
+                <div className="text-muted-foreground whitespace-pre-wrap text-sm">
+                  {currentQuestion.explanation || "Nenhuma resolução disponível."}
+                </div>
+                <Button onClick={handleNextQuestion} className="w-full mt-4 bg-gradient-to-r from-vector-blue to-vector-teal text-white">
+                  {isLastQuestion ? "Finalizar Prova" : "Próxima Questão"}
+                </Button>
+              </motion.div>
+            )}
           </CardContent>
         </Card>
 
@@ -393,12 +435,20 @@ export function TestMode({
                     <div className="flex-1 min-w-0">
                       <p className="font-bold text-sm mb-1">Questão {index + 1}</p>
                       <p className="text-sm text-muted-foreground mb-2">{question?.question}</p>
-                      <div className="flex items-center justify-between text-xs">
+                      <div className="flex items-center justify-between text-xs mb-2">
                         <span className={result.correct ? "text-green-600" : "text-red-600"}>
                           {result.correct ? "✓ Correta" : "✗ Incorreta"}
                         </span>
                         <span className="text-muted-foreground">{result.timeSpent}s</span>
                       </div>
+                      {question?.explanation && (
+                        <div className="mt-3 p-3 bg-black/5 dark:bg-white/5 rounded-md text-sm border border-border">
+                          <p className="font-semibold mb-1 text-foreground">Resolução:</p>
+                          <div className="text-muted-foreground whitespace-pre-wrap">
+                            {question.explanation}
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </motion.div>

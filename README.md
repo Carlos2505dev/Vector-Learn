@@ -27,16 +27,20 @@
 
 ---
 
-##  Por que Vector Learn?
+## Por que Vector Learn?
 
 ### O Problema
+
 Estudantes de engenharia, física e computação enfrentam dificuldades ao aprender vetores porque:
+
 - Conceitos são abstratos e difíceis de visualizar
 - Fórmulas não mostram como funcionam na prática
 - Falta engajamento e motivação
 
 ### A Solução
+
 Vector Learn resolve isto através de:
+
 - **Simuladores imersivos** que trazem abstração para a realidade visual
 - **Feedback imediato** enquanto você manipula vetores e realiza operações
 - **Gamificação inteligente** que transforma estudo em jornada de conquistas
@@ -73,8 +77,8 @@ Vector Learn foi arquitetada com as **tecnologias mais modernas e performáticas
 
 ### Pré-requisitos
 
-* Node.js v18+
-* npm, yarn ou bun
+- Node.js v18+
+- npm, yarn ou bun
 
 ### Instalação
 
@@ -92,7 +96,7 @@ bun install
 npm run dev
 ```
 
-O servidor estará disponível em **http://localhost:5173**
+O servidor estará disponível em **<http://localhost:5173>**
 
 ---
 
@@ -177,26 +181,26 @@ src/
 
 ## ⚡ Performance & Otimizações
 
-* **Code Splitting**: Rotas e simuladores pesados são carregados sob demanda (Lazy Loading).
-* **Memoization**: Uso estratégico de `useMemo` e `useCallback` para evitar re-renderizações em cálculos matemáticos intensos.
-* **Tree Shaking**: Eliminação de código morto das bibliotecas de ícones e UI.
-* **Asset Optimization**: SVGs inline e compressão de texturas 3D.
+- **Code Splitting**: Rotas e simuladores pesados são carregados sob demanda (Lazy Loading).
+- **Memoization**: Uso estratégico de `useMemo` e `useCallback` para evitar re-renderizações em cálculos matemáticos intensos.
+- **Tree Shaking**: Eliminação de código morto das bibliotecas de ícones e UI.
+- **Asset Optimization**: SVGs inline e compressão de texturas 3D.
 
 ---
 
 ## 🗺️ Roadmap de Futuras Implementações
 
-* [x] **Resolvedor Inteligente**: Calcula operações com vetores de forma automática e mostra o passo a passo.
-* [ ] **Internacionalização (i18n)**: Suporte completo para EN, ES e PT-BR com `react-i18next`.
-* [ ] **Autenticação**: Integração com Supabase Auth (Social Login e JWT).
-* [ ] **Mind-Bot IA**: Chatbot para tirar dúvidas em tempo real.
-* [ ] **Dashboard de Professor**: Ferramenta para gestão de turmas e acompanhamento de métricas.
-* [x] **Exportação de PDF**: Relatórios detalhados de desempenho e certificados.
-* [x] **Módulo de Cálculo II**: Integração com integrais de linha e campos vetoriais.
-* [ ] **Teste de nível e nivelamento**: Mini quiz para avaliar o conhecimento e adaptar a dificuldade.
-* [ ] **Inserção de questões de vestibulares e Enem**: Banco de dados de questões oficiais para treinamento.
-* [ ] **Inserção de Anúncios**: Estratégia de monetização via Adsense ou plataformas similares.
-* [x] **Simulador de Fluidos**: Vetores aplicados à dinâmica de fluidos.
+- [x] **Resolvedor Inteligente**: Calcula operações com vetores de forma automática e mostra o passo a passo.
+- [ ] **Internacionalização (i18n)**: Suporte completo para EN, ES e PT-BR com `react-i18next`.
+- [ ] **Autenticação**: Integração com Supabase Auth (Social Login e JWT).
+- [ ] **Mind-Bot IA**: Chatbot para tirar dúvidas em tempo real.
+- [ ] **Dashboard de Professor**: Ferramenta para gestão de turmas e acompanhamento de métricas.
+- [x] **Exportação de PDF**: Relatórios detalhados de desempenho e certificados.
+- [x] **Módulo de Cálculo II**: Integração com integrais de linha e campos vetoriais.
+- [ ] **Teste de nível e nivelamento**: Mini quiz para avaliar o conhecimento e adaptar a dificuldade.
+- [x] **Inserção de questões de vestibulares e Enem**: Banco de dados de questões oficiais para treinamento.
+- [ ] **Inserção de Anúncios**: Estratégia de monetização via Adsense ou plataformas similares.
+- [x] **Simulador de Fluidos**: Vetores aplicados à dinâmica de fluidos.
 
 ---
 

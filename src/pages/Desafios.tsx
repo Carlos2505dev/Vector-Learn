@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { CheckCircle, XCircle, RotateCcw, ArrowRight, Trophy, Target, Brain, Sparkles, TrendingUp, Award } from "lucide-react";
+import { CheckCircle, XCircle, RotateCcw, ArrowRight, Trophy, Target, Brain, Sparkles, TrendingUp, Award, Filter } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -14,6 +14,7 @@ import { SkillRadar } from "@/components/SkillRadar";
 import { useUserProgress } from "@/hooks/useUserProgress";
 import { useSEO, generateBreadcrumbSchema } from "@/hooks/useSEO";
 import { GamificationDashboard } from "@/components/GamificationDashboard";
+import { enemVestibularQuestions, categoryMap, type QuestionCategory, getRandomQuestions } from "@/lib/questions-enem";
 
 interface Question {
   id: string;
@@ -443,6 +444,39 @@ export default function Desafios() {
   const [answeredTime, setAnsweredTime] = useState(0);
   const [unlockedBadgeNotification, setUnlockedBadgeNotification] = useState<string | null>(null);
   const [questionStartTime, setQuestionStartTime] = useState(Date.now());
+  
+  // ENEM/Vestibular filters
+  const [selectedCategory, setSelectedCategory] = useState<QuestionCategory | "todas">("todas");
+  const [selectedDifficulty, setSelectedDifficulty] = useState<"todas" | "básico" | "intermediário" | "avançado">("todas");
+  const [enemCurrentQuestion, setEnemCurrentQuestion] = useState(0);
+  const [enemSelectedAnswer, setEnemSelectedAnswer] = useState<number | null>(null);
+  const [enemShowResult, setEnemShowResult] = useState(false);
+  const [enemScore, setEnemScore] = useState(0);
+  const [enemCompletedQuestions, setEnemCompletedQuestions] = useState<boolean[]>([]);
+  const [enemQuestionStartTime, setEnemQuestionStartTime] = useState(Date.now());
+  
+  // Get filtered ENEM questions
+  const getFilteredEnemQuestions = () => {
+    let filtered = enemVestibularQuestions;
+    
+    if (selectedCategory !== "todas") {
+      filtered = filtered.filter(q => q.category === selectedCategory);
+    }
+    
+    if (selectedDifficulty !== "todas") {
+      filtered = filtered.filter(q => q.difficulty === selectedDifficulty);
+    }
+    
+    return filtered;
+  };
+  
+  const filteredEnemQuestions = getFilteredEnemQuestions();
+  
+  useEffect(() => {
+    setEnemCurrentQuestion(0);
+    setEnemCompletedQuestions(new Array(filteredEnemQuestions.length).fill(false));
+    setEnemScore(0);
+  }, [selectedCategory, selectedDifficulty, filteredEnemQuestions.length]);
 
   const { stats, recordAnswer, recordTestCompletion, isUnlocked } = useUserProgress();
 
@@ -450,11 +484,62 @@ export default function Desafios() {
   useEffect(() => {
     setQuestionStartTime(Date.now());
   }, [currentQuestion]);
+  
+  // Track ENEM question start time
+  useEffect(() => {
+    setEnemQuestionStartTime(Date.now());
+  }, [enemCurrentQuestion]);
 
   const question = questions[currentQuestion];
   const progress = ((currentQuestion + 1) / questions.length) * 100;
   const isCorrect = selectedAnswer === question.correctAnswer ||
     (question.type === "calculation" && parseFloat(inputAnswer) === question.correctAnswer);
+
+  // ENEM questions handlers
+  const enemQuestion = filteredEnemQuestions[enemCurrentQuestion];
+  const enemProgress = ((enemCurrentQuestion + 1) / filteredEnemQuestions.length) * 100;
+  const enemIsCorrect = enemSelectedAnswer === enemQuestion?.correctAnswer;
+
+  const handleEnemAnswer = () => {
+    if (enemSelectedAnswer === null || !enemQuestion) return;
+
+    setEnemShowResult(true);
+    const timeSpent = (Date.now() - enemQuestionStartTime) / 1000;
+
+    if (enemIsCorrect && !enemCompletedQuestions[enemCurrentQuestion]) {
+      setEnemScore(prev => prev + 1);
+      const newCompleted = [...enemCompletedQuestions];
+      newCompleted[enemCurrentQuestion] = true;
+      setEnemCompletedQuestions(newCompleted);
+      recordAnswer(enemQuestion.id, true, timeSpent);
+    } else {
+      recordAnswer(enemQuestion.id, false, timeSpent);
+    }
+  };
+
+  const nextEnemQuestion = () => {
+    if (enemCurrentQuestion < filteredEnemQuestions.length - 1) {
+      setEnemCurrentQuestion(prev => prev + 1);
+      setEnemSelectedAnswer(null);
+      setEnemShowResult(false);
+    }
+  };
+
+  const prevEnemQuestion = () => {
+    if (enemCurrentQuestion > 0) {
+      setEnemCurrentQuestion(prev => prev - 1);
+      setEnemSelectedAnswer(null);
+      setEnemShowResult(false);
+    }
+  };
+
+  const resetEnemQuiz = () => {
+    setEnemCurrentQuestion(0);
+    setEnemScore(0);
+    setEnemCompletedQuestions(new Array(filteredEnemQuestions.length).fill(false));
+    setEnemSelectedAnswer(null);
+    setEnemShowResult(false);
+  };
 
   const handleAnswer = () => {
     if (selectedAnswer === null && inputAnswer === "") return;
@@ -551,10 +636,14 @@ export default function Desafios() {
       </motion.section>
 
       <Tabs value={tabValue} onValueChange={setTabValue} className="mb-8">
-        <TabsList className="grid w-full grid-cols-5 mb-8">
+        <TabsList className="grid w-full grid-cols-6 mb-8">
           <TabsTrigger value="quiz">
             <Brain className="w-4 h-4 mr-2" />
             Quiz Livre
+          </TabsTrigger>
+          <TabsTrigger value="enem">
+            <Target className="w-4 h-4 mr-2" />
+            ENEM/Vestibular
           </TabsTrigger>
           <TabsTrigger value="test">
             <Trophy className="w-4 h-4 mr-2" />
@@ -878,7 +967,342 @@ export default function Desafios() {
           )}
         </TabsContent>
 
-        {/* Test Mode Tab */}
+        {/* ENEM/Vestibular Tab */}
+        <TabsContent value="enem" className="space-y-8">
+          {/* Filters */}
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="mb-8"
+          >
+            <Card className="interactive-surface">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Filter className="w-5 h-5" />
+                  Filtros
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {/* Category Filter */}
+                  <div>
+                    <label className="text-sm font-medium mb-2 block">Categoria</label>
+                    <div className="flex flex-wrap gap-2">
+                      <Button
+                        variant={selectedCategory === "todas" ? "default" : "outline"}
+                        size="sm"
+                        onClick={() => setSelectedCategory("todas")}
+                      >
+                        Todas
+                      </Button>
+                      {Object.entries(categoryMap).map(([key, label]) => (
+                        <Button
+                          key={key}
+                          variant={selectedCategory === key ? "default" : "outline"}
+                          size="sm"
+                          onClick={() => setSelectedCategory(key as QuestionCategory)}
+                        >
+                          {label}
+                        </Button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Difficulty Filter */}
+                  <div>
+                    <label className="text-sm font-medium mb-2 block">Dificuldade</label>
+                    <div className="flex flex-wrap gap-2">
+                      {["todas", "básico", "intermediário", "avançado"].map((diff) => (
+                        <Button
+                          key={diff}
+                          variant={selectedDifficulty === diff ? "default" : "outline"}
+                          size="sm"
+                          onClick={() => setSelectedDifficulty(diff as typeof selectedDifficulty)}
+                          className={
+                            diff !== "todas"
+                              ? getDifficultyColor(diff)
+                              : ""
+                          }
+                        >
+                          {diff === "todas" ? "Todas" : diff.charAt(0).toUpperCase() + diff.slice(1)}
+                        </Button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="text-sm text-muted-foreground">
+                  {filteredEnemQuestions.length} questão{filteredEnemQuestions.length !== 1 ? 's' : ''} encontrada{filteredEnemQuestions.length !== 1 ? 's' : ''}
+                </div>
+              </CardContent>
+            </Card>
+          </motion.section>
+
+          {filteredEnemQuestions.length > 0 ? (
+            <>
+              {/* Progress Bar */}
+              <motion.section
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2, duration: 0.6 }}
+                className="mb-8"
+              >
+                <Card className="interactive-surface">
+                  <CardContent className="p-6">
+                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                      <div className="flex-1">
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-sm text-muted-foreground">
+                            Questão {enemCurrentQuestion + 1} de {filteredEnemQuestions.length}
+                          </span>
+                          <Badge className={getDifficultyColor(enemQuestion?.difficulty || "básico")}>
+                            {enemQuestion?.difficulty}
+                          </Badge>
+                        </div>
+                        <Progress value={enemProgress} className="h-2" />
+                      </div>
+                      <div className="flex items-center gap-4">
+                        <div className="text-center">
+                          <div className="text-2xl font-bold text-primary">{enemScore}</div>
+                          <div className="text-sm text-muted-foreground">Acertos</div>
+                        </div>
+                        <Button variant="outline" size="sm" onClick={resetEnemQuiz}>
+                          <RotateCcw className="h-4 w-4 mr-2" />
+                          Recomeçar
+                        </Button>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.section>
+
+              {/* Question Card */}
+              {enemQuestion && (
+                <motion.section
+                  key={enemCurrentQuestion}
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="mb-8"
+                >
+                  <Card className="interactive-surface">
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-3">
+                        <Target className="h-6 w-6 text-primary" />
+                        <span>Questão {enemCurrentQuestion + 1}</span>
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-6">
+                      {/* Category Badge */}
+                      <div className="flex gap-2">
+                        <Badge variant="secondary">{enemQuestion.category}</Badge>
+                      </div>
+
+                      {/* Question */}
+                      <div>
+                        <div className="text-lg mb-4">{enemQuestion.question}</div>
+                      </div>
+
+                      {/* Answer Options */}
+                      <div className="space-y-2">
+                        {enemQuestion.options.map((option, index) => (
+                          <motion.button
+                            key={index}
+                            onClick={() => setEnemSelectedAnswer(index)}
+                            disabled={enemShowResult}
+                            className={`
+                              w-full p-4 text-left rounded-lg border transition-all duration-300
+                              ${enemSelectedAnswer === index
+                                ? 'border-primary bg-primary/10'
+                                : 'border-border hover:border-primary/50 hover:bg-primary/5'
+                              }
+                              ${enemShowResult && index === enemQuestion.correctAnswer
+                                ? 'border-vector-green bg-vector-green/10'
+                                : ''
+                              }
+                              ${enemShowResult && enemSelectedAnswer === index && enemSelectedAnswer !== enemQuestion.correctAnswer
+                                ? 'border-vector-red bg-vector-red/10'
+                                : ''
+                              }
+                              disabled:cursor-not-allowed
+                            `}
+                            whileHover={{ scale: enemShowResult ? 1 : 1.02 }}
+                            whileTap={{ scale: enemShowResult ? 1 : 0.98 }}
+                          >
+                            <div className="flex items-center justify-between">
+                              <span>{option}</span>
+                              {enemShowResult && index === enemQuestion.correctAnswer && (
+                                <CheckCircle className="h-5 w-5 text-vector-green" />
+                              )}
+                              {enemShowResult && enemSelectedAnswer === index && enemSelectedAnswer !== enemQuestion.correctAnswer && (
+                                <XCircle className="h-5 w-5 text-vector-red" />
+                              )}
+                            </div>
+                          </motion.button>
+                        ))}
+                      </div>
+
+                      {/* Action Buttons */}
+                      <div className="flex flex-col sm:flex-row gap-3">
+                        {!enemShowResult ? (
+                          <Button
+                            onClick={handleEnemAnswer}
+                            disabled={enemSelectedAnswer === null}
+                            className="flex-1"
+                          >
+                            Verificar Resposta
+                          </Button>
+                        ) : (
+                          <div className="flex gap-3 flex-1">
+                            <Button
+                              onClick={prevEnemQuestion}
+                              disabled={enemCurrentQuestion === 0}
+                              variant="outline"
+                              className="flex-1"
+                            >
+                              Anterior
+                            </Button>
+                            <Button
+                              onClick={nextEnemQuestion}
+                              disabled={enemCurrentQuestion === filteredEnemQuestions.length - 1}
+                              className="flex-1"
+                            >
+                              Próxima
+                              <ArrowRight className="ml-2 h-4 w-4" />
+                            </Button>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Result */}
+                      <AnimatePresence>
+                        {enemShowResult && (
+                          <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
+                            className={`
+                              p-4 rounded-lg border
+                              ${enemIsCorrect
+                                ? 'bg-vector-green/10 border-vector-green text-vector-green'
+                                : 'bg-vector-red/10 border-vector-red text-vector-red'
+                              }
+                            `}
+                          >
+                            <div className="flex items-center gap-2 mb-2">
+                              {enemIsCorrect ? (
+                                <CheckCircle className="h-5 w-5" />
+                              ) : (
+                                <XCircle className="h-5 w-5" />
+                              )}
+                              <span className="font-semibold">
+                                {enemIsCorrect ? "Correto!" : "Incorreto"}
+                              </span>
+                            </div>
+                            {enemQuestion.explanation && (
+                              <div className="mt-3 text-sm text-foreground bg-black/5 dark:bg-white/5 p-3 rounded-md border border-border">
+                                <strong className="block mb-1">Resolução:</strong>
+                                <div className="whitespace-pre-wrap opacity-90">
+                                  {enemQuestion.explanation.includes('\\') || enemQuestion.explanation.includes('_') || enemQuestion.explanation.includes('^') ? (
+                                    <MathFormula formula={enemQuestion.explanation} />
+                                  ) : (
+                                    <span>{enemQuestion.explanation}</span>
+                                  )}
+                                </div>
+                              </div>
+                            )}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </CardContent>
+                  </Card>
+                </motion.section>
+              )}
+
+              {/* Navigation */}
+              <motion.section
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.6 }}
+              >
+                <Card className="interactive-surface">
+                  <CardHeader>
+                    <CardTitle>Navegação das Questões</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex flex-wrap gap-2">
+                      {filteredEnemQuestions.map((_, index) => (
+                        <Button
+                          key={index}
+                          onClick={() => {
+                            setEnemCurrentQuestion(index);
+                            setEnemSelectedAnswer(null);
+                            setEnemShowResult(false);
+                          }}
+                          variant={enemCurrentQuestion === index ? "default" : "outline"}
+                          size="sm"
+                          className={`
+                            w-10 h-10 p-0
+                            ${enemCompletedQuestions[index]
+                              ? 'bg-vector-green hover:bg-vector-green text-white'
+                              : ''
+                            }
+                          `}
+                        >
+                          {enemCompletedQuestions[index] ? (
+                            <CheckCircle className="h-4 w-4" />
+                          ) : (
+                            index + 1
+                          )}
+                        </Button>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.section>
+
+              {/* Final Results */}
+              {enemCurrentQuestion === filteredEnemQuestions.length - 1 && enemShowResult && (
+                <motion.section
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.5, duration: 0.5 }}
+                  className="mt-8"
+                >
+                  <Card className="bg-gradient-primary text-white text-center">
+                    <CardContent className="p-8">
+                      <Trophy className="h-16 w-16 mx-auto mb-4" />
+                      <h2 className="text-2xl font-bold mb-4">Quiz Finalizado!</h2>
+                      <p className="text-lg mb-4">
+                        Você acertou {enemScore} de {filteredEnemQuestions.length} questões
+                      </p>
+                      <div className="text-3xl font-bold mb-6">
+                        {Math.round((enemScore / filteredEnemQuestions.length) * 100)}%
+                      </div>
+                      <Button variant="secondary" size="lg" onClick={resetEnemQuiz}>
+                        <RotateCcw className="mr-2 h-5 w-5" />
+                        Tentar Novamente
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </motion.section>
+              )}
+            </>
+          ) : (
+            <Card className="text-center p-12">
+              <p className="text-muted-foreground mb-4">
+                Nenhuma questão encontrada com os filtros selecionados.
+              </p>
+              <Button onClick={() => {
+                setSelectedCategory("todas");
+                setSelectedDifficulty("todas");
+              }}>
+                Limpar Filtros
+              </Button>
+            </Card>
+          )}
+        </TabsContent>
         <TabsContent value="test" className="space-y-8">
           <TestMode
             questions={testQuestions}
