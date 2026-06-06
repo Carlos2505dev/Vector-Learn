@@ -17,14 +17,19 @@ export default defineConfig(({ mode }) => ({
   },
   build: {
     target: 'esnext',
-    minify: 'esbuild',
     cssCodeSplit: true,
     rollupOptions: {
       output: {
-        manualChunks: {
-          'three-vendor': ['three', '@react-three/fiber', '@react-three/drei'],
-          'recharts-vendor': ['recharts'],
-          'motion-vendor': ['framer-motion'],
+        manualChunks(id) {
+          if (id.includes('node_modules/three') || id.includes('node_modules/@react-three/')) {
+            return 'three-vendor';
+          }
+          if (id.includes('node_modules/recharts')) {
+            return 'recharts-vendor';
+          }
+          if (id.includes('node_modules/framer-motion')) {
+            return 'motion-vendor';
+          }
         }
       }
     },
