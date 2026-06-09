@@ -47,13 +47,12 @@ export function VectorComparator({
       if (prev.includes(id)) {
         return prev.length > 1 ? prev.filter(v => v !== id) : prev;
       }
-      return [...prev, id].slice(-3); // Max 3 vectors
+      return [...prev, id].slice(-3);
     });
   };
 
   return (
     <div className="w-full space-y-6">
-      {/* Mode Selector */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -73,7 +72,6 @@ export function VectorComparator({
         ))}
       </motion.div>
 
-      {/* Vector Selection */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -101,7 +99,6 @@ export function VectorComparator({
         ))}
       </motion.div>
 
-      {/* Comparison Display */}
       <div className={`grid gap-6 ${comparisonMode === "side-by-side" ? "grid-cols-1 md:grid-cols-2" : "grid-cols-1"}`}>
         {filteredVectors.map((vector, index) => (
           <motion.div
@@ -119,7 +116,6 @@ export function VectorComparator({
                 <h3 className="font-bold text-lg">{vector.name}</h3>
               </div>
 
-              {/* Components */}
               <div className="bg-muted/50 rounded-lg p-4 mb-4">
                 <p className="text-xs text-muted-foreground mb-2 font-semibold">COMPONENTES</p>
                 <div className="space-y-1">
@@ -136,7 +132,6 @@ export function VectorComparator({
                 </div>
               </div>
 
-              {/* Magnitude and Angle */}
               <div className="grid grid-cols-2 gap-3 mb-4">
                 {showMagnitude && (
                   <div className="bg-vector-blue/10 border border-vector-blue/30 rounded-lg p-3 text-center">
@@ -156,7 +151,6 @@ export function VectorComparator({
                 )}
               </div>
 
-              {/* Actions */}
               <div className="flex gap-2">
                 <Button
                   size="sm"
@@ -177,7 +171,6 @@ export function VectorComparator({
         ))}
       </div>
 
-      {/* Comparison Table */}
       {filteredVectors.length > 1 && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -229,7 +222,6 @@ export function VectorComparator({
                       ))}
                     </tr>
                   )}
-                  {/* Dot Product */}
                   {filteredVectors.length === 2 && (
                     <tr className="border-b border-border hover:bg-muted/50 bg-vector-blue/5">
                       <td className="p-2 font-semibold">Produto Escalar</td>

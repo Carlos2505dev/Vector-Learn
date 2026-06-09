@@ -1,8 +1,3 @@
-/**
- * @file usePDFExport.ts
- * @description Hook customizado para exportação de PDF e certificados
- * Fornece uma interface limpa para componentes gerarem PDFs
- */
 
 import { useState, useCallback } from "react";
 import {
@@ -27,10 +22,6 @@ interface UsePDFExportState {
   isSuccess: boolean;
 }
 
-/**
- * Hook para gerenciar exportação de PDFs
- * @returns Objeto com funções de exportação e estado
- */
 export function usePDFExport() {
   const [state, setState] = useState<UsePDFExportState>({
     isLoading: false,
@@ -39,9 +30,6 @@ export function usePDFExport() {
     isSuccess: false,
   });
 
-  /**
-   * Exporta um elemento HTML como PDF
-   */
   const exportHTML = useCallback(
     async (element: HTMLElement, options: PDFExportOptions) => {
       setState({ isLoading: true, error: null, lastResult: null, isSuccess: false });
@@ -68,14 +56,10 @@ export function usePDFExport() {
     []
   );
 
-  /**
-   * Exporta um certificado como PDF
-   */
   const exportCertificate = useCallback(
     async (certificate: CertificateData, options?: Partial<PDFExportOptions>) => {
       setState({ isLoading: true, error: null, lastResult: null, isSuccess: false });
       try {
-        // Salva o registro do certificado
         saveCertificateRecord(certificate);
 
         const result = await generateCertificatePDF(certificate, options);
@@ -100,9 +84,6 @@ export function usePDFExport() {
     []
   );
 
-  /**
-   * Exporta relatório de progresso como PDF
-   */
   const exportProgressReport = useCallback(
     async (report: ProgressReportData, options?: Partial<PDFExportOptions>) => {
       setState({ isLoading: true, error: null, lastResult: null, isSuccess: false });
@@ -129,9 +110,6 @@ export function usePDFExport() {
     []
   );
 
-  /**
-   * Exporta dados de progresso em JSON
-   */
   const exportProgressJSON = useCallback(
     (report: ProgressReportData, fileName?: string) => {
       try {
@@ -157,28 +135,20 @@ export function usePDFExport() {
     []
   );
 
-  /**
-   * Verifica a validade de um certificado
-   */
   const checkCertificate = useCallback((certificateId: string) => {
     return verifyCertificate(certificateId);
   }, []);
 
-  /**
-   * Limpa o estado de erro
-   */
   const clearError = useCallback(() => {
     setState((prev) => ({ ...prev, error: null }));
   }, []);
 
   return {
-    // Estado
     isLoading: state.isLoading,
     error: state.error,
     isSuccess: state.isSuccess,
     lastResult: state.lastResult,
 
-    // Funções
     exportHTML,
     exportCertificate,
     exportProgressReport,

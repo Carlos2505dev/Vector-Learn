@@ -8,7 +8,7 @@ import { EASTER_EGG_DEFINITIONS, type EasterEggUnlock } from "@/hooks/useEasterE
 interface EasterEggNotificationProps {
   unlockedBadge: EasterEggUnlock;
   onDismiss?: () => void;
-  autoHideAfter?: number; // ms
+  autoHideAfter?: number;
 }
 
 export function EasterEggNotification({
@@ -57,7 +57,6 @@ export function EasterEggNotification({
           <Card className={`bg-gradient-to-br ${rarityColors[badge.rarity]} border-0 shadow-2xl`}>
             <CardContent className="p-4">
               <div className="flex items-start justify-between gap-3">
-                {/* Conteúdo */}
                 <motion.div
                   animate={{ y: [0, -5, 0] }}
                   transition={{ repeat: Infinity, duration: 2 }}
@@ -121,7 +120,6 @@ export function EasterEggNotification({
                   </motion.div>
                 </div>
 
-                {/* Botão Fechar */}
                 <motion.button
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
@@ -132,7 +130,6 @@ export function EasterEggNotification({
                 </motion.button>
               </div>
 
-              {/* Progress bar de auto-hide */}
               {autoHideAfter && (
                 <motion.div
                   initial={{ width: "100%" }}
@@ -154,9 +151,6 @@ interface EasterEggBadgeGridProps {
   showLocked?: boolean;
 }
 
-/**
- * Componente para exibir grid de Easter Egg Badges
- */
 export function EasterEggBadgeGrid({
   unlockedBadges,
   showLocked = true,

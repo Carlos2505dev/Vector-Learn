@@ -20,7 +20,6 @@ export function SkillRadar() {
 
   const skillData = useMemo(() => {
     if (!stats.questionsAnswered || Object.keys(stats.questionsAnswered).length === 0) {
-      // Dados padrão se não houver histórico
       return [
         { skill: "Magnitude", value: 50, fullMark: 100, fill: "#FF6B6B" },
         { skill: "Direção", value: 50, fullMark: 100, fill: "#4ECDC4" },
@@ -30,7 +29,6 @@ export function SkillRadar() {
       ];
     }
 
-    // Categorizar questões por tema (simplificado)
     const skillMap: { [key: string]: { correct: number; total: number } } = {
       Magnitude: { correct: 0, total: 0 },
       Direção: { correct: 0, total: 0 },
@@ -39,7 +37,6 @@ export function SkillRadar() {
       Operações: { correct: 0, total: 0 },
     };
 
-    // Simular distribuição de acertos por habilidade (baseado em questões)
     Object.entries(stats.questionsAnswered).forEach(([qId, data], idx) => {
       const skills = Object.keys(skillMap);
       const skill = skills[idx % skills.length];
@@ -55,7 +52,6 @@ export function SkillRadar() {
     }));
   }, [stats.questionsAnswered]);
 
-  // Encontrar a habilidade mais fraca
   const weakestSkill = useMemo(() => {
     if (!skillData || skillData.length === 0) return null;
     return skillData.reduce((min, current) =>
@@ -79,7 +75,6 @@ export function SkillRadar() {
         </CardHeader>
 
         <CardContent className="space-y-6">
-          {/* Gráfico Radar */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -103,7 +98,6 @@ export function SkillRadar() {
             </ResponsiveContainer>
           </motion.div>
 
-          {/* Legend do Gráfico */}
           <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
             {skillData.map((skill, idx) => (
               <motion.div
@@ -126,7 +120,6 @@ export function SkillRadar() {
             ))}
           </div>
 
-          {/* Alert de Habilidade Fraca */}
           {weakestSkill && weakestSkill.value < 60 && showRecommendation && (
             <motion.div
               initial={{ opacity: 0, y: 10 }}
@@ -157,7 +150,6 @@ export function SkillRadar() {
             </motion.div>
           )}
 
-          {/* Estatísticas Gerais */}
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3 pt-4 border-t">
             <div className="text-center">
               <p className="text-2xl font-bold text-vector-teal">

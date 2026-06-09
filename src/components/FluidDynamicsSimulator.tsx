@@ -9,15 +9,6 @@ import { Wind, Droplets, ArrowRight, Info, Play, Pause } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MathFormula } from "./MathFormula";
 
-/**
- * FluidDynamicsSimulator - Educational component demonstrating vector fields in fluid dynamics
- * 
- * Concepts covered:
- * - Velocity vectors in fluid flow
- * - Drag force calculation
- * - Streamlines visualization
- * - Reynolds number effects
- */
 
 interface FluidParticle {
   x: number;
@@ -39,13 +30,11 @@ export function FluidDynamicsSimulator() {
   const svgRef = useRef<SVGSVGElement>(null);
   const animationIdRef = useRef<number | null>(null);
 
-  // Physics parameters
-  const [fluidVelocity, setFluidVelocity] = useState(3); // m/s
-  const [viscosity, setViscosity] = useState(0.5); // Range: 0.1 to 1.0 (low to high)
-  const [objectRadius, setObjectRadius] = useState(1.5); // Relative size
+  const [fluidVelocity, setFluidVelocity] = useState(3);
+  const [viscosity, setViscosity] = useState(0.5);
+  const [objectRadius, setObjectRadius] = useState(1.5);
   const [isAnimating, setIsAnimating] = useState(true);
 
-  // State management
   const [particles, setParticles] = useState<FluidParticle[]>([]);
   const [dragObject, setDragObject] = useState<DragObject>({
     x: 150,
@@ -55,36 +44,21 @@ export function FluidDynamicsSimulator() {
     vy: 0,
   });
 
-  // Canvas dimensions
   const CANVAS_WIDTH = 400;
   const CANVAS_HEIGHT = 300;
 
-  /**
-   * Calculate drag force using simplified Stokes' drag formula
-   * F_drag = 6 * π * η * r * v
-   * where η is dynamic viscosity, r is particle radius, v is relative velocity
-   */
   const calculateDragForce = useCallback((velocity: number, radius: number, eta: number) => {
     return 6 * Math.PI * eta * radius * velocity;
   }, []);
 
-  /**
-   * Calculate Reynolds number
-   * Re = ρ * v * L / η
-   * For educational purposes: Re = v * L / η (normalized)
-   */
   const reynoldsNumber = useMemo(() => {
     return (fluidVelocity * dragObject.radius) / (viscosity * 10 + 0.1);
   }, [fluidVelocity, dragObject.radius, viscosity]);
 
-  /**
-   * Physics simulation step - updates particles and object position
-   */
   const simulationStep = useCallback(() => {
     setParticles((prevParticles) => {
       let newParticles = [...prevParticles];
 
-      // Update existing particles
       newParticles = newParticles
         .map((p) => ({
           ...p,
@@ -94,7 +68,6 @@ export function FluidDynamicsSimulator() {
         }))
         .filter((p) => p.x > -20 && p.x < CANVAS_WIDTH + 20 && p.age < 120);
 
-      // Add new particles from left side
       if (Math.random() > 0.7) {
         newParticles.push({
           x: -5,
@@ -108,12 +81,10 @@ export function FluidDynamicsSimulator() {
       return newParticles;
     });
 
-    // Update drag object position and velocity
     setDragObject((prev) => {
       const drag = calculateDragForce(fluidVelocity, prev.radius, viscosity);
       const accelerationDrag = Math.min(drag * 0.02, fluidVelocity * 0.5);
 
-      // Object accelerates due to fluid flow but is slowed by drag
       const newVx = Math.max(0, prev.vx + accelerationDrag * 0.02);
       const decelerationFactor = 1 - viscosity * 0.1;
       const velocityX = newVx * decelerationFactor;
@@ -126,7 +97,6 @@ export function FluidDynamicsSimulator() {
     });
   }, [fluidVelocity, viscosity, calculateDragForce]);
 
-  // Animation loop
   useEffect(() => {
     if (!isAnimating) return;
 
@@ -144,9 +114,6 @@ export function FluidDynamicsSimulator() {
     };
   }, [isAnimating, simulationStep]);
 
-  /**
-   * Reset simulation to initial state
-   */
   const handleReset = useCallback(() => {
     setParticles([]);
     setDragObject((prev) => ({
@@ -157,9 +124,6 @@ export function FluidDynamicsSimulator() {
     }));
   }, []);
 
-  /**
-   * Generate streamline visualization data
-   */
   const streamlines = useMemo(() => {
     const lines = [];
     const step = 40;
@@ -169,7 +133,6 @@ export function FluidDynamicsSimulator() {
       let deflection = 0;
 
       for (let x = 0; x < CANVAS_WIDTH; x += 20) {
-        // Calculate deflection around object
         const dx = x - dragObject.x;
         const dy = y - dragObject.y;
         const distToObject = Math.sqrt(dx * dx + dy * dy);
@@ -178,7 +141,7 @@ export function FluidDynamicsSimulator() {
           const angle = Math.atan2(dy, dx);
           deflection = Math.sin(angle) * (dragObject.radius * 2 - distToObject) * 2;
         } else {
-          deflection *= 0.95; // Fade out deflection
+          deflection *= 0.95;
         }
 
         pathData += ` L ${x} ${y + deflection}`;
@@ -190,9 +153,6 @@ export function FluidDynamicsSimulator() {
     return lines;
   }, [dragObject]);
 
-  /**
-   * Calculate color based on particle age (opacity effect)
-   */
   const getParticleOpacity = (age: number): number => {
     return Math.max(0, 1 - age / 120);
   };
@@ -208,7 +168,6 @@ export function FluidDynamicsSimulator() {
 
       <CardContent className="p-6 space-y-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Visualization Canvas */}
           <div
             className="relative h-[300px] bg-gradient-to-b from-cyan-50 to-blue-50 dark:from-cyan-950/20 dark:to-blue-950/20 rounded-xl overflow-hidden border-2 border-cyan-200 dark:border-cyan-800"
           >
@@ -230,7 +189,6 @@ export function FluidDynamicsSimulator() {
                 </marker>
               </defs>
 
-              {/* Streamlines - background flow visualization */}
               {streamlines.map((pathData, idx) => (
                 <path
                   key={`streamline-${idx}`}
@@ -243,7 +201,6 @@ export function FluidDynamicsSimulator() {
                 />
               ))}
 
-              {/* Fluid particles */}
               {particles.map((particle, idx) => (
                 <circle
                   key={`particle-${idx}`}
@@ -255,7 +212,6 @@ export function FluidDynamicsSimulator() {
                 />
               ))}
 
-              {/* Drag object (circle) */}
               <motion.circle
                 cx={dragObject.x}
                 cy={dragObject.y}
@@ -266,10 +222,8 @@ export function FluidDynamicsSimulator() {
                 opacity="0.8"
               />
 
-              {/* Velocity vector visualization */}
               {dragObject.vx > 0.1 && (
                 <>
-                  {/* Force arrow showing drag direction */}
                   <defs>
                     <marker
                       id="dragArrow"
@@ -306,7 +260,6 @@ export function FluidDynamicsSimulator() {
                 </>
               )}
 
-              {/* Fluid flow direction indicator */}
               <defs>
                 <marker
                   id="fluidArrow"
@@ -336,9 +289,7 @@ export function FluidDynamicsSimulator() {
             </svg>
           </div>
 
-          {/* Controls and Info */}
           <div className="space-y-6">
-            {/* Animation Controls */}
             <div className="flex gap-2">
               <Button
                 onClick={() => setIsAnimating(!isAnimating)}
@@ -363,7 +314,6 @@ export function FluidDynamicsSimulator() {
               </Button>
             </div>
 
-            {/* Parameter Controls */}
             <div className="space-y-4">
               <div>
                 <div className="flex justify-between mb-2">
@@ -429,7 +379,6 @@ export function FluidDynamicsSimulator() {
 
             <Separator />
 
-            {/* Physical Parameters Display */}
             <div className="bg-muted/50 p-4 rounded-xl space-y-3">
               <h4 className="font-bold text-sm flex items-center gap-2">
                 <Info className="h-4 w-4" />
@@ -469,7 +418,6 @@ export function FluidDynamicsSimulator() {
                 </div>
               </div>
 
-              {/* Equations */}
               <div className="pt-4 border-t space-y-3">
                 <MathFormula
                   formula={String.raw`F_{arrasto} = 6\pi\eta rv`}
@@ -487,7 +435,6 @@ export function FluidDynamicsSimulator() {
               </div>
             </div>
 
-            {/* Educational Section */}
             <div className="bg-blue-50 dark:bg-blue-950/20 p-3 rounded-lg border border-blue-200 dark:border-blue-900 text-sm space-y-1">
               <p className="font-semibold text-blue-900 dark:text-blue-100">💡 Conceitos Visualizados:</p>
               <ul className="text-xs text-blue-800 dark:text-blue-200 space-y-1 list-disc list-inside">

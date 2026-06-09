@@ -73,7 +73,6 @@ export function ShareButtons({ content, onShare }: ShareButtonsProps) {
 
   return (
     <div className="w-full space-y-4">
-      {/* Main Share Section */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -126,7 +125,6 @@ export function ShareButtons({ content, onShare }: ShareButtonsProps) {
         </div>
       </motion.div>
 
-      {/* Share Message Preview */}
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -138,7 +136,6 @@ export function ShareButtons({ content, onShare }: ShareButtonsProps) {
         <p className="text-xs text-muted-foreground line-clamp-2">{content.description}</p>
       </motion.div>
 
-      {/* Share Stats */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -159,7 +156,6 @@ export function ShareButtons({ content, onShare }: ShareButtonsProps) {
         </div>
       </motion.div>
 
-      {/* Copy Link Option */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -193,7 +189,6 @@ export function ShareButtons({ content, onShare }: ShareButtonsProps) {
         </div>
       </motion.div>
 
-      {/* Motivation Message */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

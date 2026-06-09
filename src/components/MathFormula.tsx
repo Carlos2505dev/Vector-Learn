@@ -27,7 +27,6 @@ export function MathFormula({ formula, block = false, className = "" }: MathForm
       </span>
     );
   } catch (error) {
-    // Fallback for invalid LaTeX
     return (
       <span className={`font-mono text-destructive ${className}`}>
         [Fórmula inválida: {formula}]

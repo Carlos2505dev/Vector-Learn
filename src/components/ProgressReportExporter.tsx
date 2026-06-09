@@ -36,9 +36,6 @@ interface UserProgressReport {
   }>;
 }
 
-/**
- * Gera um relatório em HTML formatado
- */
 function generateHTMLReport(data: UserProgressReport): string {
   const accuracyPercentage = Math.round(data.averageAccuracy);
   const weekEnd = new Date(data.weekStartDate);
@@ -303,9 +300,6 @@ function generateHTMLReport(data: UserProgressReport): string {
   `;
 }
 
-/**
- * Converte HTML para PDF e faz download usando jsPDF + html2canvas
- */
 async function downloadPDF(htmlContent: string, fileName: string) {
   try {
     const element = document.createElement("div");
@@ -314,7 +308,6 @@ async function downloadPDF(htmlContent: string, fileName: string) {
     element.style.left = "-9999px";
     document.body.appendChild(element);
 
-    // Dinâmico: espera 100ms para garantir que o DOM está renderizado
     setTimeout(async () => {
       try {
         const { generatePDFFromHTML } = await import("@/lib/pdf-generator");
@@ -328,7 +321,6 @@ async function downloadPDF(htmlContent: string, fileName: string) {
     }, 100);
   } catch (error) {
     console.error("Erro ao gerar PDF:", error);
-    // Fallback: abrir em nova aba e deixar usuário salvar como PDF
     const blob = new Blob([htmlContent], { type: "text/html" });
     const url = URL.createObjectURL(blob);
     const iframe = document.createElement("iframe");
@@ -344,9 +336,6 @@ interface ProgressReportExporterProps {
   onExported?: () => void;
 }
 
-/**
- * Componente para exportar relatório em múltiplos formatos (PDF e JSON)
- */
 export function ProgressReportExporter({ data, onExported }: ProgressReportExporterProps) {
   const [isGenerating, setIsGenerating] = useState(false);
   const { exportProgressReport, exportProgressJSON, isLoading, error, clearError } = usePDFExport();
@@ -458,7 +447,6 @@ export function ProgressReportExporter({ data, onExported }: ProgressReportExpor
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          {/* Preview */}
           <div className="p-4 rounded-lg bg-background/50 border border-muted">
             <h4 className="font-semibold text-sm mb-2">📋 Resumo do Relatório:</h4>
             <div className="text-xs space-y-1 text-muted-foreground">
@@ -469,7 +457,6 @@ export function ProgressReportExporter({ data, onExported }: ProgressReportExpor
             </div>
           </div>
 
-          {/* Export Options */}
           <div className="space-y-2">
             <Button
               onClick={handleDownloadPDF}
@@ -508,7 +495,6 @@ export function ProgressReportExporter({ data, onExported }: ProgressReportExpor
             </Button>
           </div>
 
-          {/* Error Message */}
           {error && (
             <div className="p-3 rounded-lg bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800">
               <p className="text-xs text-red-700 dark:text-red-300">
@@ -524,7 +510,6 @@ export function ProgressReportExporter({ data, onExported }: ProgressReportExpor
             </div>
           )}
 
-          {/* Info */}
           <div className="p-2 rounded-lg bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800">
             <p className="text-xs text-blue-700 dark:text-blue-300">
               💡 Baixe seu relatório profissional em PDF ou faça backup em JSON. Compartilhe no LinkedIn para motivar outros alunos!
@@ -536,9 +521,6 @@ export function ProgressReportExporter({ data, onExported }: ProgressReportExpor
   );
 }
 
-/**
- * Card simples mostrando estatísticas do relatório
- */
 export function ProgressReportPreview({ data }: { data: UserProgressReport }) {
   return (
     <Card>

@@ -18,7 +18,6 @@ interface StreaksProps {
 export function Streaks({ streakData, onStreakClick }: StreaksProps) {
   const daysOfWeek = ["Seg", "Ter", "Qua", "Qui", "Sex", "Sab", "Dom"];
   
-  // Generate last 7 days activity
   const getLast7Days = () => {
     const today = new Date();
     const days = [];
@@ -39,13 +38,11 @@ export function Streaks({ streakData, onStreakClick }: StreaksProps) {
 
   return (
     <div className="w-full space-y-6">
-      {/* Main Streak Display */}
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         className="grid grid-cols-3 gap-4"
       >
-        {/* Current Streak */}
         <Card className="interactive-surface p-6 text-center ring-2 ring-vector-orange/50 cursor-pointer hover:ring-vector-orange transition-all" onClick={onStreakClick}>
           <CardContent className="p-0">
             <motion.div
@@ -60,7 +57,6 @@ export function Streaks({ streakData, onStreakClick }: StreaksProps) {
           </CardContent>
         </Card>
 
-        {/* Longest Streak */}
         <Card className="interactive-surface p-6 text-center">
           <CardContent className="p-0">
             <Award className="w-10 h-10 text-vector-blue mx-auto mb-3" />
@@ -69,7 +65,6 @@ export function Streaks({ streakData, onStreakClick }: StreaksProps) {
           </CardContent>
         </Card>
 
-        {/* This Month */}
         <Card className="interactive-surface p-6 text-center">
           <CardContent className="p-0">
             <Calendar className="w-10 h-10 text-vector-teal mx-auto mb-3" />
@@ -79,7 +74,6 @@ export function Streaks({ streakData, onStreakClick }: StreaksProps) {
         </Card>
       </motion.div>
 
-      {/* Weekly Activity Chart */}
       <Card className="interactive-surface p-6">
         <h4 className="font-bold mb-4">Atividade Desta Semana</h4>
         
@@ -103,7 +97,6 @@ export function Streaks({ streakData, onStreakClick }: StreaksProps) {
                 <p className="text-xs text-muted-foreground">{day.activity > 0 ? `${day.activity} XP` : "-"}</p>
               </div>
 
-              {/* Tooltip */}
               {day.activity > 0 && (
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
@@ -122,7 +115,6 @@ export function Streaks({ streakData, onStreakClick }: StreaksProps) {
         </p>
       </Card>
 
-      {/* Motivation Message */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

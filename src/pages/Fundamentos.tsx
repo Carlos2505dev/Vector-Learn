@@ -103,7 +103,6 @@ export default function Fundamentos() {
 
   return (
     <Layout>
-      {/* Header */}
       <motion.section
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -119,7 +118,6 @@ export default function Fundamentos() {
         </p>
       </motion.section>
 
-      {/* Concepts Grid */}
       <section className="mb-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {concepts.map((concept, index) => {
@@ -175,7 +173,6 @@ export default function Fundamentos() {
         </div>
       </section>
 
-      {/* Scalar vs Vector Comparison */}
       <motion.section
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -224,7 +221,6 @@ export default function Fundamentos() {
         </div>
       </motion.section>
 
-      {/* Examples Section */}
       <motion.section
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -273,7 +269,6 @@ export default function Fundamentos() {
         </div>
       </motion.section>
 
-      {/* Key Formulas Summary */}
       <motion.section
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -305,7 +300,6 @@ export default function Fundamentos() {
         </Card>
       </motion.section>
 
-      {/* Navigation */}
       <motion.section
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}

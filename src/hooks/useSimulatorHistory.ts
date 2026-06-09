@@ -20,19 +20,12 @@ export interface SimulatorReplayState {
   maxSnapshots: number;
 }
 
-/**
- * Hook para Session Replay - permite viagem no tempo no simulador
- * Ideal para learning through experimentation
- */
 export function useSimulatorHistory(maxSnapshots: number = 50) {
   const [history, setHistory] = useState<SimulatorSnapshot[]>([]);
   const [currentStepIndex, setCurrentStepIndex] = useState(-1);
   const [isReplaying, setIsReplaying] = useState(false);
   const checkpointRef = useRef<SimulatorSnapshot | null>(null);
 
-  /**
-   * Registra um snapshot do estado atual do simulador
-   */
   const recordSnapshot = useCallback(
     (snapshot: Omit<SimulatorSnapshot, "timestamp" | "stepIndex">) => {
       setHistory((prevHistory) => {
@@ -44,7 +37,6 @@ export function useSimulatorHistory(maxSnapshots: number = 50) {
 
         const updated = [...prevHistory, newSnapshot];
 
-        // Manter apenas últimos N snapshots (memory limit)
         if (updated.length > maxSnapshots) {
           updated.shift();
         }
@@ -57,9 +49,6 @@ export function useSimulatorHistory(maxSnapshots: number = 50) {
     [maxSnapshots]
   );
 
-  /**
-   * Volta para um passo específico do histórico
-   */
   const goToStep = useCallback((stepIndex: number): SimulatorSnapshot | null => {
     if (stepIndex < 0 || stepIndex >= history.length) {
       console.warn(`Invalid step index: ${stepIndex}`);
@@ -71,9 +60,6 @@ export function useSimulatorHistory(maxSnapshots: number = 50) {
     return history[stepIndex];
   }, [history]);
 
-  /**
-   * Próximo passo
-   */
   const nextStep = useCallback(() => {
     if (currentStepIndex < history.length - 1) {
       const nextStep = currentStepIndex + 1;
@@ -84,9 +70,6 @@ export function useSimulatorHistory(maxSnapshots: number = 50) {
     return null;
   }, [currentStepIndex, history]);
 
-  /**
-   * Passo anterior
-   */
   const previousStep = useCallback(() => {
     if (currentStepIndex > 0) {
       const prevStep = currentStepIndex - 1;
@@ -96,18 +79,12 @@ export function useSimulatorHistory(maxSnapshots: number = 50) {
     return null;
   }, [currentStepIndex, history]);
 
-  /**
-   * Volta para o início
-   */
   const replayFromStart = useCallback(() => {
     setCurrentStepIndex(0);
     setIsReplaying(true);
     return history[0] || null;
   }, [history]);
 
-  /**
-   * Cria um checkpoint para voltar depois
-   */
   const createCheckpoint = useCallback(() => {
     if (currentStepIndex >= 0 && currentStepIndex < history.length) {
       const checkpoint = {
@@ -123,9 +100,6 @@ export function useSimulatorHistory(maxSnapshots: number = 50) {
     }
   }, [currentStepIndex, history]);
 
-  /**
-   * Volta para o checkpoint
-   */
   const goToCheckpoint = useCallback(() => {
     if (checkpointRef.current) {
       const checkpointStep = history.findIndex(
@@ -143,9 +117,6 @@ export function useSimulatorHistory(maxSnapshots: number = 50) {
     return null;
   }, [history]);
 
-  /**
-   * Limpa o histórico
-   */
   const clearHistory = useCallback(() => {
     setHistory([]);
     setCurrentStepIndex(-1);
@@ -153,9 +124,6 @@ export function useSimulatorHistory(maxSnapshots: number = 50) {
     checkpointRef.current = null;
   }, []);
 
-  /**
-   * Exporta histórico como JSON
-   */
   const exportHistory = useCallback(() => {
     return JSON.stringify(
       {
@@ -170,9 +138,6 @@ export function useSimulatorHistory(maxSnapshots: number = 50) {
     );
   }, [history]);
 
-  /**
-   * Importa histórico de JSON
-   */
   const importHistory = useCallback((jsonData: string) => {
     try {
       const parsed = JSON.parse(jsonData);
@@ -187,9 +152,6 @@ export function useSimulatorHistory(maxSnapshots: number = 50) {
     }
   }, []);
 
-  /**
-   * Retorna metadata resumida da sessão
-   */
   const getSessionMetadata = useCallback(() => {
     if (history.length === 0) {
       return null;
@@ -209,14 +171,12 @@ export function useSimulatorHistory(maxSnapshots: number = 50) {
   }, [history, currentStepIndex]);
 
   return {
-    // State
     history,
     currentStepIndex,
     isReplaying,
     currentSnapshot: currentStepIndex >= 0 ? history[currentStepIndex] : null,
     checkpoint: checkpointRef.current,
 
-    // Methods
     recordSnapshot,
     goToStep,
     nextStep,
@@ -231,9 +191,6 @@ export function useSimulatorHistory(maxSnapshots: number = 50) {
   };
 }
 
-/**
- * Hook adjunto para integrar replay com controles UI
- */
 export function useSimulatorReplayControls(simulatorHistory: ReturnType<typeof useSimulatorHistory>) {
   return {
     canGoBack: simulatorHistory.currentStepIndex > 0,

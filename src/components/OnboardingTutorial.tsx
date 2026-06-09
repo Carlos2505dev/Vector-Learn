@@ -9,7 +9,7 @@ export interface TutorialStep {
   description: string;
   hint?: string;
   image?: string;
-  target?: string; // CSS selector to highlight
+  target?: string;
   action?: string;
 }
 
@@ -80,7 +80,6 @@ export function OnboardingTutorial({
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -89,7 +88,6 @@ export function OnboardingTutorial({
             className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
           />
 
-          {/* Tutorial Modal */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -97,7 +95,6 @@ export function OnboardingTutorial({
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
             className="fixed bottom-8 right-8 z-50 w-96 bg-card border border-border rounded-2xl shadow-2xl overflow-hidden"
           >
-            {/* Header */}
             <div className="relative h-48 bg-gradient-to-br from-vector-blue/20 to-vector-teal/20 flex items-center justify-center border-b border-border">
               {step.image ? (
                 <img src={step.image} alt={step.title} className="w-full h-full object-cover" />
@@ -117,7 +114,6 @@ export function OnboardingTutorial({
               </button>
             </div>
 
-            {/* Content */}
             <div className="p-6">
               <div className="mb-4">
                 <h3 className="text-xl font-bold mb-2">{step.title}</h3>
@@ -136,7 +132,6 @@ export function OnboardingTutorial({
                 )}
               </div>
 
-              {/* Progress Bar */}
               <div className="mb-6">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-xs font-semibold text-muted-foreground">
@@ -153,7 +148,6 @@ export function OnboardingTutorial({
                 </div>
               </div>
 
-              {/* Actions */}
               <div className="flex gap-3">
                 <Button
                   onClick={handlePrev}

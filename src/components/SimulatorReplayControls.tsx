@@ -61,7 +61,6 @@ export function SimulatorReplayControls({
         </CardHeader>
 
         <CardContent className="space-y-4">
-          {/* Slider Temporal */}
           <div className="space-y-2">
             <div className="flex items-center justify-between">
               <span className="text-xs text-muted-foreground">Timeline</span>
@@ -82,9 +81,7 @@ export function SimulatorReplayControls({
             />
           </div>
 
-          {/* Botões Principais */}
           <div className="flex items-center justify-center gap-2 pt-2">
-            {/* Voltar pro início */}
             <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
               <Button
                 size="icon"
@@ -99,7 +96,6 @@ export function SimulatorReplayControls({
               </Button>
             </motion.div>
 
-            {/* Passo anterior */}
             <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
               <Button
                 size="icon"
@@ -115,7 +111,6 @@ export function SimulatorReplayControls({
               </Button>
             </motion.div>
 
-            {/* Play/Pause */}
             <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
               <Button
                 size="icon"
@@ -131,7 +126,6 @@ export function SimulatorReplayControls({
               </Button>
             </motion.div>
 
-            {/* Passo próximo */}
             <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
               <Button
                 size="icon"
@@ -147,7 +141,6 @@ export function SimulatorReplayControls({
               </Button>
             </motion.div>
 
-            {/* Ir pro final */}
             <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
               <Button
                 size="icon"
@@ -164,7 +157,6 @@ export function SimulatorReplayControls({
               </Button>
             </motion.div>
 
-            {/* Checkpoint */}
             <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
               <Button
                 size="icon"
@@ -188,7 +180,6 @@ export function SimulatorReplayControls({
             </motion.div>
           </div>
 
-          {/* Info do Checkpoint */}
           {replayControls.checkpoint && (
             <motion.div
               initial={{ opacity: 0 }}
@@ -199,7 +190,6 @@ export function SimulatorReplayControls({
             </motion.div>
           )}
 
-          {/* Metadata da Sessão */}
           {metadata && (
             <div className="pt-2 border-t grid grid-cols-3 gap-2 text-center text-xs">
               <div>
@@ -219,7 +209,6 @@ export function SimulatorReplayControls({
         </CardContent>
       </Card>
 
-      {/* Dica de Como Usar */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

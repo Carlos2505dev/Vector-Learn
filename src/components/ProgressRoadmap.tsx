@@ -11,7 +11,7 @@ export interface RoadmapNode {
   difficulty: "básico" | "intermediário" | "avançado";
   duration: string;
   href: string;
-  progress?: number; // 0-100
+  progress?: number;
   prerequisites?: string[];
   skills?: string[];
 }
@@ -136,7 +136,6 @@ export function ProgressRoadmap({ nodes, orientation = "vertical" }: ProgressRoa
           transition={{ delay: index * 0.1 }}
           className="flex gap-6"
         >
-          {/* Timeline indicator */}
           <div className="flex flex-col items-center">
             <div className={`w-12 h-12 rounded-full flex items-center justify-center border-2 ${getStatusColor(node.status)} flex-shrink-0`}>
               {getStatusIcon(node.status)}
@@ -146,7 +145,6 @@ export function ProgressRoadmap({ nodes, orientation = "vertical" }: ProgressRoa
             )}
           </div>
 
-          {/* Content */}
           <Link to={node.status === "locked" ? "#" : node.href} className="flex-1 block">
             <Card className={`interactive-surface p-6 transition-all cursor-pointer ${node.status === "locked" ? "opacity-60 grayscale" : "hover:shadow-lg hover:border-vector-blue/50"}`}>
               <div className="flex items-start justify-between mb-3">

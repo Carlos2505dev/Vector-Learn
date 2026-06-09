@@ -1,7 +1,6 @@
 import type { TestQuestion } from "@/components/TestMode";
 
 export const enemVestibularQuestions: TestQuestion[] = [
-  // SOMA E SUBTRAÇÃO DE VETORES
   {
     id: "soma-1",
     category: "Soma e Subtração",
@@ -66,7 +65,6 @@ export const enemVestibularQuestions: TestQuestion[] = [
     explanation: "R² = a² + b² + 2ab·cos(θ)\r\n13² = 12² + 5² + 2(12)(5)·cos(θ)\r\n169 = 144 + 25 + 120·cos(θ)\r\n169 = 169 + 120·cos(θ)\r\n0 = 120·cos(θ)\r\ncos(θ) = 0\r\nθ = 90°",
   },
 
-  // DECOMPOSIÇÃO E COMPONENTES
   {
     id: "decomp-1",
     category: "Decomposição e Componentes",
@@ -104,7 +102,6 @@ export const enemVestibularQuestions: TestQuestion[] = [
     explanation: "S = a + b + c\r\nS = (3i + 0j) + (0i + 4j) + (-2i + 0j)\r\nS = (3 - 2)i + (4)j\r\nS = 1i + 4j\r\n|S| = √(1² + 4²) = √(1 + 16) = √17 ≈ 4,12\r\n\r\nAjustando: se c = -3i, então |S| = √(0² + 4²) = 4\r\nSe os dados forem diferentes: |S| = 5 é resultado de 3² + 4² = 25, então √25 = 5",
   },
 
-  // PRODUTO ESCALAR
   {
     id: "escalar-1",
     category: "Produto Escalar",
@@ -160,7 +157,6 @@ export const enemVestibularQuestions: TestQuestion[] = [
     explanation: "u · v = (3)(1) + (4)(2) = 3 + 8 = 11\r\n2u · v = 2(11) = 22\r\n|u|² = 3² + 4² = 9 + 16 = 25\r\n2u · v + |u|² = 22 + 25 = 47\r\n\r\n(Verificar resultado esperado: se resposta é 35, talvez dados ligeiramente diferentes)",
   },
 
-  // PRODUTO VETORIAL
   {
     id: "vetorial-1",
     category: "Produto Vetorial",
@@ -207,7 +203,6 @@ export const enemVestibularQuestions: TestQuestion[] = [
     explanation: "u × v = |i    j    k  |\r\n         |2   -1    0  |\r\n         |0    0    1  |\r\n\r\nu × v = i(-1·1 - 0·0) - j(2·1 - 0·0) + k(2·0 - (-1)·0)\r\nu × v = i(-1) - j(2) + k(0)\r\nu × v = (-1, -2, 0)",
   },
 
-  // PROJEÇÃO DE VETORES
   {
     id: "proj-1",
     category: "Projeção de Vetores",
@@ -245,7 +240,6 @@ export const enemVestibularQuestions: TestQuestion[] = [
     explanation: "Projeção escalar = (u · v) / |v|\r\nu · v = 3(1) + 4(1) = 3 + 4 = 7\r\n|v| = √(1² + 1²) = √2\r\nProjeção = 7/√2 = 7√2/2",
   },
 
-  // PRODUTO MISTO
   {
     id: "misto-1",
     category: "Produto Misto",
@@ -283,7 +277,6 @@ export const enemVestibularQuestions: TestQuestion[] = [
     explanation: "Volume = |u · (v × w)|\r\n\r\nv × w = |i   j   k |\r\n         |1   0   1 |\r\n         |0   1   1 |\r\n= i(0·1 - 1·1) - j(1·1 - 1·0) + k(1·1 - 0·0)\r\n= i(-1) - j(1) + k(1)\r\n= (-1, -1, 1)\r\n\r\nu · (v × w) = (1, 1, 0) · (-1, -1, 1)\r\n= 1(-1) + 1(-1) + 0(1)\r\n= -1 - 1 + 0\r\n= -2\r\n\r\nVolume = |-2| = 2 unidades cúbicas",
   },
 
-  // APLICAÇÕES EM COMPUTAÇÃO
   {
     id: "comp-1",
     category: "Aplicações em Computação",
@@ -505,7 +498,6 @@ export function getRandomQuestions(
     filtered = filtered.filter((q) => q.difficulty === difficulty);
   }
 
-  // Fisher-Yates shuffle
   const shuffled = [...filtered];
   for (let i = shuffled.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));

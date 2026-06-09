@@ -24,17 +24,12 @@ interface SolutionComparatorProps {
   highlightDifferences?: boolean;
 }
 
-/**
- * Componente para comparar solução do usuário com a correta
- * Mostra visualmente onde divergiram
- */
 export function SolutionComparator({
   userPath,
   correctPath,
   showDivergence = true,
   highlightDifferences = true,
 }: SolutionComparatorProps) {
-  // Encontrar onde as soluções divergem
   const divergencePoint = userPath.steps.findIndex(
     (step, idx) =>
       !correctPath.steps[idx] ||
@@ -57,7 +52,6 @@ export function SolutionComparator({
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* Sua Solução */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -70,7 +64,6 @@ export function SolutionComparator({
                 </Badge>
               </div>
 
-              {/* Passos da solução do usuário */}
               {userPath.steps.map((step, idx) => {
                 const isCorrectStep = correctPath.steps[idx]?.formula === step.formula;
                 const isDivergence = showDivergence && divergencePoint === idx;
@@ -122,7 +115,6 @@ export function SolutionComparator({
                 );
               })}
 
-              {/* Resposta Final */}
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -141,7 +133,6 @@ export function SolutionComparator({
               </motion.div>
             </motion.div>
 
-            {/* Solução Correta */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -154,7 +145,6 @@ export function SolutionComparator({
                 </Badge>
               </div>
 
-              {/* Passos da solução correta */}
               {correctPath.steps.map((step, idx) => {
                 const userHasStep = userPath.steps[idx];
                 const userIsCorrect = userHasStep?.formula === step.formula;
@@ -202,7 +192,6 @@ export function SolutionComparator({
                 );
               })}
 
-              {/* Resposta Final Correta */}
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -219,7 +208,6 @@ export function SolutionComparator({
         </CardContent>
       </Card>
 
-      {/* Insight sobre o erro */}
       {divergencePoint >= 0 && divergencePoint < userPath.steps.length && (
         <motion.div
           initial={{ opacity: 0, y: 10 }}
@@ -251,9 +239,6 @@ export function SolutionComparator({
   );
 }
 
-/**
- * Helper para criar soluções de exemplo
- */
 export const EXAMPLE_SOLUTION_PATHS = {
   dotProduct: {
     correct: {
@@ -298,13 +283,13 @@ export const EXAMPLE_SOLUTION_PATHS = {
         {
           step: 2,
           description: "Aplique a fórmula do produto escalar",
-          formula: "a·b = a_x * b_x + a_y * b_y", // Correct
+          formula: "a·b = a_x * b_x + a_y * b_y",
           isCorrect: true,
         },
         {
           step: 3,
           description: "Calcule os produtos",
-          formula: "a·b = (2*1) + (3*4) = 2 + 12", // ERRADO: uso componentes erradas
+          formula: "a·b = (2*1) + (3*4) = 2 + 12",
           isCorrect: false,
         },
         {

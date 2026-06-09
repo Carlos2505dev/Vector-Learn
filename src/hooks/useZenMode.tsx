@@ -48,9 +48,6 @@ interface ZenModeToggleProps {
   showLabel?: boolean;
 }
 
-/**
- * Botão flutuante para ativar/desativar Zen Mode
- */
 export function ZenModeToggle({ isActive, onToggle, showLabel = true }: ZenModeToggleProps) {
   return (
     <motion.button
@@ -91,10 +88,6 @@ interface ZenModeWrapperProps {
   hideStats?: boolean;
 }
 
-/**
- * Wrapper que aplica Zen Mode ao conteúdo
- * Oculta elementos visuais que distraem
- */
 export function ZenModeWrapper({
   isActive,
   children,
@@ -118,16 +111,13 @@ export function ZenModeWrapper({
         />
       )}
 
-      {/* Aplicar estilos de Zen Mode */}
       <style dangerouslySetInnerHTML={{ __html: `
         ${isActive ? `
-          /* Remover animações extra */
           * {
             animation-duration: 0s !important;
             transition: none !important;
           }
 
-          /* Remover barras de desempenho/badges */
           ${hideBadges ? `
           [class*="badge-section"], .badge, .icon-animate {
             display: none !important;
@@ -140,7 +130,6 @@ export function ZenModeWrapper({
           }
           ` : ''}
 
-          /* Focar no conteúdo principal */
           body {
             background: #000000 !important;
             color: #F5F5F5 !important;
@@ -153,9 +142,6 @@ export function ZenModeWrapper({
   );
 }
 
-/**
- * Painel de controle de Zen Mode
- */
 interface ZenModeControlsProps {
   isActive: boolean;
   hideNavbar: boolean;

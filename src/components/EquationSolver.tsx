@@ -99,7 +99,7 @@ export function EquationSolver({ onSolve }: EquationSolverProps) {
       if (!history.includes(input)) {
         setHistory(prev => [input, ...prev].slice(0, 5));
       }
-      setThoughtIndex(thoughtMessages.length - 1); // "Tudo pronto!"
+      setThoughtIndex(thoughtMessages.length - 1);
     } else {
       setError("Não consegui entender essa equação. Tente o formato (x, y, z) ou xi + yj + zk.");
     }
@@ -121,11 +121,9 @@ export function EquationSolver({ onSolve }: EquationSolverProps) {
   return (
     <div className="w-full space-y-6">
       <div className="relative group">
-        {/* Dynamic Glow Effect */}
         <div className={`absolute -inset-1 bg-gradient-to-r from-vector-blue via-vector-teal to-vector-purple rounded-2xl blur-xl opacity-20 group-hover:opacity-40 transition-opacity duration-700 ${isProcessing ? 'animate-pulse' : ''}`} />
         
         <Card className="relative bg-background/40 backdrop-blur-xl border-2 border-white/10 hover:border-vector-blue/30 transition-all duration-500 overflow-hidden shadow-2xl">
-          {/* Animated Background Mesh */}
           <div className="absolute inset-0 opacity-10 pointer-events-none">
             <div className="absolute top-0 -left-1/4 w-1/2 h-full bg-vector-blue rounded-full blur-[100px] animate-pulse" />
             <div className="absolute bottom-0 -right-1/4 w-1/2 h-full bg-vector-teal rounded-full blur-[100px] animate-pulse" style={{ animationDelay: '1s' }} />
@@ -241,7 +239,6 @@ export function EquationSolver({ onSolve }: EquationSolverProps) {
                       } 
                     />
 
-                    {/* Numerical Result Display */}
                     <AnimatePresence>
                       {showResult && calculation && (
                         <motion.div

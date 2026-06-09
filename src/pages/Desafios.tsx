@@ -29,7 +29,6 @@ interface Question {
 }
 
 const rawQuestions: Question[] = [
-  // BÁSICO
   {
     id: "q1",
     type: "multiple-choice",
@@ -135,7 +134,6 @@ const rawQuestions: Question[] = [
     hint: "Pense na origem do sistema de coordenadas."
   },
 
-  // INTERMEDIÁRIO
   {
     id: "q3",
     type: "multiple-choice",
@@ -255,7 +253,6 @@ const rawQuestions: Question[] = [
     hint: "Pense no sinal da função cosseno."
   },
 
-  // AVANÇADO
   {
     id: "q5",
     type: "multiple-choice",
@@ -363,14 +360,12 @@ const rawQuestions: Question[] = [
   }
 ];
 
-// Ensure questions are sorted by difficulty: básico -> intermediário -> avançado
 const questions: Question[] = [...rawQuestions].sort((a, b) => {
   const diffOrder = { "básico": 1, "intermediário": 2, "avançado": 3 };
   return diffOrder[a.difficulty] - diffOrder[b.difficulty];
 });
 
 
-// Test questions for TestMode
 const testQuestions: TestQuestion[] = [
   {
     id: "test-1",
@@ -445,7 +440,6 @@ export default function Desafios() {
   const [unlockedBadgeNotification, setUnlockedBadgeNotification] = useState<string | null>(null);
   const [questionStartTime, setQuestionStartTime] = useState(Date.now());
   
-  // ENEM/Vestibular filters
   const [selectedCategory, setSelectedCategory] = useState<QuestionCategory | "todas">("todas");
   const [selectedDifficulty, setSelectedDifficulty] = useState<"todas" | "básico" | "intermediário" | "avançado">("todas");
   const [enemCurrentQuestion, setEnemCurrentQuestion] = useState(0);
@@ -455,7 +449,6 @@ export default function Desafios() {
   const [enemCompletedQuestions, setEnemCompletedQuestions] = useState<boolean[]>([]);
   const [enemQuestionStartTime, setEnemQuestionStartTime] = useState(Date.now());
   
-  // Get filtered ENEM questions
   const getFilteredEnemQuestions = () => {
     let filtered = enemVestibularQuestions;
     
@@ -480,12 +473,10 @@ export default function Desafios() {
 
   const { stats, recordAnswer, recordTestCompletion, isUnlocked } = useUserProgress();
 
-  // Track question start time
   useEffect(() => {
     setQuestionStartTime(Date.now());
   }, [currentQuestion]);
   
-  // Track ENEM question start time
   useEffect(() => {
     setEnemQuestionStartTime(Date.now());
   }, [enemCurrentQuestion]);
@@ -495,7 +486,6 @@ export default function Desafios() {
   const isCorrect = selectedAnswer === question.correctAnswer ||
     (question.type === "calculation" && parseFloat(inputAnswer) === question.correctAnswer);
 
-  // ENEM questions handlers
   const enemQuestion = filteredEnemQuestions[enemCurrentQuestion];
   const enemProgress = ((enemCurrentQuestion + 1) / filteredEnemQuestions.length) * 100;
   const enemIsCorrect = enemSelectedAnswer === enemQuestion?.correctAnswer;
@@ -545,7 +535,7 @@ export default function Desafios() {
     if (selectedAnswer === null && inputAnswer === "") return;
 
     setShowResult(true);
-    const timeSpent = (Date.now() - questionStartTime) / 1000; // Convert to seconds
+    const timeSpent = (Date.now() - questionStartTime) / 1000;
     setAnsweredTime(timeSpent);
 
     if (isCorrect && !completedQuestions[currentQuestion]) {
@@ -554,11 +544,9 @@ export default function Desafios() {
       newCompleted[currentQuestion] = true;
       setCompletedQuestions(newCompleted);
 
-      // Record the answer in user progress and track badges
       const previousBadges = stats.unlockedBadges.map(b => b.badgeId);
       recordAnswer(question.id, true, timeSpent);
 
-      // Check if a new badge was unlocked
       setTimeout(() => {
         const newStats = stats;
         const newBadges = newStats.unlockedBadges.filter(b => !previousBadges.includes(b.badgeId));
@@ -663,7 +651,6 @@ export default function Desafios() {
           </TabsTrigger>
         </TabsList>
 
-        {/* Quiz Tab */}
         <TabsContent value="quiz" className="space-y-8">
           <motion.section
             initial={{ opacity: 0, y: 20 }}
@@ -700,7 +687,6 @@ export default function Desafios() {
             </Card>
           </motion.section>
 
-          {/* Question Card */}
           <motion.section
             key={currentQuestion}
             initial={{ opacity: 0, x: 50 }}
@@ -734,7 +720,6 @@ export default function Desafios() {
                   )}
                 </div>
 
-                {/* Answer Options */}
                 <div className="space-y-4">
                   {question.type === "multiple-choice" && question.options && (
                     <div className="space-y-2">
@@ -801,7 +786,6 @@ export default function Desafios() {
                   )}
                 </div>
 
-                {/* Hint */}
                 {question.hint && (
                   <div className="space-y-2">
                     <Button
@@ -827,7 +811,6 @@ export default function Desafios() {
                   </div>
                 )}
 
-                {/* Action Buttons */}
                 <div className="flex flex-col sm:flex-row gap-3">
                   {!showResult ? (
                     <Button
@@ -859,7 +842,6 @@ export default function Desafios() {
                   )}
                 </div>
 
-                {/* Result and Explanation */}
                 <AnimatePresence>
                   {showResult && (
                     <motion.div
@@ -898,7 +880,6 @@ export default function Desafios() {
             </Card>
           </motion.section>
 
-          {/* Question Navigation */}
           <motion.section
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -939,7 +920,6 @@ export default function Desafios() {
             </Card>
           </motion.section>
 
-          {/* Final Results */}
           {currentQuestion === questions.length - 1 && showResult && (
             <motion.section
               initial={{ opacity: 0, scale: 0.9 }}
@@ -967,9 +947,7 @@ export default function Desafios() {
           )}
         </TabsContent>
 
-        {/* ENEM/Vestibular Tab */}
         <TabsContent value="enem" className="space-y-8">
-          {/* Filters */}
           <motion.section
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -985,7 +963,6 @@ export default function Desafios() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {/* Category Filter */}
                   <div>
                     <label className="text-sm font-medium mb-2 block">Categoria</label>
                     <div className="flex flex-wrap gap-2">
@@ -1009,7 +986,6 @@ export default function Desafios() {
                     </div>
                   </div>
 
-                  {/* Difficulty Filter */}
                   <div>
                     <label className="text-sm font-medium mb-2 block">Dificuldade</label>
                     <div className="flex flex-wrap gap-2">
@@ -1041,7 +1017,6 @@ export default function Desafios() {
 
           {filteredEnemQuestions.length > 0 ? (
             <>
-              {/* Progress Bar */}
               <motion.section
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -1077,7 +1052,6 @@ export default function Desafios() {
                 </Card>
               </motion.section>
 
-              {/* Question Card */}
               {enemQuestion && (
                 <motion.section
                   key={enemCurrentQuestion}
@@ -1094,17 +1068,14 @@ export default function Desafios() {
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-6">
-                      {/* Category Badge */}
                       <div className="flex gap-2">
                         <Badge variant="secondary">{enemQuestion.category}</Badge>
                       </div>
 
-                      {/* Question */}
                       <div>
                         <div className="text-lg mb-4">{enemQuestion.question}</div>
                       </div>
 
-                      {/* Answer Options */}
                       <div className="space-y-2">
                         {enemQuestion.options.map((option, index) => (
                           <motion.button
@@ -1143,7 +1114,6 @@ export default function Desafios() {
                         ))}
                       </div>
 
-                      {/* Action Buttons */}
                       <div className="flex flex-col sm:flex-row gap-3">
                         {!enemShowResult ? (
                           <Button
@@ -1175,7 +1145,6 @@ export default function Desafios() {
                         )}
                       </div>
 
-                      {/* Result */}
                       <AnimatePresence>
                         {enemShowResult && (
                           <motion.div
@@ -1220,7 +1189,6 @@ export default function Desafios() {
                 </motion.section>
               )}
 
-              {/* Navigation */}
               <motion.section
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -1262,7 +1230,6 @@ export default function Desafios() {
                 </Card>
               </motion.section>
 
-              {/* Final Results */}
               {enemCurrentQuestion === filteredEnemQuestions.length - 1 && enemShowResult && (
                 <motion.section
                   initial={{ opacity: 0, scale: 0.9 }}
@@ -1306,7 +1273,7 @@ export default function Desafios() {
         <TabsContent value="test" className="space-y-8">
           <TestMode
             questions={testQuestions}
-            timeLimit={15 * 60} // 15 minutos
+            timeLimit={15 * 60}
             title="Prova Certificada - Vetores"
             level="intermediário"
             onComplete={(session) => {
@@ -1317,7 +1284,6 @@ export default function Desafios() {
           />
         </TabsContent>
 
-        {/* Analysis Tab */}
         <TabsContent value="analise" className="space-y-8">
           <SkillRadar />
           <motion.section
@@ -1368,18 +1334,15 @@ export default function Desafios() {
           </motion.section>
         </TabsContent>
 
-        {/* Badges Tab */}
         <TabsContent value="badges" className="space-y-8">
           <BadgeSystem unlockedBadges={stats.unlockedBadges} />
         </TabsContent>
 
-        {/* Perfil Tab */}
         <TabsContent value="perfil" className="space-y-8">
           <GamificationDashboard />
         </TabsContent>
       </Tabs>
 
-      {/* Badge Unlock Notification */}
       <AnimatePresence>
         {unlockedBadgeNotification && (
           <motion.div

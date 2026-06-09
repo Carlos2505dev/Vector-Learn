@@ -12,7 +12,6 @@ export function InclinedPlaneSimulator() {
   const [mass, setMass] = useState(10);
   const g = 9.81;
 
-  // Calculations
   const angleRad = (angle * Math.PI) / 180;
   const weight = mass * g;
   const px = weight * Math.sin(angleRad);
@@ -29,7 +28,6 @@ export function InclinedPlaneSimulator() {
       </CardHeader>
       <CardContent className="p-6 space-y-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Visual Canvas */}
           <div className="relative h-[300px] bg-orange-50 dark:bg-orange-950/10 rounded-xl overflow-hidden border-2 border-orange-100 dark:border-orange-900">
             <svg viewBox="0 0 400 300" className="w-full h-full">
               <defs>
@@ -41,7 +39,6 @@ export function InclinedPlaneSimulator() {
                 </marker>
               </defs>
 
-              {/* Inclined Plane */}
               <path
                 d={`M 50 250 L 350 250 L 350 ${250 - 300 * Math.tan(angleRad)} Z`}
                 fill="#ddd"
@@ -49,7 +46,6 @@ export function InclinedPlaneSimulator() {
                 strokeWidth="2"
               />
 
-              {/* Angle Arc */}
               <path
                 d={`M 100 250 A 50 50 0 0 0 ${100 - 50 * Math.cos(angleRad)} ${250 - 50 * Math.sin(angleRad)}`}
                 fill="none"
@@ -58,30 +54,24 @@ export function InclinedPlaneSimulator() {
               />
               <text x="110" y="240" fill="hsl(var(--vector-orange))" className="text-sm font-bold">{angle}°</text>
 
-              {/* Block (simplified box) */}
               <g transform={`translate(200, ${250 - 150 * Math.tan(angleRad)}) rotate(${-angle})`}>
                 <rect x="-20" y="-40" width="40" height="40" fill="#666" rx="4" />
                 
-                {/* Weight Vector (P) - Should point straight down globally */}
                 <line x1="0" y1="-20" x2={-px / 2} y2={py / 2 - 20} stroke="hsl(var(--vector-red))" strokeWidth="3" markerEnd="url(#arrow-orange)" />
                 <text x={-px / 2 - 10} y={py / 2} fill="hsl(var(--vector-red))" className="text-[10px] font-bold">P</text>
 
-                {/* Normal Vector (N) */}
                 <line x1="0" y1="-20" x2="0" y2="-70" stroke="hsl(var(--vector-blue))" strokeWidth="3" markerEnd="url(#arrow-blue)" />
                 <text x="5" y="-75" fill="hsl(var(--vector-blue))" className="text-[10px] font-bold">N</text>
 
-                {/* Px Vector - Should point down the plane */}
                 <line x1="0" y1="-20" x2={-px / 2} y2="-20" stroke="hsl(var(--vector-orange))" strokeWidth="2" strokeDasharray="2,2" markerEnd="url(#arrow-orange)" />
                 <text x={-px / 2 - 20} y="-25" fill="hsl(var(--vector-orange))" className="text-[10px] font-bold">Px</text>
 
-                {/* Py Vector */}
                 <line x1="0" y1="-20" x2="0" y2={py / 2 - 20} stroke="hsl(var(--vector-teal))" strokeWidth="2" strokeDasharray="2,2" />
                 <text x="-25" y={py / 2 - 10} fill="hsl(var(--vector-teal))" className="text-[10px] font-bold">Py</text>
               </g>
             </svg>
           </div>
 
-          {/* Controls */}
           <div className="space-y-6">
             <div className="space-y-4">
               <div>

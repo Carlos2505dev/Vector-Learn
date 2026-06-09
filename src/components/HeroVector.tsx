@@ -35,7 +35,7 @@ export function HeroVector({ className = "" }: HeroVectorProps) {
       const centerY = rect.height / 2;
       
       const x = e.clientX - rect.left - centerX;
-      const y = centerY - (e.clientY - rect.top); // Flip Y for mathematical coordinate system
+      const y = centerY - (e.clientY - rect.top);
       
       setMouseVector({ x, y });
     };
@@ -67,10 +67,9 @@ export function HeroVector({ className = "" }: HeroVectorProps) {
   const vectorMagnitude = magnitude2D(mouseVector);
   const normalizedVector = normalize2D(mouseVector);
 
-  // Convert vector to SVG coordinates
   const svgVector = {
-    x: mouseVector.x * 0.3, // Scale down for display
-    y: -mouseVector.y * 0.3, // Flip Y back for SVG
+    x: mouseVector.x * 0.3,
+    y: -mouseVector.y * 0.3,
   };
 
   const arrowLength = Math.min(vectorMagnitude * 0.3, 150);
@@ -85,7 +84,6 @@ export function HeroVector({ className = "" }: HeroVectorProps) {
         className="w-full h-full cursor-crosshair"
         style={{ maxHeight: "300px" }}
       >
-        {/* Grid */}
         <defs>
           <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
             <path
@@ -99,7 +97,6 @@ export function HeroVector({ className = "" }: HeroVectorProps) {
         </defs>
         <rect width="100%" height="100%" fill="url(#grid)" />
 
-        {/* Axes */}
         <line
           x1="50"
           y1="150"
@@ -119,7 +116,6 @@ export function HeroVector({ className = "" }: HeroVectorProps) {
           opacity="0.6"
         />
 
-        {/* Origin point */}
         <circle
           cx="250"
           cy="150"
@@ -128,7 +124,6 @@ export function HeroVector({ className = "" }: HeroVectorProps) {
           className="glow-effect"
         />
 
-        {/* Vector */}
         <motion.g
           initial={{ opacity: 0 }}
           animate={{ opacity: isHovering ? 1 : 0.7 }}
@@ -145,7 +140,6 @@ export function HeroVector({ className = "" }: HeroVectorProps) {
             className="drop-shadow-sm"
           />
           
-          {/* Arrow head */}
           {arrowLength > 10 && (
             <polygon
               points={`${arrowEndX},${arrowEndY} ${arrowEndX - 8 * normalizedVector.x + 4 * normalizedVector.y},${arrowEndY + 8 * normalizedVector.y + 4 * normalizedVector.x} ${arrowEndX - 8 * normalizedVector.x - 4 * normalizedVector.y},${arrowEndY + 8 * normalizedVector.y - 4 * normalizedVector.x}`}
@@ -155,14 +149,12 @@ export function HeroVector({ className = "" }: HeroVectorProps) {
           )}
         </motion.g>
 
-        {/* Component vectors */}
         {isHovering && arrowLength > 5 && (
           <motion.g
             initial={{ opacity: 0 }}
             animate={{ opacity: 0.6 }}
             transition={{ delay: 0.1 }}
           >
-            {/* X component */}
             <line
               x1="250"
               y1="150"
@@ -173,7 +165,6 @@ export function HeroVector({ className = "" }: HeroVectorProps) {
               strokeDasharray="5,5"
             />
             
-            {/* Y component */}
             <line
               x1={arrowEndX}
               y1="150"
@@ -184,7 +175,6 @@ export function HeroVector({ className = "" }: HeroVectorProps) {
               strokeDasharray="5,5"
             />
             
-            {/* Component labels */}
             <text
               x={250 + svgVector.x / 2}
               y="140"
@@ -204,7 +194,6 @@ export function HeroVector({ className = "" }: HeroVectorProps) {
           </motion.g>
         )}
 
-        {/* Magnitude indicator */}
         {isHovering && (
           <motion.text
             x="250"
@@ -219,7 +208,6 @@ export function HeroVector({ className = "" }: HeroVectorProps) {
         )}
       </svg>
 
-      {/* Instructions */}
       <motion.div
         className="absolute bottom-4 left-4 text-sm text-muted-foreground"
         initial={{ opacity: 0 }}

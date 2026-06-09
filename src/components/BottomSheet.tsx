@@ -13,10 +13,6 @@ interface BottomSheetProps {
   showHandle?: boolean;
 }
 
-/**
- * Bottom Sheet Modal otimizado para mobile
- * Segue padrão de UI mobile nativo (iOS/Android)
- */
 export function BottomSheet({
   isOpen,
   onClose,
@@ -38,7 +34,6 @@ export function BottomSheet({
     fullscreen: "h-full",
   };
 
-  // Handle swipe to dismiss
   useEffect(() => {
     const handleTouchStart = (e: TouchEvent) => {
       startYRef.current = e.touches[0].clientY;
@@ -73,7 +68,6 @@ export function BottomSheet({
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -82,7 +76,6 @@ export function BottomSheet({
             className="fixed inset-0 bg-black/50 z-40"
           />
 
-          {/* Bottom Sheet */}
           <motion.div
             ref={sheetRef}
             initial={{ y: "100%", opacity: 0 }}
@@ -95,14 +88,12 @@ export function BottomSheet({
             }}
             className={`fixed bottom-0 left-0 right-0 z-50 bg-background rounded-t-2xl ${heightMap[height]} overflow-y-auto`}
           >
-            {/* Handle Bar */}
             {showHandle && (
               <div className="sticky top-0 flex justify-center pt-2 pb-3">
                 <div className="w-12 h-1 bg-muted-foreground/30 rounded-full" />
               </div>
             )}
 
-            {/* Header */}
             {title && (
               <div className="sticky top-8 bg-background px-4 py-3 border-b flex items-center justify-between">
                 <h2 className="font-bold text-lg">{title}</h2>
@@ -117,7 +108,6 @@ export function BottomSheet({
               </div>
             )}
 
-            {/* Content */}
             <div className="px-4 py-4 pb-8">{children}</div>
           </motion.div>
         </>
@@ -126,9 +116,6 @@ export function BottomSheet({
   );
 }
 
-/**
- * Versão simplificada para desafios/questões
- */
 interface QuestionBottomSheetProps {
   isOpen: boolean;
   onClose: () => void;
@@ -149,20 +136,15 @@ export function QuestionBottomSheet({
       title="Responder Questão"
       height="lg"
     >
-      {/* Question Card (fixed) */}
       <div className="mb-4 p-3 rounded-lg bg-primary/10 border border-primary/20 max-h-[30vh] overflow-y-auto">
         <p className="text-sm text-foreground">{question}</p>
       </div>
 
-      {/* Answer Form */}
       <div className="space-y-3">{children}</div>
     </BottomSheet>
   );
 }
 
-/**
- * Hook para gerenciar estado de Bottom Sheet
- */
 export function useBottomSheet(initialOpen = false) {
   const [isOpen, setIsOpen] = React.useState(initialOpen);
 
@@ -174,5 +156,4 @@ export function useBottomSheet(initialOpen = false) {
   };
 }
 
-// Import React if not already imported
 import * as React from "react";

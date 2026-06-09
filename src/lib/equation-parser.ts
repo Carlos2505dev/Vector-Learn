@@ -9,12 +9,10 @@ export interface ParsedEquation {
 }
 
 export function parseVectorEquation(input: string): ParsedEquation | null {
-  // Normalize input: lowercase, keep spaces but reduce multiple to single
   const normalized = input.toLowerCase().trim().replace(/\s+/g, " ");
   const cleanInput = normalized.replace(/\s+/g, "");
   
   const extractVector = (str: string): Vector3D => {
-    // Check for (x,y,z) format
     const parenMatch = str.match(/\(([-+]?\d*\.?\d*),([-+]?\d*\.?\d*),?([-+]?\d*\.?\d*)?\)/);
     if (parenMatch) {
       return { 
@@ -24,7 +22,6 @@ export function parseVectorEquation(input: string): ParsedEquation | null {
       };
     }
     
-    // Check for xi + yj + zk format
     let x = 0, y = 0, z = 0;
     const xMatch = str.match(/([-+]?\d*\.?\d*)i/);
     const yMatch = str.match(/([-+]?\d*\.?\d*)j/);
@@ -37,7 +34,6 @@ export function parseVectorEquation(input: string): ParsedEquation | null {
     return { x, y, z };
   };
 
-  // Identify operations including Portuguese terms
   let operation: ParsedEquation["operation"] = "none";
   let opSymbol = "";
 
@@ -59,16 +55,13 @@ export function parseVectorEquation(input: string): ParsedEquation | null {
   }
 
   if (operation === "none") {
-    // Try to parse a single vector
     const v = extractVector(cleanInput);
     if (v.x === 0 && v.y === 0 && v.z === 0 && !cleanInput.includes("0")) return null;
     return { vectorA: v, vectorB: { x: 0, y: 0, z: 0 }, operation: "none", is3D: v.z !== 0 };
   }
 
-  // Split by opSymbol or the normalized version of it
   const parts = normalized.split(opSymbol).map(p => p.trim().replace(/\s+/g, ""));
   if (parts.length < 2) {
-    // If splitting failed, try with cleanInput if opSymbol is a character
     if (opSymbol.length === 1) {
       const cleanParts = cleanInput.split(opSymbol);
       if (cleanParts.length >= 2) {

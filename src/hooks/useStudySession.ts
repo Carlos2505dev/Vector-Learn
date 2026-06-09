@@ -19,9 +19,9 @@ interface StudyMetrics {
   xpBonus: number;
 }
 
-const ERROR_RATE_THRESHOLD = 0.7; // 70% de erro
-const FATIGUE_TIME_THRESHOLD = 10; // 10 minutos pra fatiga
-const BREAK_SUGGESTION_TIME = 5; // A cada 5 min, verifica fadiga
+const ERROR_RATE_THRESHOLD = 0.7;
+const FATIGUE_TIME_THRESHOLD = 10;
+const BREAK_SUGGESTION_TIME = 5;
 
 export function useStudySession(): StudyMetrics {
   const { stats } = useUserProgress();
@@ -39,14 +39,12 @@ export function useStudySession(): StudyMetrics {
   const [suggestedBreakDuration, setSuggestedBreakDuration] = useState(5);
   const [xpBonus, setXpBonus] = useState(0);
 
-  // Monitorar fadiga
   useEffect(() => {
     const interval = setInterval(() => {
       if (currentSession.isActive) {
         const elapsedMin =
           (new Date().getTime() - currentSession.startTime.getTime()) / 60000;
 
-        // Verificar taxa de erro
         const errorRate =
           currentSession.questionsAttempted > 0
             ? 1 -
@@ -54,7 +52,6 @@ export function useStudySession(): StudyMetrics {
                 currentSession.questionsAttempted
             : 0;
 
-        // Detectar fadiga: erro rate > 70% OU muitos erros consecutivos
         if (
           (errorRate > ERROR_RATE_THRESHOLD ||
             currentSession.consecutiveErrors > 3) &&
@@ -63,7 +60,6 @@ export function useStudySession(): StudyMetrics {
           setIsFatigued(true);
           setShouldTakeBreak(true);
 
-          // Sugerir break progressivo
           const breakDuration =
             currentSession.consecutiveErrors > 5
               ? 15
@@ -75,18 +71,16 @@ export function useStudySession(): StudyMetrics {
           setIsFatigued(false);
         }
 
-        // Calcular XP bonus por deep focus (sessão longa sem break)
         if (elapsedMin > FATIGUE_TIME_THRESHOLD && !shouldTakeBreak) {
           const focusBonus = Math.floor((elapsedMin / FATIGUE_TIME_THRESHOLD) * 10);
           setXpBonus(focusBonus);
         }
       }
-    }, 30000); // Verifica a cada 30 segundos
+    }, 30000);
 
     return () => clearInterval(interval);
   }, [currentSession, shouldTakeBreak]);
 
-  // Registrar resposta na sessão
   const recordAnswer = useCallback((isCorrect: boolean) => {
     setCurrentSession((prev) => ({
       ...prev,
@@ -96,7 +90,6 @@ export function useStudySession(): StudyMetrics {
     }));
   }, []);
 
-  // Finalizar sessão e salvar histórico
   const endSession = useCallback(() => {
     const endedSession = {
       ...currentSession,
@@ -117,12 +110,10 @@ export function useStudySession(): StudyMetrics {
     setXpBonus(0);
   }, [currentSession]);
 
-  // Registrar pausa
   const takeBreak = useCallback(() => {
     setShouldTakeBreak(false);
     setIsFatigued(false);
 
-    // Bônus XP por reconhecer fadiga e pedir break
     setXpBonus((prev) => prev + 50);
   }, []);
 
@@ -136,7 +127,6 @@ export function useStudySession(): StudyMetrics {
   };
 }
 
-// Hook helper para integrar com teste
 export function useStudySessionTracker() {
   const session = useStudySession();
   const { recordAnswer } = useUserProgress();
@@ -144,8 +134,6 @@ export function useStudySessionTracker() {
   const recordTestAnswer = useCallback(
     (questionId: string, isCorrect: boolean, timeSpent: number) => {
       session.currentSession;
-      // Registra no hook de study
-      // recordAnswer aqui seria o do useStudySession
     },
     [session]
   );

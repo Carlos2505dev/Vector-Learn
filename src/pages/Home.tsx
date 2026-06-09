@@ -139,12 +139,10 @@ export default function Home() {
 
   return (
     <Layout>
-      {/* Hero Section */}
       <section className="relative min-h-[600px] flex items-center justify-center overflow-visible">
         <div className="absolute inset-0 bg-gradient-mesh opacity-40" />
 
         <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center px-4 py-8">
-          {/* Hero Content */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
@@ -189,7 +187,6 @@ export default function Home() {
             </motion.div>
           </motion.div>
 
-          {/* Interactive Vector Visualization */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
@@ -203,7 +200,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Features Section - "Por que escolher VectorLen?" */}
       <section className="py-24 relative overflow-hidden">
         <div className="absolute inset-0 to-transparent opacity-30" />
 
@@ -276,7 +272,6 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* Quick Access Section - "Comece sua Jornada" */}
       <section className="py-24 relative overflow-hidden">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -324,7 +319,6 @@ export default function Home() {
                     <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#00D1B2] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                     <CardContent className="p-8 flex flex-col h-full">
-                      {/* Badge */}
                       <div className="flex items-center justify-between mb-6">
                         <span className={`px-3 py-1 ${item.badgeBg} rounded-full text-xs font-bold`}>
                           {item.badge}
@@ -332,7 +326,6 @@ export default function Home() {
                         <span className="text-xs text-muted-foreground font-medium">{item.stats}</span>
                       </div>
 
-                      {/* Icon */}
                       <motion.div
                         className={`text-4xl ${item.color} mb-6 group-hover:scale-110 transition-transform duration-300`}
                         whileHover={{ rotate: 5 }}
@@ -340,13 +333,11 @@ export default function Home() {
                         <Icon className="w-12 h-12" />
                       </motion.div>
 
-                      {/* Content */}
                       <div className="flex-1">
                         <h3 className="text-2xl font-bold mb-3">{item.title}</h3>
                         <p className="text-muted-foreground mb-6">{item.description}</p>
                       </div>
 
-                      {/* Footer */}
                       <div className="flex items-center justify-between border-t border-white/10 pt-4">
                         <span className="text-sm font-semibold text-primary">Explorar</span>
                         <motion.div
@@ -366,7 +357,6 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* Achievements Section */}
       <section className="py-24 relative bg-gradient-to-b from-muted/50 to-transparent">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -393,7 +383,6 @@ export default function Home() {
             Ganhe badges exclusivos conforme você estuda e domina novos conceitos em vetores
           </p>
 
-          {/* Quick Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto mt-8">
             <div className="p-4 rounded-lg bg-muted/50 border border-border">
               <p className="text-2xl font-bold text-primary">{stats.unlockedBadges.length}</p>
@@ -436,7 +425,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Help & FAQ Section */}
       <section className="py-24 relative">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -526,7 +514,6 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* Call to Action - "Pronto para dominar vetores?" */}
       <section className="py-24 relative overflow-hidden">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
@@ -535,7 +522,6 @@ export default function Home() {
           viewport={{ once: true, margin: "-100px" }}
           className="relative"
         >
-          {/* Background Elements */}
           <div className="absolute inset-0 bg-gradient-to-br from-[#FF7A59]/20 via-[#5B8CFF]/20 to-[#00D1B2]/20 rounded-3xl blur-3xl -z-10" />
           <div className="absolute top-0 right-10 w-72 h-72 bg-[#FF7A59] rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse" />
           <div className="absolute bottom-0 left-10 w-72 h-72 bg-[#5B8CFF] rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse" style={{ animationDelay: "2s" }} />
@@ -582,7 +568,6 @@ export default function Home() {
                 </Button>
               </div>
 
-              {/* Trust Elements */}
               <div className="mt-12 pt-8 border-t border-white/30">
                 <p className="text-sm opacity-90 mb-4">Confiado por:</p>
                 <div className="flex flex-wrap gap-6 items-center">

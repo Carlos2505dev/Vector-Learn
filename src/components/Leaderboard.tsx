@@ -62,7 +62,6 @@ export function Leaderboard({ entries, currentUserRank, timeframe = "week" }: Le
           >
             <Card className={`interactive-surface p-4 ${entry.rank <= 3 ? "bg-gradient-to-r from-yellow-500/5 to-orange-500/5 border-yellow-500/20" : ""}`}>
               <CardContent className="p-0 flex items-center justify-between">
-                {/* Rank and Avatar */}
                 <div className="flex items-center gap-3 flex-1">
                   <div className="w-10 h-10 flex items-center justify-center flex-shrink-0">
                     {getMedalIcon(entry.rank)}
@@ -87,7 +86,6 @@ export function Leaderboard({ entries, currentUserRank, timeframe = "week" }: Le
                   </div>
                 </div>
 
-                {/* Points */}
                 <div className="text-right flex-shrink-0">
                   <p className="text-2xl font-bold text-vector-blue">{entry.points.toLocaleString()}</p>
                   <p className="text-xs text-muted-foreground">pontos</p>

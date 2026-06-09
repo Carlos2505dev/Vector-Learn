@@ -10,7 +10,6 @@ export function Layout({ children, className = "" }: LayoutProps) {
   const [showFooter, setShowFooter] = useState(false);
 
   useEffect(() => {
-    // Defer footer rendering to after initial paint
     const timer = setTimeout(() => setShowFooter(true), 100);
     return () => clearTimeout(timer);
   }, []);

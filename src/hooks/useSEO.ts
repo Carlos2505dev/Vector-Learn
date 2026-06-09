@@ -21,41 +21,31 @@ export interface SEOConfig {
   courseSchema?: Record<string, any>;
 }
 
-/**
- * Hook para gerenciar meta tags SEO dinâmicas por página
- * Atualiza title, description, OG tags, Twitter tags, canonical URLs e schema markup
- */
 export const useSEO = (config: SEOConfig) => {
   useEffect(() => {
     const previousTitle = document.title;
     
-    // Atualizar title tag
     document.title = config.title;
 
-    // Atualizar meta tags genéricas
     updateMetaTag('name', 'description', config.description);
     updateMetaTag('name', 'keywords', config.keywords || '');
     updateMetaTag('name', 'robots', config.robots || 'index, follow');
 
-    // Atualizar Open Graph tags
     updateMetaTag('property', 'og:title', config.ogTitle || config.title);
     updateMetaTag('property', 'og:description', config.ogDescription || config.description);
     updateMetaTag('property', 'og:image', config.ogImage || 'https://vectorlearn.com/og-image.jpg');
     updateMetaTag('property', 'og:url', config.canonicalUrl || window.location.href);
     updateMetaTag('property', 'og:type', config.ogType || 'website');
 
-    // Atualizar Twitter tags
     updateMetaTag('name', 'twitter:title', config.twitterTitle || config.ogTitle || config.title);
     updateMetaTag('name', 'twitter:description', config.twitterDescription || config.ogDescription || config.description);
     updateMetaTag('name', 'twitter:image', config.twitterImage || config.ogImage || 'https://vectorlearn.com/og-image.jpg');
     updateMetaTag('name', 'twitter:card', config.twitterCard || 'summary_large_image');
 
-    // Atualizar canonical URL
     if (config.canonicalUrl) {
       updateLinkTag('canonical', config.canonicalUrl);
     }
 
-    // Adicionar schema markups
     const schemaScripts: HTMLScriptElement[] = [];
     
     if (config.breadcrumbSchema) schemaScripts.push(addSchemaMarkup(config.breadcrumbSchema));
@@ -71,9 +61,6 @@ export const useSEO = (config: SEOConfig) => {
   }, [config]);
 };
 
-/**
- * Função auxiliar para atualizar ou criar meta tags
- */
 function updateMetaTag(attr: 'name' | 'property', value: string, content: string) {
   if (!content) return;
   
@@ -86,9 +73,6 @@ function updateMetaTag(attr: 'name' | 'property', value: string, content: string
   element.setAttribute('content', content);
 }
 
-/**
- * Função auxiliar para atualizar ou criar link tags
- */
 function updateLinkTag(rel: string, href: string) {
   let element = document.querySelector(`link[rel="${rel}"]`);
   if (!element) {
@@ -99,9 +83,6 @@ function updateLinkTag(rel: string, href: string) {
   element.setAttribute('href', href);
 }
 
-/**
- * Função auxiliar para adicionar schema markup JSON-LD
- */
 function addSchemaMarkup(schema: Record<string, any>): HTMLScriptElement {
   const script = document.createElement('script');
   script.type = 'application/ld+json';
@@ -111,9 +92,6 @@ function addSchemaMarkup(schema: Record<string, any>): HTMLScriptElement {
   return script;
 }
 
-/**
- * Gera schema de breadcrumb
- */
 export const generateBreadcrumbSchema = (
   breadcrumbs: Array<{ name: string; url: string }>
 ) => ({
@@ -127,9 +105,6 @@ export const generateBreadcrumbSchema = (
   })),
 });
 
-/**
- * Gera schema para Learning Resource
- */
 export const generateLearningResourceSchema = (
   title: string,
   description: string,
@@ -148,9 +123,6 @@ export const generateLearningResourceSchema = (
   },
 });
 
-/**
- * Gera schema para Educational Web Application
- */
 export const generateEducationalAppSchema = () => ({
   '@context': 'https://schema.org',
   '@type': 'EducationalWebApplication',
@@ -173,9 +145,6 @@ export const generateEducationalAppSchema = () => ({
   inLanguage: 'pt-BR',
 });
 
-/**
- * Gera schema para FAQ
- */
 export const generateFAQSchema = (
   faqs: Array<{ question: string; answer: string }>
 ) => ({

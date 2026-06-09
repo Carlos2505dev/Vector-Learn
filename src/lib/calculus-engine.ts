@@ -1,8 +1,3 @@
-/**
- * @file calculus-engine.ts
- * @description Motor de computação para Cálculo II - Integrais de Linha e Campos Vetoriais
- * Inclui integração numérica, cálculo de derivadas, e aplicações do Teorema de Green
- */
 
 import { 
   ParametricCurve, 
@@ -17,9 +12,6 @@ import {
 const EPSILON = 1e-5;
 const INTEGRATION_STEPS = 1000;
 
-/**
- * Calcula a derivada numérica de uma função em um ponto
- */
 export function numericalDerivative(
   f: (t: number) => number,
   t: number,
@@ -28,10 +20,6 @@ export function numericalDerivative(
   return (f(t + h) - f(t - h)) / (2 * h);
 }
 
-/**
- * Calcula o comprimento de arco de uma curva parametrizada
- * L = ∫ ||r'(t)|| dt
- */
 export function arcLength(curve: ParametricCurve, resolution = INTEGRATION_STEPS): number {
   const dt = (curve.tMax - curve.tMin) / resolution;
   let length = 0;
@@ -49,10 +37,6 @@ export function arcLength(curve: ParametricCurve, resolution = INTEGRATION_STEPS
   return length;
 }
 
-/**
- * Calcula a integral de linha de um campo vetorial ao longo de uma curva
- * ∫_C F·dr = ∫ F(r(t))·r'(t) dt
- */
 export function lineIntegral(
   field: VectorField2D | VectorField3D,
   curve: ParametricCurve,
@@ -68,17 +52,14 @@ export function lineIntegral(
   for (let i = 0; i < resolution; i++) {
     const t = curve.tMin + i * dt;
     
-    // Calcular r(t)
     const x = curve.x(t);
     const y = curve.y(t);
     const z = curve.z ? curve.z(t) : 0;
 
-    // Calcular r'(t)
     const dxdt = numericalDerivative(curve.x, t);
     const dydt = numericalDerivative(curve.y, t);
     const dzdt = curve.z ? numericalDerivative(curve.z, t) : 0;
 
-    // Calcular F(r(t))
     const is3D = 'fz' in field;
     let fx: number, fy: number, fz: number;
     
@@ -94,7 +75,6 @@ export function lineIntegral(
       fz = 0;
     }
 
-    // F·r' = fx*dxdt + fy*dydt + fz*dzdt
     const dotProduct = fx * dxdt + fy * dydt + fz * dzdt;
     integral += dotProduct * dt;
   }
@@ -110,9 +90,6 @@ export function lineIntegral(
   };
 }
 
-/**
- * Gera dados para visualização de uma curva parametrizada
- */
 export function generateCurveVisualization(
   curve: ParametricCurve,
   field: VectorField2D | VectorField3D,
@@ -127,7 +104,6 @@ export function generateCurveVisualization(
   for (let i = 0; i <= resolution; i++) {
     const t = curve.tMin + i * dt;
 
-    // Ponto na curva
     const x = curve.x(t);
     const y = curve.y(t);
     const z = curve.z ? curve.z(t) : 0;
@@ -138,7 +114,6 @@ export function generateCurveVisualization(
 
     points.push(point);
 
-    // Derivada (tangente à curva)
     const dxdt = numericalDerivative(curve.x, t);
     const dydt = numericalDerivative(curve.y, t);
     const dzdt = curve.z ? numericalDerivative(curve.z, t) : 0;
@@ -149,7 +124,6 @@ export function generateCurveVisualization(
 
     derivatives.push(derivative);
 
-    // Campo vetorial no ponto
     const is3D = 'fz' in field;
     let fx: number, fy: number, fz: number;
 
@@ -165,7 +139,6 @@ export function generateCurveVisualization(
       fz = 0;
     }
 
-    // Normalizar o vetor do campo para melhor visualização
     const magnitude = Math.sqrt(fx * fx + fy * fy + fz * fz);
     const scale = magnitude > 0 ? 0.3 / magnitude : 0;
 
@@ -182,9 +155,6 @@ export function generateCurveVisualization(
   return { points, derivatives, fieldVectors };
 }
 
-/**
- * Cria um campo de grade para visualização de campos vetoriais
- */
 export function generateVectorFieldGrid(
   field: VectorField2D | VectorField3D,
   xRange: [number, number],
@@ -211,7 +181,6 @@ export function generateVectorFieldGrid(
 
       points.push(point);
 
-      // Calcular vetor do campo
       let fx: number, fy: number, fz: number;
 
       if (is3D) {
@@ -226,7 +195,6 @@ export function generateVectorFieldGrid(
         fz = 0;
       }
 
-      // Normalizar vetor
       const magnitude = Math.sqrt(fx * fx + fy * fy + fz * fz);
       const scale = magnitude > 0 ? 0.4 / magnitude : 0;
 
@@ -241,10 +209,6 @@ export function generateVectorFieldGrid(
   return { points: points, derivatives: [], fieldVectors };
 }
 
-/**
- * Verifica se um campo é conservativo (rotacional = 0 em 2D)
- * Para 2D: ∂Q/∂x = ∂P/∂y
- */
 export function isConservativeField2D(field: VectorField2D): boolean {
   const h = 0.001;
   const testPoints = [

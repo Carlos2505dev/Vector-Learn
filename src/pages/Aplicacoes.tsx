@@ -20,7 +20,6 @@ export default function Aplicacoes() {
 
   return (
     <Layout>
-      {/* Hero Section */}
       <section className="py-12">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -38,10 +37,8 @@ export default function Aplicacoes() {
         </motion.div>
       </section>
 
-      {/* Applications Section */}
       <section className="py-12">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-          {/* Engenharia de Software */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -83,7 +80,6 @@ export default function Aplicacoes() {
             </Card>
           </motion.div>
 
-          {/* Engenharia da Computação */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -125,7 +121,6 @@ export default function Aplicacoes() {
             </Card>
           </motion.div>
 
-          {/* Ciência da Computação */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -168,7 +163,6 @@ export default function Aplicacoes() {
           </motion.div>
         </div>
 
-        {/* Highlight Section */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -193,7 +187,6 @@ export default function Aplicacoes() {
         </motion.div>
       </section>
 
-      {/* Laboratório de Física Interativo */}
       <motion.section
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -217,7 +210,6 @@ export default function Aplicacoes() {
         </div>
       </motion.section>
 
-      {/* Como Operações Vetoriais São Aplicadas */}
       <motion.section
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -235,7 +227,6 @@ export default function Aplicacoes() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Engenharia de Software */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -309,7 +300,6 @@ export default function Aplicacoes() {
             </Card>
           </motion.div>
 
-          {/* Engenharia da Computação */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -383,7 +373,6 @@ export default function Aplicacoes() {
             </Card>
           </motion.div>
 
-          {/* Ciência da Computação */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -458,7 +447,6 @@ export default function Aplicacoes() {
           </motion.div>
         </div>
 
-        {/* Seção de destaque final */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

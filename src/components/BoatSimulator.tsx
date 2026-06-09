@@ -10,9 +10,8 @@ import { MathFormula } from "./MathFormula";
 export function BoatSimulator() {
   const [vBoat, setVBoat] = useState(4);
   const [vRiver, setVRiver] = useState(2);
-  const [angle, setAngle] = useState(90); // Angle relative to river bank
+  const [angle, setAngle] = useState(90);
 
-  // Resultant calculation
   const angleRad = (angle * Math.PI) / 180;
   const vResultantX = vBoat * Math.cos(angleRad) + vRiver;
   const vResultantY = vBoat * Math.sin(angleRad);
@@ -29,9 +28,7 @@ export function BoatSimulator() {
       </CardHeader>
       <CardContent className="p-6 space-y-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Visual Canvas */}
           <div className="relative h-[300px] bg-sky-100 dark:bg-sky-950/20 rounded-xl overflow-hidden border-2 border-sky-200 dark:border-sky-900">
-            {/* Water Flow Animation */}
             <div className="absolute inset-0 opacity-20">
               <div className="absolute inset-0 animate-pulse bg-[url('https://www.transparenttextures.com/patterns/waves.png')] opacity-50" />
             </div>
@@ -43,14 +40,11 @@ export function BoatSimulator() {
                 </marker>
               </defs>
 
-              {/* River Banks */}
               <rect x="0" y="0" width="400" height="40" fill="#d4a373" />
               <rect x="0" y="260" width="400" height="40" fill="#d4a373" />
 
-              {/* Grid/Lines */}
               <line x1="0" y1="150" x2="400" y2="150" stroke="#8ecae6" strokeDasharray="5,5" />
 
-              {/* Boat Vector (V_b) */}
               <line
                 x1="200" y1="260"
                 x2={200 + vBoat * 20 * Math.cos(angleRad)}
@@ -61,7 +55,6 @@ export function BoatSimulator() {
               />
               <text x={200 + vBoat * 10 * Math.cos(angleRad) - 20} y={260 - vBoat * 10 * Math.sin(angleRad) - 10} fill="#5b8cff" className="text-xs font-bold italic">V_barco</text>
 
-              {/* River Vector (V_r) */}
               <line
                 x1="200" y1="260"
                 x2={200 + vRiver * 20}
@@ -72,7 +65,6 @@ export function BoatSimulator() {
               />
               <text x={200 + vRiver * 10} y={285} fill="#00d1b2" className="text-xs font-bold italic">V_rio</text>
 
-              {/* Resultant Vector (V_res) */}
               <line
                 x1="200" y1="260"
                 x2={200 + vResultantX * 20}
@@ -83,12 +75,10 @@ export function BoatSimulator() {
               />
               <text x={200 + vResultantX * 20 + 5} y={260 - vResultantY * 20 - 5} fill="#ef4444" className="text-xs font-bold italic">V_resultante</text>
               
-              {/* Boat Icon (Simplified) */}
               <circle cx="200" cy="260" r="6" fill="#333" />
             </svg>
           </div>
 
-          {/* Controls */}
           <div className="space-y-6">
             <div className="space-y-4">
               <div>

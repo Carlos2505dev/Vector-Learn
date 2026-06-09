@@ -1,8 +1,3 @@
-/**
- * @file calculus-types.ts
- * @description Tipos TypeScript para Cálculo II - Integrais de Linha e Campos Vetoriais
- * Interfaces e tipos para representar campos vetoriais, curvas paramétricas e integrais
- */
 
 export interface Vector2D {
   x: number;

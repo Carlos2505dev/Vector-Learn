@@ -10,11 +10,11 @@ export interface PersonalizedChallenge {
   title: string;
   description: string;
   difficulty: "básico" | "intermediário" | "avançado";
-  duration: number; // minutes
+  duration: number;
   category: string;
   points: number;
   recommendedBecause: string;
-  successRate?: number; // 0-100
+  successRate?: number;
   completedBy?: number;
 }
 
@@ -58,7 +58,6 @@ export function PersonalizedChallenges({
         </p>
       </motion.div>
 
-      {/* Filter */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -80,7 +79,6 @@ export function PersonalizedChallenges({
         ))}
       </motion.div>
 
-      {/* Challenges Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredChallenges.map((challenge, index) => (
           <motion.div
@@ -91,7 +89,6 @@ export function PersonalizedChallenges({
           >
             <Card className="interactive-surface h-full flex flex-col">
               <CardContent className="p-6 flex flex-col flex-1">
-                {/* Header */}
                 <div className="mb-4 flex items-start justify-between gap-3">
                   <div className="flex-1">
                     <h3 className="font-bold text-lg mb-1">{challenge.title}</h3>
@@ -102,10 +99,8 @@ export function PersonalizedChallenges({
                   <div className="text-2xl font-bold text-vector-orange">{challenge.points}</div>
                 </div>
 
-                {/* Description */}
                 <p className="text-sm text-muted-foreground mb-4">{challenge.description}</p>
 
-                {/* Why Recommended */}
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -117,7 +112,6 @@ export function PersonalizedChallenges({
                   </p>
                 </motion.div>
 
-                {/* Stats */}
                 <div className="grid grid-cols-3 gap-2 mb-4 text-center text-xs">
                   <div className="p-2 bg-muted rounded">
                     <Clock className="w-4 h-4 mx-auto mb-1 text-muted-foreground" />
@@ -135,7 +129,6 @@ export function PersonalizedChallenges({
                   )}
                 </div>
 
-                {/* Info */}
                 <div className="text-xs text-muted-foreground mb-4">
                   <p>📚 {challenge.category}</p>
                   {challenge.completedBy !== undefined && (
@@ -143,7 +136,6 @@ export function PersonalizedChallenges({
                   )}
                 </div>
 
-                {/* CTA */}
                 <Button
                   onClick={() => onStartChallenge?.(challenge.id)}
                   className="w-full mt-auto bg-gradient-to-r from-vector-blue to-vector-teal hover:from-vector-blue/90 hover:to-vector-teal/90"

@@ -1,7 +1,3 @@
-/**
- * @file pdf-types.ts
- * @description Tipos TypeScript para sistema de exportação de PDF e certificados
- */
 
 export interface PDFExportOptions {
   fileName: string;
@@ -23,7 +19,7 @@ export interface CertificateData {
   finalScore: number;
   issuerName?: string;
   issuerTitle?: string;
-  issuerSignature?: string; // Base64 image
+  issuerSignature?: string;
   verificationUrl?: string;
 }
 

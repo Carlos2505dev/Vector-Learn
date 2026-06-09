@@ -1,8 +1,3 @@
-/**
- * @file VectorFieldVisualizer.tsx
- * @description Visualizador 3D de campos vetoriais com Three.js e React Three Fiber
- * Permite explorar campos vetoriais e estudar suas propriedades
- */
 
 import { useEffect, useMemo, useState } from "react";
 import { Canvas } from "@react-three/fiber";
@@ -52,7 +47,6 @@ function FieldArrow({ position, direction, magnitude, color }: FieldArrowProps) 
 
   return (
     <group position={position as [number, number, number]}>
-      {/* Linha */}
       <line>
         <bufferGeometry>
           <bufferAttribute
@@ -68,13 +62,11 @@ function FieldArrow({ position, direction, magnitude, color }: FieldArrowProps) 
         <lineBasicMaterial color={color} linewidth={2} />
       </line>
 
-      {/* Cone (ponta da seta) */}
       <mesh position={[direction[0] * length, direction[1] * length, direction[2] * length]}>
         <coneGeometry args={[headWidth, headLength, 8]} />
         <meshStandardMaterial color={color} />
       </mesh>
 
-      {/* Ponto de origem */}
       <mesh>
         <sphereGeometry args={[0.05, 8, 8]} />
         <meshStandardMaterial color={color} wireframe />
@@ -102,9 +94,9 @@ function FieldGridContent({
 
   const getFieldColor = (magnitude: number, maxMagnitude: number) => {
     const normalized = Math.min(magnitude / maxMagnitude, 1);
-    if (normalized < 0.33) return "#3b82f6"; // Azul - fraco
-    if (normalized < 0.66) return "#8b5cf6"; // Roxo - médio
-    return "#ef4444"; // Vermelho - forte
+    if (normalized < 0.33) return "#3b82f6";
+    if (normalized < 0.66) return "#8b5cf6";
+    return "#ef4444";
   };
 
   const maxMag = useMemo(() => {
@@ -169,7 +161,6 @@ export function VectorFieldVisualizer({
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
-          {/* Canvas 3D */}
           <div className="w-full h-96 border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden bg-slate-900">
             <Canvas camera={{ position: [10, 10, 10], fov: 50 }}>
               <ambientLight intensity={0.5} />
@@ -187,7 +178,6 @@ export function VectorFieldVisualizer({
             </Canvas>
           </div>
 
-          {/* Seleção de Campo */}
           <div className="space-y-3">
             <Label className="text-base font-semibold">Campo Vetorial</Label>
             <div className="grid grid-cols-2 gap-2">
@@ -206,7 +196,6 @@ export function VectorFieldVisualizer({
 
           <Separator />
 
-          {/* Controles */}
           <div className="flex gap-2 flex-wrap">
             <Button
               size="sm"
@@ -226,7 +215,6 @@ export function VectorFieldVisualizer({
             </Button>
           </div>
 
-          {/* Informações do Campo */}
           <div className="bg-blue-50 dark:bg-blue-950 p-4 rounded-lg space-y-3">
             <div className="font-semibold text-sm mb-3">Propriedades do Campo</div>
             <div className="text-sm space-y-2 text-slate-700 dark:text-slate-300">
@@ -246,7 +234,6 @@ export function VectorFieldVisualizer({
             </div>
           </div>
 
-          {/* Codificação de Cores */}
           <div className="bg-slate-100 dark:bg-slate-800 p-4 rounded-lg">
             <div className="font-semibold text-sm mb-3">Magnitude dos Vetores</div>
             <div className="flex gap-4">

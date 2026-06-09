@@ -28,7 +28,6 @@ export const Navigation = memo(function Navigation() {
   return (
     <header className="sticky top-0 z-50 w-full backdrop-blur-glass border-b border-border/40">
       <nav className="container mx-auto px-4 h-16 flex items-center justify-between">
-        {/* Logo */}
         <Link to="/" className="flex items-center space-x-3 group">
           <img 
             src="/logomarca.webp" 
@@ -41,7 +40,6 @@ export const Navigation = memo(function Navigation() {
           <span className="text-xl font-bold text-gradient">Vector Learn</span>
         </Link>
 
-        {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-1">
           {navigationItems.map((item) => {
             const Icon = item.icon;
@@ -66,12 +64,10 @@ export const Navigation = memo(function Navigation() {
           })}
         </div>
 
-        {/* Desktop Actions */}
         <div className="hidden md:flex items-center space-x-2">
           <ThemeToggle />
         </div>
 
-        {/* Mobile Menu Button */}
         <div className="md:hidden flex items-center space-x-2">
           <ThemeToggle />
           <Button
@@ -90,7 +86,6 @@ export const Navigation = memo(function Navigation() {
         </div>
       </nav>
 
-      {/* Mobile Menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div

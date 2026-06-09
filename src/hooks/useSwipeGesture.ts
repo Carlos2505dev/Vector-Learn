@@ -7,17 +7,9 @@ interface GestureCallbacks {
   onSwipeDown?: () => void;
 }
 
-const SWIPE_THRESHOLD = 50; // pixels
-const SWIPE_TIME_THRESHOLD = 500; // milliseconds
+const SWIPE_THRESHOLD = 50;
+const SWIPE_TIME_THRESHOLD = 500;
 
-/**
- * Hook para detectar gestos de swipe em dispositivos mobile
- * Ideal para navegação entre questões, slides, etc.
- *
- * @param callbacks - Funções para executar em cada direção
- * @param enabled - Desabilitar gestos quando necessário
- * @returns ref para anexar ao elemento
- */
 export function useSwipeGesture(
   callbacks: GestureCallbacks,
   enabled = true
@@ -47,10 +39,8 @@ export function useSwipeGesture(
       const distY = touchEnd.y - touchStartRef.current.y;
       const timeDiff = touchEnd.time - touchStartRef.current.time;
 
-      // Validar se foi um swipe válido
       if (timeDiff > SWIPE_TIME_THRESHOLD) return;
 
-      // Swipe Horizontal
       if (Math.abs(distX) > Math.abs(distY)) {
         if (Math.abs(distX) > SWIPE_THRESHOLD) {
           if (distX > 0) {
@@ -60,7 +50,6 @@ export function useSwipeGesture(
           }
         }
       }
-      // Swipe Vertical
       else {
         if (Math.abs(distY) > SWIPE_THRESHOLD) {
           if (distY > 0) {
@@ -87,10 +76,6 @@ export function useSwipeGesture(
   return touchStartRef;
 }
 
-/**
- * Hook alternativo que retorna funções instead de window listeners
- * Melhor para controlar quando gestos são ativos
- */
 export function useSwipeGestureAdvanced(
   callbacks: GestureCallbacks,
   enabled = true
@@ -121,10 +106,8 @@ export function useSwipeGestureAdvanced(
       const distY = touchEnd.y - touchStartRef.current.y;
       const timeDiff = touchEnd.time - touchStartRef.current.time;
 
-      // Validar se foi um swipe válido
       if (timeDiff > SWIPE_TIME_THRESHOLD) return;
 
-      // Swipe Horizontal
       if (Math.abs(distX) > Math.abs(distY)) {
         if (Math.abs(distX) > SWIPE_THRESHOLD) {
           if (distX > 0) {
@@ -134,7 +117,6 @@ export function useSwipeGestureAdvanced(
           }
         }
       }
-      // Swipe Vertical
       else {
         if (Math.abs(distY) > SWIPE_THRESHOLD) {
           if (distY > 0) {
@@ -164,10 +146,6 @@ export function useSwipeGestureAdvanced(
   return elementRef;
 }
 
-/**
- * Hook para navegação entre elementos (lista, slides, etc)
- * Automaticamente incrementa/decrementa índice
- */
 export function useSwipeNavigation(
   maxIndex: number,
   initialIndex = 0,

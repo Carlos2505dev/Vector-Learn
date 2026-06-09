@@ -1,8 +1,3 @@
-/**
- * @file pdf-generator.ts
- * @description Motor profissional de geração de PDFs e certificados
- * Fornece funções reutilizáveis para exportar relatórios de progresso e certificados
- */
 
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
@@ -15,9 +10,6 @@ import {
   QRCodeOptions,
 } from "./pdf-types";
 
-/**
- * Gera um PDF a partir de um elemento HTML
- */
 export async function generatePDFFromHTML(
   element: HTMLElement,
   options: PDFExportOptions
@@ -25,7 +17,6 @@ export async function generatePDFFromHTML(
   try {
     const { fileName, paperSize = "a4", orientation = "portrait", margins = 10, quality = 2 } = options;
 
-    // Captura o HTML como imagem de alta qualidade
     const canvas = await html2canvas(element, {
       scale: quality,
       useCORS: true,
@@ -34,7 +25,7 @@ export async function generatePDFFromHTML(
     });
 
     const imgData = canvas.toDataURL("image/png");
-    const imgWidth = paperSize === "a4" ? 210 : 216; // mm
+    const imgWidth = paperSize === "a4" ? 210 : 216;
     const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
     const pdf = new jsPDF({
@@ -47,7 +38,6 @@ export async function generatePDFFromHTML(
     const pageWidth = pdf.internal.pageSize.getWidth();
     let position = margins;
 
-    // Adiciona múltiplas páginas se necessário
     pdf.addImage(imgData, "PNG", margins, position, imgWidth - 2 * margins, imgHeight - 2 * margins);
 
     while (imgHeight > position) {
@@ -74,9 +64,6 @@ export async function generatePDFFromHTML(
   }
 }
 
-/**
- * Gera um certificado em PDF com QR code de verificação
- */
 export async function generateCertificatePDF(
   certificate: CertificateData,
   options?: Partial<PDFExportOptions>
@@ -93,36 +80,30 @@ export async function generateCertificatePDF(
     const pageWidth = pdf.internal.pageSize.getWidth();
     const pageHeight = pdf.internal.pageSize.getHeight();
 
-    // Gradiente de fundo (simulado com formas)
-    pdf.setFillColor(111, 66, 193); // Roxo
+    pdf.setFillColor(111, 66, 193);
     pdf.rect(0, 0, pageWidth, pageHeight / 2, "F");
 
-    pdf.setFillColor(63, 81, 181); // Azul
+    pdf.setFillColor(63, 81, 181);
     pdf.rect(0, pageHeight / 2, pageWidth, pageHeight / 2, "F");
 
-    // Título
     pdf.setTextColor(255, 255, 255);
     pdf.setFontSize(32);
     pdf.text("CERTIFICADO DE CONCLUSÃO", pageWidth / 2, 30, { align: "center" });
 
-    // Línha decorativa
     pdf.setDrawColor(255, 255, 255);
     pdf.setLineWidth(2);
     pdf.line(30, 40, pageWidth - 30, 40);
 
-    // Nome do aluno
     pdf.setTextColor(255, 255, 255);
     pdf.setFontSize(24);
     pdf.text(`${certificate.studentName}`, pageWidth / 2, 60, { align: "center" });
 
-    // Texto do certificado
     pdf.setTextColor(0, 0, 0);
     pdf.setFontSize(12);
     pdf.setTextColor(255, 255, 255);
     const text = `Concluiu com êxito o curso\n"${certificate.courseName}"\nno nível ${certificate.level.toUpperCase()}`;
     pdf.text(text, pageWidth / 2, 85, { align: "center" });
 
-    // Dados do certificado
     pdf.setFontSize(10);
     pdf.setTextColor(200, 200, 200);
     pdf.text(`Data de Conclusão: ${certificate.completionDate.toLocaleDateString("pt-BR")}`, 20, 130);
@@ -130,7 +111,6 @@ export async function generateCertificatePDF(
     pdf.text(`Pontuação Final: ${certificate.finalScore}%`, 20, 150);
     pdf.text(`XP Total: ${certificate.totalXP}`, 20, 160);
 
-    // Gera QR code para verificação
     if (certificate.verificationUrl) {
       try {
         const qrImage = await QRCode.toDataURL(certificate.verificationUrl, {
@@ -146,7 +126,6 @@ export async function generateCertificatePDF(
       }
     }
 
-    // ID do Certificado
     pdf.setFontSize(8);
     pdf.setTextColor(150, 150, 150);
     pdf.text(`ID: ${certificate.certificateId}`, pageWidth / 2, pageHeight - 10, { align: "center" });
@@ -169,9 +148,6 @@ export async function generateCertificatePDF(
   }
 }
 
-/**
- * Gera relatório de progresso em PDF
- */
 export async function generateProgressReportPDF(
   report: ProgressReportData,
   options?: Partial<PDFExportOptions>
@@ -189,7 +165,6 @@ export async function generateProgressReportPDF(
     const margin = 15;
     let yPosition = margin;
 
-    // Cabeçalho
     pdf.setFillColor(111, 66, 193);
     pdf.rect(0, 0, pageWidth, 30, "F");
 
@@ -199,7 +174,6 @@ export async function generateProgressReportPDF(
 
     yPosition = 45;
 
-    // Informações gerais
     pdf.setTextColor(0, 0, 0);
     pdf.setFontSize(11);
     pdf.setFont(undefined, "bold");
@@ -224,7 +198,6 @@ export async function generateProgressReportPDF(
 
     yPosition += 5;
 
-    // Estatísticas principais
     pdf.setFont(undefined, "bold");
     pdf.setFontSize(11);
     pdf.text("Estatísticas de Desempenho", margin, yPosition);
@@ -250,7 +223,6 @@ export async function generateProgressReportPDF(
 
     yPosition += 10;
 
-    // Precisão por tópico
     if (Object.keys(report.topicAccuracy).length > 0) {
       pdf.setFont(undefined, "bold");
       pdf.setFontSize(11);
@@ -282,7 +254,6 @@ export async function generateProgressReportPDF(
 
     yPosition += 5;
 
-    // Badges recentes
     if (report.recentBadges.length > 0) {
       pdf.setFont(undefined, "bold");
       pdf.setFontSize(11);
@@ -306,7 +277,6 @@ export async function generateProgressReportPDF(
       }
     }
 
-    // Rodapé
     pdf.setFontSize(8);
     pdf.setTextColor(150, 150, 150);
     pdf.text(
@@ -334,9 +304,6 @@ export async function generateProgressReportPDF(
   }
 }
 
-/**
- * Exporta dados de progresso em JSON para backup
- */
 export function exportProgressAsJSON(
   report: ProgressReportData,
   fileName?: string
@@ -372,9 +339,6 @@ export function exportProgressAsJSON(
   }
 }
 
-/**
- * Salva histórico de certificados emitidos no localStorage
- */
 export function saveCertificateRecord(certificate: CertificateData): void {
   try {
     const existing = localStorage.getItem("issued-certificates");
@@ -387,9 +351,6 @@ export function saveCertificateRecord(certificate: CertificateData): void {
   }
 }
 
-/**
- * Recupera histórico de certificados emitidos
- */
 export function getCertificateHistory(): CertificateData[] {
   try {
     const data = localStorage.getItem("issued-certificates");
@@ -400,9 +361,6 @@ export function getCertificateHistory(): CertificateData[] {
   }
 }
 
-/**
- * Verifica se um certificado foi emitido (usa verificação de ID)
- */
 export function verifyCertificate(certificateId: string): CertificateData | null {
   const history = getCertificateHistory();
   return history.find((cert) => cert.certificateId === certificateId) || null;

@@ -61,13 +61,10 @@ export default function Simulador() {
   const handleSolve = (result: ParsedEquation) => {
     setIsSolving(true);
     setSolverResult(result);
-    // Automatically switch tabs based on dimension
     setActiveTab(result.is3D ? "3d" : "2d");
     
-    // Reset solving state after animation
     setTimeout(() => setIsSolving(false), 2000);
 
-    // Unlock a badge for using the smart solver
     if (!isUnlocked("smart-solver-badge")) {
       unlockBadgeManually("smart-solver-badge");
       setShowBadgeNotification(true);
@@ -91,14 +88,12 @@ export default function Simulador() {
   });
   const [showBadgeNotification, setShowBadgeNotification] = useState(false);
 
-  // Track when user accesses simulators for the simulator-master badge
   useEffect(() => {
     if (activeTab === "2d" && !simulatorAccessTracker.has2D) {
       setSimulatorAccessTracker(prev => ({ ...prev, has2D: true }));
     } else if (activeTab === "3d" && !simulatorAccessTracker.has3D) {
       setSimulatorAccessTracker(prev => ({ ...prev, has3D: true }));
       
-      // If both simulators have been accessed, unlock the badge
       if (simulatorAccessTracker.has2D && !isUnlocked("simulator-master")) {
         unlockBadgeManually("simulator-master");
         setShowBadgeNotification(true);
@@ -109,7 +104,6 @@ export default function Simulador() {
 
   return (
     <Layout>
-      {/* Badge Unlock Notification */}
       {showBadgeNotification && (
         <motion.div
           initial={{ opacity: 0, y: -20, scale: 0.8 }}
@@ -129,7 +123,6 @@ export default function Simulador() {
         </motion.div>
       )}
 
-      {/* Header */}
       <motion.section
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -144,14 +137,12 @@ export default function Simulador() {
           e veja os conceitos matemáticos ganharem vida através de visualizações dinâmicas.
         </p>
 
-        {/* Resolvedor Inteligente */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.5, duration: 0.6 }}
           className="mt-16 max-w-5xl mx-auto relative px-4"
         >
-          {/* Decorative elements */}
           <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-40 h-1 bg-gradient-to-r from-transparent via-vector-blue/40 to-transparent" />
           
           <div className="flex flex-col items-center justify-center gap-2 mb-8">
@@ -175,7 +166,6 @@ export default function Simulador() {
         </motion.div>
       </motion.section>
 
-      {/* Instructions */}
       <motion.section
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
@@ -207,14 +197,12 @@ export default function Simulador() {
         </div>
       </motion.section>
 
-      {/* Main Simulator */}
       <motion.section
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4, duration: 0.6 }}
         className="relative"
       >
-        {/* Solve Success Effect */}
         <AnimatePresence>
           {isSolving && (
             <motion.div
@@ -269,7 +257,6 @@ export default function Simulador() {
         </Tabs>
       </motion.section>
 
-      {/* Example Configurations */}
       <motion.section
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -307,7 +294,6 @@ export default function Simulador() {
         </div>
       </motion.section>
 
-      {/* Tips */}
       <motion.section
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}

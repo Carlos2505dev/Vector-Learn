@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import { Trophy, Zap, Target, Star, Sparkles, Medal } from "lucide-react";
 
-// 6 Badges específicos do usuário
 export const BADGE_DEFINITIONS = {
   "first-correct": {
     name: "🥇 Primeiro Acerto",
@@ -77,7 +76,6 @@ export function BadgeSystem({ unlockedBadges, layout = "grid", showLocked = true
     legendary: "bg-yellow-50 dark:bg-yellow-900"
   };
 
-  // Grid Layout
   if (layout === "grid") {
     return (
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -132,7 +130,6 @@ export function BadgeSystem({ unlockedBadges, layout = "grid", showLocked = true
     );
   }
 
-  // List Layout
   if (layout === "list") {
     return (
       <div className="space-y-3">
@@ -182,7 +179,6 @@ export function BadgeSystem({ unlockedBadges, layout = "grid", showLocked = true
     );
   }
 
-  // Compact Layout
   return (
     <div className="flex flex-wrap gap-3">
       {allBadges.map(([badgeId, badgeDef], index) => {
@@ -218,7 +214,6 @@ export function BadgeSystem({ unlockedBadges, layout = "grid", showLocked = true
               <Icon className="w-6 h-6" />
             </motion.div>
 
-            {/* Tooltip */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               whileHover={{ opacity: 1, y: 0 }}

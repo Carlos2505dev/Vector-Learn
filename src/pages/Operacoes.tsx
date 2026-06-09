@@ -148,7 +148,6 @@ export default function Operacoes() {
 
   return (
     <Layout>
-      {/* Header */}
       <motion.section
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -164,7 +163,6 @@ export default function Operacoes() {
         </p>
       </motion.section>
 
-      {/* Operations Grid */}
       <section className="mb-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {operations.map((operation, index) => {
@@ -219,7 +217,6 @@ export default function Operacoes() {
         </div>
       </section>
 
-      {/* Examples Section */}
       <motion.section
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -280,7 +277,6 @@ export default function Operacoes() {
         </div>
       </motion.section>
 
-      {/* Properties Section */}
       <motion.section
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -313,7 +309,6 @@ export default function Operacoes() {
         </div>
       </motion.section>
 
-      {/* Special Cases Section */}
       <motion.section
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -331,7 +326,6 @@ export default function Operacoes() {
             </p>
           </CardHeader>
           <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-12 p-8 pt-4 relative z-10">
-            {/* Vetores Paralelos */}
             <div className="space-y-6">
               <div className="flex items-center gap-3 border-b border-white/20 pb-3">
                 <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center shadow-inner">
@@ -361,7 +355,6 @@ export default function Operacoes() {
               </div>
             </div>
 
-            {/* Vetores Perpendiculares */}
             <div className="space-y-6">
               <div className="flex items-center gap-3 border-b border-white/20 pb-3">
                 <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center shadow-inner">
@@ -394,7 +387,6 @@ export default function Operacoes() {
         </Card>
       </motion.section>
 
-      {/* Cálculo II Module */}
       <motion.section
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -405,7 +397,6 @@ export default function Operacoes() {
         <CalculusIIModule />
       </motion.section>
 
-      {/* Próximo Passo */}
       <motion.section
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}

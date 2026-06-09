@@ -2,39 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Vector Education System - Design Tokens */
 @layer base {
   :root {
-    /* Brand Colors - Educational Vector Theme */
-    --vector-blue: 224 75% 50%; /* Darkened for accessibility */
-    --vector-teal: 175 100% 35%; /* Darkened for accessibility */
-    --vector-orange: 17 90% 55%; /* Adjusted for contrast */
+    --vector-blue: 224 75% 50%;
+    --vector-teal: 175 100% 35%;
+    --vector-orange: 17 90% 55%;
     
-    /* Extended Palette */
-    --vector-purple: 250 69% 69%; /* #8B7CF6 - 3D space */
-    --vector-green: 142 69% 58%; /* #4ADE80 - Success states */
-    --vector-red: 0 84% 67%; /* #F87171 - Error/negative */
-    --vector-yellow: 48 96% 64%; /* #FBBF24 - Warning/attention */
+    --vector-purple: 250 69% 69%;
+    --vector-green: 142 69% 58%;
+    --vector-red: 0 84% 67%;
+    --vector-yellow: 48 96% 64%;
     
-    /* Surface Colors */
-    --surface-light: 0 0% 96%; /* #F5F5F5 - Light background */
-    --surface-dark: 210 24% 8%; /* #0B0F14 - Dark background */
-    --surface-elevated-light: 0 0% 100%; /* #FFFFFF - Cards light */
-    --surface-elevated-dark: 215 25% 11%; /* #141A22 - Cards dark */
+    --surface-light: 0 0% 96%;
+    --surface-dark: 210 24% 8%;
+    --surface-elevated-light: 0 0% 100%;
+    --surface-elevated-dark: 215 25% 11%;
     
-    /* Text Colors */
-    --text-primary-light: 210 24% 8%; /* #0B0F14 */
-    --text-primary-dark: 210 40% 92%; /* #E6EDF6 */
-    --text-secondary-light: 215 25% 35%; /* Darkened for accessibility */
-    --text-secondary-dark: 215 20% 65%; /* #94A3B8 */
+    --text-primary-light: 210 24% 8%;
+    --text-primary-dark: 210 40% 92%;
+    --text-secondary-light: 215 25% 35%;
+    --text-secondary-dark: 215 20% 65%;
     
-    /* Interactive States */
-    --hover-light: 0 0% 92%; /* #EBEBEB */
-    --hover-dark: 215 25% 15%; /* #1E2530 */
-    --active-light: 0 0% 88%; /* #E0E0E0 */
-    --active-dark: 215 25% 19%; /* #253040 */
+    --hover-light: 0 0% 92%;
+    --hover-dark: 215 25% 15%;
+    --active-light: 0 0% 88%;
+    --active-dark: 215 25% 19%;
     
-    /* Gradients */
     --gradient-primary: linear-gradient(135deg, hsl(var(--vector-blue)), hsl(var(--vector-teal)));
     --gradient-secondary: linear-gradient(135deg, hsl(var(--vector-orange)), hsl(var(--vector-purple)));
     --gradient-interactive: linear-gradient(135deg, hsl(var(--vector-blue) / 0.1), hsl(var(--vector-teal) / 0.1));
@@ -42,18 +35,15 @@
                      radial-gradient(circle at 80% 20%, hsl(var(--vector-teal) / 0.05) 0%, transparent 50%),
                      radial-gradient(circle at 40% 80%, hsl(var(--vector-orange) / 0.03) 0%, transparent 50%);
     
-    /* Shadows */
     --shadow-soft: 0 4px 12px hsl(var(--vector-blue) / 0.08);
     --shadow-medium: 0 8px 25px hsl(var(--vector-blue) / 0.12);
     --shadow-strong: 0 12px 40px hsl(var(--vector-blue) / 0.16);
     --shadow-glow: 0 0 20px hsl(var(--vector-blue) / 0.3);
     
-    /* Animation Curves */
     --ease-smooth: cubic-bezier(0.25, 0.1, 0.25, 1);
     --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
     --ease-sharp: cubic-bezier(0.4, 0, 0.2, 1);
     
-    /* Light Mode Mappings */
     --background: var(--surface-light);
     --foreground: var(--text-primary-light);
     --card: var(--surface-elevated-light);
@@ -77,7 +67,6 @@
   }
 
   .dark {
-    /* Dark Mode Mappings */
     --background: var(--surface-dark);
     --foreground: var(--text-primary-dark);
     --card: var(--surface-elevated-dark);
@@ -114,12 +103,10 @@
     background-image: var(--gradient-mesh);
   }
 
-  /* Improved focus indicators for accessibility */
   :focus-visible {
     @apply outline-2 outline-offset-2 outline-primary;
   }
 
-  /* Custom scrollbar for webkit browsers */
   ::-webkit-scrollbar {
     width: 8px;
   }
@@ -138,7 +125,6 @@
 }
 
 @layer components {
-  /* Math Formula Styles */
   .math-inline {
     @apply inline-block mx-1;
   }
@@ -147,7 +133,6 @@
     @apply block my-4 text-center;
   }
 
-  /* Vector Arrow Styles */
   .vector-arrow {
     stroke: currentColor;
     stroke-width: 2;
@@ -161,7 +146,6 @@
     stroke: none;
   }
 
-  /* Interactive Elements */
   .interactive-surface {
     @apply bg-card border border-border rounded-xl p-6 shadow-md hover:shadow-lg transition-all duration-300;
   }
@@ -171,7 +155,6 @@
     background-attachment: fixed;
   }
 
-  /* Button Variants */
   .btn-hero {
     @apply bg-gradient-to-r from-primary to-secondary text-white font-semibold py-4 px-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300;
   }
@@ -180,7 +163,6 @@
     @apply bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 font-bold;
   }
 
-  /* Animation Classes */
   .float-animation {
     animation: float 3s ease-in-out infinite;
   }
@@ -226,7 +208,6 @@
   }
 }
 
-/* Keyframe Animations */
 @keyframes float {
   0%, 100% {
     transform: translateY(0px);
@@ -254,7 +235,6 @@
   }
 }
 
-/* Premium Animation Keyframes */
 @keyframes shimmer {
   0%, 100% {
     opacity: 1;
@@ -348,7 +328,6 @@
   }
 }
 
-/* Utility Animation Classes */
 @layer utilities {
   .animate-shimmer {
     animation: shimmer 2s ease-in-out infinite;
@@ -386,21 +365,18 @@
     animation: rotateIn 0.5s ease-out;
   }
 
-  /* Premium glass effect */
   .glass-effect {
     backdrop-filter: blur(16px) saturate(180%);
     background-color: hsl(var(--background) / 0.7);
     border: 1px solid hsl(var(--border) / 0.5);
   }
 
-  /* Gradient text with animation */
   .gradient-text-animated {
     background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
     background-size: 400% 400%;
     animation: gradient-shift 15s ease infinite;
   }
 
-  /* Smooth hover lift effect */
   .hover-lift {
     transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
@@ -410,7 +386,6 @@
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
   }
 
-  /* Premium button effect */
   .btn-premium {
     position: relative;
     overflow: hidden;
@@ -435,7 +410,6 @@
     height: 300px;
   }
 
-  /* Stagger animation for lists */
   .stagger-children > * {
     animation: slideInUp 0.5s ease-out backwards;
   }
@@ -447,7 +421,6 @@
   .stagger-children > *:nth-child(5) { animation-delay: 0.5s; }
 }
 
-/* Reduced motion preferences */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

@@ -33,7 +33,6 @@ interface SimulatorState {
   operation: "none" | "add" | "subtract" | "dot" | "cross" | "project" | "mixed";
 }
 
-// 3D Vector Arrow Component
 function VectorArrow({ vector, color, startPoint = { x: 0, y: 0, z: 0 }, scale = 1 }: {
   vector: Vector3D;
   color: string;
@@ -53,7 +52,6 @@ function VectorArrow({ vector, color, startPoint = { x: 0, y: 0, z: 0 }, scale =
 
   return (
     <group>
-      {/* Vector shaft */}
       <Line
         points={[
           [startPoint.x, startPoint.y, startPoint.z],
@@ -63,7 +61,6 @@ function VectorArrow({ vector, color, startPoint = { x: 0, y: 0, z: 0 }, scale =
         lineWidth={3}
       />
       
-      {/* Arrow head */}
       <group position={[endPoint.x, endPoint.y, endPoint.z]}>
         <mesh rotation={[0, Math.atan2(direction.x, direction.z), -Math.atan2(direction.y, Math.sqrt(direction.x * direction.x + direction.z * direction.z))]}>
           <coneGeometry args={[0.1, 0.3, 8]} />
@@ -74,7 +71,6 @@ function VectorArrow({ vector, color, startPoint = { x: 0, y: 0, z: 0 }, scale =
   );
 }
 
-// Component lines for visualization
 function ComponentLines({ vector, color, startPoint = { x: 0, y: 0, z: 0 }, scale = 1 }: {
   vector: Vector3D;
   color: string;
@@ -89,7 +85,6 @@ function ComponentLines({ vector, color, startPoint = { x: 0, y: 0, z: 0 }, scal
 
   return (
     <group>
-      {/* X component */}
       <Line
         points={[
           [startPoint.x, startPoint.y, startPoint.z],
@@ -102,7 +97,6 @@ function ComponentLines({ vector, color, startPoint = { x: 0, y: 0, z: 0 }, scal
         gapSize={0.05}
       />
       
-      {/* Y component */}
       <Line
         points={[
           [startPoint.x + vector.x * scale, startPoint.y, startPoint.z],
@@ -115,7 +109,6 @@ function ComponentLines({ vector, color, startPoint = { x: 0, y: 0, z: 0 }, scal
         gapSize={0.05}
       />
       
-      {/* Z component */}
       <Line
         points={[
           [startPoint.x + vector.x * scale, startPoint.y + vector.y * scale, startPoint.z],
@@ -131,7 +124,6 @@ function ComponentLines({ vector, color, startPoint = { x: 0, y: 0, z: 0 }, scal
   );
 }
 
-// 3D Scene Component
 function Scene3D({ state }: { state: SimulatorState }) {
   const vectorSum = add3D(state.vectorA, state.vectorB);
   const vectorDiff = subtract3D(state.vectorA, state.vectorB);
@@ -142,11 +134,9 @@ function Scene3D({ state }: { state: SimulatorState }) {
     <>
       <OrbitControls enablePan={true} enableZoom={true} enableRotate={true} />
       
-      {/* Lighting */}
       <ambientLight intensity={0.5} />
       <directionalLight position={[10, 10, 5]} intensity={1} />
       
-      {/* Grid */}
       {state.showGrid && (
         <Grid 
           args={[10, 10]} 
@@ -156,23 +146,19 @@ function Scene3D({ state }: { state: SimulatorState }) {
         />
       )}
       
-      {/* Coordinate axes */}
       <Line points={[[-5, 0, 0], [5, 0, 0]]} color="#ff4444" lineWidth={2} />
       <Line points={[[0, -5, 0], [0, 5, 0]]} color="#44ff44" lineWidth={2} />
       <Line points={[[0, 0, -5], [0, 0, 5]]} color="#4444ff" lineWidth={2} />
       
-      {/* Axis labels */}
       <Text position={[5.2, 0, 0]} color="#ff4444" fontSize={0.3}>X</Text>
       <Text position={[0, 5.2, 0]} color="#44ff44" fontSize={0.3}>Y</Text>
       <Text position={[0, 0, 5.2]} color="#4444ff" fontSize={0.3}>Z</Text>
       
-      {/* Origin point */}
       <mesh position={[0, 0, 0]}>
         <sphereGeometry args={[0.05, 8, 8]} />
         <meshBasicMaterial color="#ffffff" />
       </mesh>
       
-      {/* Component lines */}
       {state.showComponents && (
         <>
           <ComponentLines vector={state.vectorA} color="#ff6b35" />
@@ -181,12 +167,10 @@ function Scene3D({ state }: { state: SimulatorState }) {
         </>
       )}
       
-      {/* Main vectors */}
       <VectorArrow vector={state.vectorA} color="#5b8cff" />
       <VectorArrow vector={state.vectorB} color="#00d1b2" />
       {state.operation === "mixed" && <VectorArrow vector={state.vectorC} color="#ec4899" />}
       
-      {/* Operation results */}
       {state.operation === "add" && (
         <>
           <VectorArrow vector={vectorSum} color="#9333ea" />
@@ -219,7 +203,6 @@ function Scene3D({ state }: { state: SimulatorState }) {
         </>
       )}
       
-      {/* Vector labels */}
       <Text 
         position={[state.vectorA.x + 0.2, state.vectorA.y + 0.2, state.vectorA.z + 0.2]} 
         color="#5b8cff" 
@@ -257,7 +240,6 @@ export function Vector3DSimulator({ data }: { data?: Partial<SimulatorState> }) 
     operation: "none"
   });
 
-  // Sync with external data if provided
   useEffect(() => {
     if (data) {
       setState(prev => ({
@@ -270,7 +252,6 @@ export function Vector3DSimulator({ data }: { data?: Partial<SimulatorState> }) 
     }
   }, [data]);
 
-  // Calculate derived values
   const magA = magnitude3D(state.vectorA);
   const magB = magnitude3D(state.vectorB);
   const magC = magnitude3D(state.vectorC);
@@ -320,7 +301,6 @@ export function Vector3DSimulator({ data }: { data?: Partial<SimulatorState> }) 
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* 3D Visualization */}
         <Card className="lg:col-span-2">
           <CardHeader>
             <div className="flex items-center justify-between">
@@ -360,13 +340,11 @@ export function Vector3DSimulator({ data }: { data?: Partial<SimulatorState> }) 
           </CardContent>
         </Card>
 
-        {/* Controls */}
         <Card>
           <CardHeader>
             <CardTitle>Controles 3D</CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
-            {/* Vector A Controls */}
             <div>
               <Label className="text-vector-blue font-semibold flex items-center gap-1">Vetor <MathFormula formula="\\vec{a}" /></Label>
               <div className="space-y-3 mt-2">
@@ -408,7 +386,6 @@ export function Vector3DSimulator({ data }: { data?: Partial<SimulatorState> }) 
 
             <Separator />
 
-            {/* Vector B Controls */}
             <div>
               <Label className="text-vector-teal font-semibold flex items-center gap-1">Vetor <MathFormula formula="\\vec{b}" /></Label>
               <div className="space-y-3 mt-2">
@@ -450,7 +427,6 @@ export function Vector3DSimulator({ data }: { data?: Partial<SimulatorState> }) 
 
             <Separator />
 
-            {/* Vector C Controls - Only shown when mixed operation is active */}
             <AnimatePresence>
               {state.operation === "mixed" && (
                 <motion.div
@@ -499,7 +475,6 @@ export function Vector3DSimulator({ data }: { data?: Partial<SimulatorState> }) 
               )}
             </AnimatePresence>
 
-            {/* Operations */}
             <div>
               <Label className="font-semibold">Operações 3D</Label>
               <div className="grid grid-cols-2 gap-2 mt-2">
@@ -562,7 +537,6 @@ export function Vector3DSimulator({ data }: { data?: Partial<SimulatorState> }) 
         </Card>
       </div>
 
-      {/* Results Panel */}
       <Card>
         <CardHeader>
           <CardTitle>Resultados 3D</CardTitle>

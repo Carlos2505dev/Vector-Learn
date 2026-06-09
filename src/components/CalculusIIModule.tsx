@@ -1,8 +1,3 @@
-/**
- * @file CalculusIIModule.tsx
- * @description Módulo completo de Cálculo II com conteúdo, simuladores e desafios
- * Integra visualizadores de integrais de linha e campos vetoriais
- */
 
 import { useState } from "react";
 import { motion } from "framer-motion";
@@ -161,7 +156,6 @@ export function CalculusIIModule() {
 
   return (
     <div className="space-y-8 max-w-6xl mx-auto py-8">
-      {/* Cabeçalho do Módulo */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -182,7 +176,6 @@ export function CalculusIIModule() {
         </Badge>
       </motion.div>
 
-      {/* Abas Principais */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="content" className="flex items-center gap-2">
@@ -203,14 +196,12 @@ export function CalculusIIModule() {
           </TabsTrigger>
         </TabsList>
 
-        {/* Aba: Conteúdo Teórico */}
         <TabsContent value="content" className="space-y-6">
           <Card>
             <CardHeader>
               <CardTitle>📚 Fundamentos Teóricos</CardTitle>
             </CardHeader>
             <CardContent className="space-y-8">
-              {/* Seção 1: Integrais de Linha */}
               <div className="space-y-4">
                 <h3 className="text-2xl font-bold">1. Integrais de Linha</h3>
                 <p className="text-slate-700 dark:text-slate-300">
@@ -245,7 +236,6 @@ export function CalculusIIModule() {
 
               <Separator />
 
-              {/* Seção 2: Campos Vetoriais */}
               <div className="space-y-4">
                 <h3 className="text-2xl font-bold">2. Campos Vetoriais</h3>
                 <p className="text-slate-700 dark:text-slate-300">
@@ -268,7 +258,6 @@ export function CalculusIIModule() {
 
               <Separator />
 
-              {/* Seção 3: Propriedades */}
               <div className="space-y-4">
                 <h3 className="text-2xl font-bold">3. Campos Conservativos</h3>
                 <p className="text-slate-700 dark:text-slate-300">
@@ -298,7 +287,6 @@ export function CalculusIIModule() {
 
               <Separator />
 
-              {/* Seção 4: Aplicações */}
               <div className="space-y-4">
                 <h3 className="text-2xl font-bold">4. Aplicações Práticas</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -340,7 +328,6 @@ export function CalculusIIModule() {
           </Card>
         </TabsContent>
 
-        {/* Aba: Integrais de Linha */}
         <TabsContent value="integrals" className="space-y-6">
           <LineIntegralSimulator
             curves={PARAMETRIC_CURVES}
@@ -349,12 +336,10 @@ export function CalculusIIModule() {
           />
         </TabsContent>
 
-        {/* Aba: Campos Vetoriais 3D */}
         <TabsContent value="fields" className="space-y-6">
           <VectorFieldVisualizer fields={VECTOR_FIELDS_3D} />
         </TabsContent>
 
-        {/* Aba: Desafios */}
         <TabsContent value="challenges" className="space-y-6">
           <div className="grid gap-4">
             {CHALLENGES.map((challenge) => (
@@ -424,7 +409,6 @@ export function CalculusIIModule() {
         </TabsContent>
       </Tabs>
 
-      {/* Resumo de Progresso */}
       <Card className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950 dark:to-purple-950">
         <CardContent className="pt-6">
           <div className="flex items-center justify-between">

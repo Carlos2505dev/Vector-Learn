@@ -78,7 +78,6 @@ export function Certificate({ certificate, onDownload, onShare }: CertificatePro
 
   return (
     <div className="w-full space-y-6">
-      {/* Certificate Card */}
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -86,14 +85,12 @@ export function Certificate({ certificate, onDownload, onShare }: CertificatePro
         className="perspective"
       >
         <Card className={`relative overflow-hidden border-2 bg-gradient-to-br ${levelColors[certificate.level]}/10`}>
-          {/* Decorative Background */}
           <div className="absolute inset-0 opacity-5">
             <div className="absolute top-0 right-0 w-96 h-96 bg-vector-blue rounded-full blur-3xl" />
             <div className="absolute bottom-0 left-0 w-96 h-96 bg-vector-teal rounded-full blur-3xl" />
           </div>
 
           <CardContent className="relative p-12 text-center min-h-96 flex flex-col justify-between">
-            {/* Header with Icon */}
             <motion.div
               initial={{ y: -20 }}
               animate={{ y: 0 }}
@@ -113,7 +110,6 @@ export function Certificate({ certificate, onDownload, onShare }: CertificatePro
               </h1>
             </motion.div>
 
-            {/* Certificate Details */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -154,7 +150,6 @@ export function Certificate({ certificate, onDownload, onShare }: CertificatePro
               </div>
             </motion.div>
 
-            {/* Footer */}
             <motion.div
               initial={{ y: 20 }}
               animate={{ y: 0 }}
@@ -167,7 +162,6 @@ export function Certificate({ certificate, onDownload, onShare }: CertificatePro
         </Card>
       </motion.div>
 
-      {/* Action Buttons */}
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -211,7 +205,6 @@ export function Certificate({ certificate, onDownload, onShare }: CertificatePro
         </Button>
       </motion.div>
 
-      {/* Error Message */}
       {error && (
         <motion.div
           initial={{ opacity: 0 }}
@@ -231,7 +224,6 @@ export function Certificate({ certificate, onDownload, onShare }: CertificatePro
         </motion.div>
       )}
 
-      {/* Share Preview */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -249,7 +241,6 @@ export function Certificate({ certificate, onDownload, onShare }: CertificatePro
         </div>
       </motion.div>
 
-      {/* Similar Certificates Suggestion */}
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}

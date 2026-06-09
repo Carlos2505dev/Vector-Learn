@@ -20,23 +20,23 @@ export interface TestResult {
   questionId: string;
   selectedAnswer: number;
   correct: boolean;
-  timeSpent: number; // segundos
+  timeSpent: number;
 }
 
 export interface TestSession {
   id: string;
   startTime: string;
   endTime?: string;
-  totalTime?: number; // segundos
+  totalTime?: number;
   questions: TestQuestion[];
   results: TestResult[];
-  score?: number; // 0-100
+  score?: number;
   level?: "básico" | "intermediário" | "avançado";
 }
 
 interface TestModeProps {
   questions: TestQuestion[];
-  timeLimit?: number; // segundos, undefined = sem limite
+  timeLimit?: number;
   onComplete?: (session: TestSession) => void;
   title?: string;
   level?: "básico" | "intermediário" | "avançado";
@@ -58,7 +58,6 @@ export function TestMode({
   const [showExplanation, setShowExplanation] = useState(false);
   const [currentSelection, setCurrentSelection] = useState<number | null>(null);
 
-  // Timer effect
   useEffect(() => {
     if (testState !== "taking" || timeRemaining === undefined) return;
 
@@ -134,7 +133,6 @@ export function TestMode({
     return `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
   };
 
-  // Setup Screen
   if (testState === "setup") {
     return (
       <motion.div
@@ -148,7 +146,6 @@ export function TestMode({
             <p className="text-muted-foreground">Prepare-se para testar seus conhecimentos</p>
           </CardHeader>
           <CardContent className="space-y-6">
-            {/* Info Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="p-4 bg-white dark:bg-black/30 rounded-lg border border-border">
                 <p className="text-sm text-muted-foreground mb-1">Total de Questões</p>
@@ -172,7 +169,6 @@ export function TestMode({
               </div>
             </div>
 
-            {/* Rules */}
             <div className="p-4 bg-orange-50 dark:bg-orange-900/20 border border-orange-200 rounded-lg">
               <h3 className="font-bold text-orange-900 dark:text-orange-200 mb-2">Instruções</h3>
               <ul className="text-sm text-orange-800 dark:text-orange-300 space-y-1">
@@ -183,7 +179,6 @@ export function TestMode({
               </ul>
             </div>
 
-            {/* Start Button */}
             <Button
               onClick={() => {
                 setTestState("taking");
@@ -199,7 +194,6 @@ export function TestMode({
     );
   }
 
-  // Test Taking Screen
   if (testState === "taking" && currentQuestion) {
     const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
     const answeredCorrect = results.filter(r => r.correct).length;
@@ -210,7 +204,6 @@ export function TestMode({
         animate={{ opacity: 1 }}
         className="space-y-6"
       >
-        {/* Header */}
         <div className="flex items-center justify-between">
           <div className="flex-1">
             <div className="flex items-center justify-between mb-2">
@@ -235,7 +228,6 @@ export function TestMode({
           </div>
         </div>
 
-        {/* Question Card */}
         <Card className="interactive-surface">
           <CardContent className="p-8">
             <Badge className="mb-4" variant="outline">
@@ -254,7 +246,6 @@ export function TestMode({
               )}
             </h2>
 
-            {/* Options */}
             <div className="space-y-3">
               {currentQuestion.options.map((option, index) => {
                 let btnClass = "w-full p-4 text-left rounded-lg border-2 transition-all ";
@@ -316,7 +307,6 @@ export function TestMode({
           </CardContent>
         </Card>
 
-        {/* Stats */}
         <div className="grid grid-cols-3 gap-3">
           <div className="p-3 bg-green-50 dark:bg-green-900/20 rounded-lg text-center">
             <p className="text-xs text-muted-foreground">Corretas</p>
@@ -335,7 +325,6 @@ export function TestMode({
     );
   }
 
-  // Results Screen
   if (testState === "results" && testSession) {
     const correctCount = testSession.results.filter(r => r.correct).length;
     const accuracy = testSession.score || 0;
@@ -347,7 +336,6 @@ export function TestMode({
         animate={{ opacity: 1, scale: 1 }}
         className="space-y-6"
       >
-        {/* Score Card */}
         <Card
           className={`interactive-surface border-2 ${
             isPassed
@@ -408,7 +396,6 @@ export function TestMode({
           </CardContent>
         </Card>
 
-        {/* Detailed Results */}
         <Card className="interactive-surface">
           <CardHeader>
             <h3 className="font-bold">Análise Detalhada de Performance</h3>
@@ -457,7 +444,6 @@ export function TestMode({
           </CardContent>
         </Card>
 
-        {/* Action Buttons */}
         {isPassed && (
           <div className="flex gap-3 flex-wrap">
             <Button className="flex-1 gap-2 bg-vector-blue hover:bg-vector-blue/90">

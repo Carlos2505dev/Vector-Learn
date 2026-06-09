@@ -56,7 +56,6 @@ const NotFound = () => {
 
   return (
     <Layout>
-      {/* Hero Section */}
       <section className="relative min-h-[600px] flex items-center justify-center overflow-hidden py-12">
         <div className="absolute inset-0 bg-gradient-mesh opacity-40" />
         
@@ -66,7 +65,6 @@ const NotFound = () => {
           transition={{ duration: 0.6 }}
           className="relative z-10 text-center max-w-3xl"
         >
-          {/* Animated 404 */}
           <motion.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
@@ -85,7 +83,6 @@ const NotFound = () => {
             </div>
           </motion.div>
 
-          {/* Title */}
           <motion.div
             variants={itemVariants}
             initial="hidden"
@@ -97,7 +94,6 @@ const NotFound = () => {
             </h1>
           </motion.div>
 
-          {/* Description */}
           <motion.p
             variants={itemVariants}
             initial="hidden"
@@ -109,7 +105,6 @@ const NotFound = () => {
             A rota <span className="font-semibold text-foreground">{location.pathname}</span> não foi encontrada em nosso sistema.
           </motion.p>
 
-          {/* Action Buttons */}
           <motion.div
             variants={itemVariants}
             initial="hidden"
@@ -134,7 +129,6 @@ const NotFound = () => {
         </motion.div>
       </section>
 
-      {/* Suggestions Section */}
       <motion.section
         variants={containerVariants}
         initial="hidden"
@@ -193,7 +187,6 @@ const NotFound = () => {
         </div>
       </motion.section>
 
-      {/* Tips Section */}
       <motion.section
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}

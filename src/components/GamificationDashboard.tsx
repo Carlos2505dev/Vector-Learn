@@ -18,7 +18,6 @@ export function GamificationDashboard() {
   const xpNeededForCurrentLevelRange = nextLevelXp - currentLevelXp;
   const progressPercentage = (currentLevelProgress / xpNeededForCurrentLevelRange) * 100;
 
-  // Calculate activity for the last 7 days
   const getWeeklyActivity = () => {
     const activity = [];
     for (let i = 6; i >= 0; i--) {
@@ -34,7 +33,6 @@ export function GamificationDashboard() {
 
   return (
     <div className="space-y-8">
-      {/* Level and XP Header */}
       <Card className="bg-gradient-primary text-white overflow-hidden relative">
         <div className="absolute top-0 right-0 p-8 opacity-10">
           <Trophy size={120} />
@@ -66,7 +64,6 @@ export function GamificationDashboard() {
       </Card>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Left Column: Stats and Streaks */}
         <div className="space-y-8">
           <Card className="interactive-surface">
             <CardHeader>
@@ -102,13 +99,12 @@ export function GamificationDashboard() {
               current: stats.currentStreak,
               longest: stats.maxStreak,
               thisWeek: weeklyActivity,
-              thisMonth: Object.values(stats.dailyXP || {}).reduce((acc, curr) => acc + curr, 0), // Total XP this month (simplified)
+              thisMonth: Object.values(stats.dailyXP || {}).reduce((acc, curr) => acc + curr, 0),
               lastActivityDate: stats.lastActivity
             }} 
           />
         </div>
 
-        {/* Right Column: Badges */}
         <div className="lg:col-span-2 space-y-8">
           <Card className="interactive-surface">
             <CardHeader className="flex flex-row items-center justify-between">
@@ -125,7 +121,6 @@ export function GamificationDashboard() {
             </CardContent>
           </Card>
 
-          {/* XP Milestones / Progress Roadmap */}
           <Card className="interactive-surface">
             <CardHeader>
               <CardTitle className="text-lg flex items-center gap-2">

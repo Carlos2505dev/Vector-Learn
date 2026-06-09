@@ -22,7 +22,6 @@ export function StudySessionUI({
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const [showBreakAlert, setShowBreakAlert] = useState(false);
 
-  // Atualizar tempo cada segundo
   useEffect(() => {
     const interval = setInterval(() => {
       setElapsedSeconds((prev) => prev + 1);
@@ -31,7 +30,6 @@ export function StudySessionUI({
     return () => clearInterval(interval);
   }, []);
 
-  // Mostrar alerta quando fadiga detectada
   useEffect(() => {
     if (session.shouldTakeBreak && !showBreakAlert) {
       setShowBreakAlert(true);
@@ -59,7 +57,6 @@ export function StudySessionUI({
 
   return (
     <div className="w-full space-y-3">
-      {/* Card Principal - Timer */}
       <Card
         className={`border-2 transition-all ${
           session.isFatigued
@@ -84,7 +81,6 @@ export function StudySessionUI({
         </CardHeader>
 
         <CardContent className="space-y-4">
-          {/* Timer Grande */}
           <motion.div
             className="text-center py-6"
             animate={{ scale: session.isFatigued ? [1, 1.05, 1] : 1 }}
@@ -96,7 +92,6 @@ export function StudySessionUI({
             <p className="text-xs text-muted-foreground mt-1">Tempo decorrido</p>
           </motion.div>
 
-          {/* Estatísticas em Tempo Real */}
           <div className="grid grid-cols-3 gap-2 text-center text-sm">
             <div className="p-2 rounded-lg bg-background/50">
               <p className="font-bold text-lg text-foreground">
@@ -120,7 +115,6 @@ export function StudySessionUI({
             </div>
           </div>
 
-          {/* Progress Bar de Qualidade */}
           <div className="space-y-1">
             <div className="flex justify-between text-xs">
               <span className="text-muted-foreground">Qualidade da Sessão</span>
@@ -132,7 +126,6 @@ export function StudySessionUI({
             />
           </div>
 
-          {/* Streak de Consecutivos */}
           {session.currentSession.consecutiveErrors > 0 && (
             <motion.div
               initial={{ opacity: 0, x: -10 }}
@@ -143,7 +136,6 @@ export function StudySessionUI({
             </motion.div>
           )}
 
-          {/* XP Bonus */}
           {session.xpBonus > 0 && (
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
@@ -154,7 +146,6 @@ export function StudySessionUI({
             </motion.div>
           )}
 
-          {/* Controles */}
           <div className="flex gap-2 pt-2">
             <Button className="flex-1" size="sm">
               Continuar Estudando
@@ -166,7 +157,6 @@ export function StudySessionUI({
         </CardContent>
       </Card>
 
-      {/* Alert de Break Sugerido */}
       <AnimatePresence>
         {showBreakAlert && session.shouldTakeBreak && (
           <motion.div
@@ -218,7 +208,6 @@ export function StudySessionUI({
         )}
       </AnimatePresence>
 
-      {/* Métricas Avançadas (opcional) */}
       {showAdvancedMetrics && session.sessionHistory.length > 0 && (
         <Card className="border border-muted">
           <CardHeader className="pb-2">

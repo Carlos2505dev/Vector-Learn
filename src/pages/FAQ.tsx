@@ -188,7 +188,6 @@ export default function FAQ() {
     <Layout>
       <Breadcrumb items={[{ label: "Dúvidas Frequentes" }]} />
 
-      {/* Hero Section */}
       <section className="py-12 text-center mb-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -208,7 +207,6 @@ export default function FAQ() {
         </motion.div>
       </section>
 
-      {/* Search and Filter */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -225,7 +223,6 @@ export default function FAQ() {
           />
         </div>
 
-        {/* Categories */}
         <div className="flex flex-wrap gap-2">
           <Button
             variant={selectedCategory === null ? "default" : "outline"}
@@ -247,7 +244,6 @@ export default function FAQ() {
         </div>
       </motion.div>
 
-      {/* FAQ Items */}
       <div className="grid lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-3">
           {filteredFAQ.length > 0 ? (
@@ -332,7 +328,6 @@ export default function FAQ() {
           )}
         </div>
 
-        {/* Sidebar */}
         <motion.aside
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -354,7 +349,6 @@ export default function FAQ() {
             </CardContent>
           </Card>
 
-          {/* Stats */}
           <Card className="interactive-surface mt-6">
             <CardContent className="p-6">
               <div className="space-y-4">

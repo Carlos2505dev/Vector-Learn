@@ -1,8 +1,3 @@
-/**
- * @file LineIntegralSimulator.tsx
- * @description Simulador interativo de integrais de linha com visualização 2D
- * Permite visualizar curvas paramétricas e campos vetoriais em tempo real
- */
 
 import { useState, useMemo } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -34,7 +29,7 @@ interface LineIntegralSimulatorProps {
 
 const CANVAS_WIDTH = 600;
 const CANVAS_HEIGHT = 500;
-const SCALE = 80; // pixels per unit
+const SCALE = 80;
 
 export function LineIntegralSimulator({
   curves,
@@ -51,29 +46,24 @@ export function LineIntegralSimulator({
   const selectedCurve = curves[selectedCurveIdx];
   const selectedField = fields[selectedFieldIdx];
 
-  // Calcular visualização da curva
   const curveData = useMemo(() => {
     return generateCurveVisualization(selectedCurve, selectedField, 50);
   }, [selectedCurve, selectedField]);
 
-  // Calcular integral de linha
   const integralResult = useMemo(() => {
     return lineIntegral(selectedField, selectedCurve);
   }, [selectedField, selectedCurve]);
 
-  // Calcular comprimento de arco
   const arcLen = useMemo(
     () => arcLength(selectedCurve),
     [selectedCurve]
   );
 
-  // Verificar se é conservativo
   const isConservative = useMemo(
     () => isConservativeField2D(selectedField),
     [selectedField]
   );
 
-  // Animar a progressão ao longo da curva
   const animatedPoint = useMemo(() => {
     const t = selectedCurve.tMin + 
       (selectedCurve.tMax - selectedCurve.tMin) * animationProgress;
@@ -83,7 +73,6 @@ export function LineIntegralSimulator({
     };
   }, [animationProgress, selectedCurve]);
 
-  // Renderizar canvas SVG com a visualização
   const renderCanvas = () => {
     const centerX = CANVAS_WIDTH / 2;
     const centerY = CANVAS_HEIGHT / 2;
@@ -103,7 +92,6 @@ export function LineIntegralSimulator({
         height={CANVAS_HEIGHT}
         className="border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-950"
       >
-        {/* Grade */}
         {showGrid && (
           <>
             {Array.from({ length: 11 }).map((_, i) => (
@@ -131,7 +119,6 @@ export function LineIntegralSimulator({
           </>
         )}
 
-        {/* Eixos */}
         <line
           x1={0}
           y1={centerY}
@@ -151,7 +138,6 @@ export function LineIntegralSimulator({
           opacity={0.5}
         />
 
-        {/* Vetores do campo */}
         {showFieldVectors && curveData.fieldVectors.map((fv, i) => (
           <g key={`field-${i}`}>
             <circle
@@ -174,7 +160,6 @@ export function LineIntegralSimulator({
           </g>
         ))}
 
-        {/* Curva paramétrica */}
         <path
           d={pathData}
           fill="none"
@@ -183,7 +168,6 @@ export function LineIntegralSimulator({
           opacity={0.8}
         />
 
-        {/* Ponto animado na curva */}
         {isAnimating && (
           <motion.circle
             cx={centerX + animatedPoint.x * SCALE}
@@ -197,7 +181,6 @@ export function LineIntegralSimulator({
           />
         )}
 
-        {/* Marker para setas */}
         <defs>
           <marker
             id="arrowhead-field"
@@ -226,12 +209,10 @@ export function LineIntegralSimulator({
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
-          {/* Canvas de Visualização */}
           <div className="flex justify-center">
             {renderCanvas()}
           </div>
 
-          {/* Seleção de Curva */}
           <div className="space-y-3">
             <Label className="text-base font-semibold">Curva Paramétrica</Label>
             <div className="grid grid-cols-2 gap-2">
@@ -251,7 +232,6 @@ export function LineIntegralSimulator({
             </div>
           </div>
 
-          {/* Seleção de Campo Vetorial */}
           <div className="space-y-3">
             <Label className="text-base font-semibold">Campo Vetorial</Label>
             <div className="grid grid-cols-2 gap-2">
@@ -270,7 +250,6 @@ export function LineIntegralSimulator({
 
           <Separator />
 
-          {/* Controles de Visualização */}
           <div className="flex gap-2 flex-wrap">
             <Button
               size="sm"
@@ -288,7 +267,6 @@ export function LineIntegralSimulator({
             </Button>
           </div>
 
-          {/* Controles de Animação */}
           <div className="space-y-3">
             <div className="flex gap-2">
               <Button
@@ -322,7 +300,6 @@ export function LineIntegralSimulator({
 
           <Separator />
 
-          {/* Resultados */}
           <div className="grid grid-cols-2 gap-4">
             <div className="p-3 bg-blue-50 dark:bg-blue-950 rounded-lg">
               <div className="text-sm font-semibold text-blue-900 dark:text-blue-100 mb-2">
@@ -342,7 +319,6 @@ export function LineIntegralSimulator({
             </div>
           </div>
 
-          {/* Passo-a-passo */}
           <div className="bg-slate-50 dark:bg-slate-900 p-4 rounded-lg space-y-2">
             <div className="font-semibold text-sm mb-3">Solução Passo-a-Passo:</div>
             {integralResult.work.map((step, idx) => (

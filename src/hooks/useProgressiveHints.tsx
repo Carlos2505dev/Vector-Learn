@@ -9,7 +9,7 @@ import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 
 interface HintLevel {
-  level: number; // 1-3
+  level: number;
   text: string;
   xpPenalty: number;
   percentageRevealed: number;
@@ -22,9 +22,6 @@ interface ProgressiveHint {
   totalXpPenalty: number;
 }
 
-/**
- * Hook para gerenciar progressive hints
- */
 export function useProgressiveHints(maxHints: number = 3) {
   const [hints, setHints] = useState<Map<string, ProgressiveHint>>(new Map());
 
@@ -68,9 +65,6 @@ interface ProgressiveHintUIProps {
   streakLength?: number;
 }
 
-/**
- * Componente UI para mostrar Progressive Hints em cascata
- */
 export function ProgressiveHintUI({
   questionId,
   hints,
@@ -128,7 +122,6 @@ export function ProgressiveHintUI({
             exit={{ opacity: 0, height: 0 }}
             className="space-y-3"
           >
-            {/* Mostrar dicas anteriores (reveladas) */}
             {hints.slice(0, currentHintLevel).map((hint) => (
               <motion.div
                 key={hint.level}
@@ -154,7 +147,6 @@ export function ProgressiveHintUI({
               </motion.div>
             ))}
 
-            {/* Próxima dica disponível */}
             {currentHintLevel < maxHints && currentHintLevel < hints.length && (
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
@@ -204,7 +196,6 @@ export function ProgressiveHintUI({
               </motion.div>
             )}
 
-            {/* Solução Completa (última opção) */}
             {currentHintLevel >= maxHints - 1 && (
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
@@ -224,7 +215,7 @@ export function ProgressiveHintUI({
                       variant="outline"
                       size="sm"
                       className="mt-2 text-yellow-700 border-yellow-200 hover:bg-yellow-100"
-                      onClick={() => onHintRequested(999)} // Signal para mostrar solução
+                      onClick={() => onHintRequested(999)}
                     >
                       Desistir e Ver Solução
                     </Button>
@@ -239,12 +230,9 @@ export function ProgressiveHintUI({
   );
 }
 
-/**
- * Sistema completo de Progressive Hints para questões
- */
 interface ProgressiveHintSystemProps {
   questionId: string;
-  baseHints: string[]; // ["dica 1", "dica 2", "dica 3"]
+  baseHints: string[];
   onHintSelected: (level: number, xpCost: number) => void;
   currentXP?: number;
   streakLength?: number;
@@ -282,7 +270,6 @@ export function ProgressiveHintSystem({
 
   const handleHintRequested = (level: number) => {
     if (level === 999) {
-      // Solução completa
       onHintSelected(level, 50);
     } else {
       const hintData = hints[level - 1];

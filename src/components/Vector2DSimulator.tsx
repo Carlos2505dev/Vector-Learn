@@ -35,7 +35,6 @@ export function Vector2DSimulator({ data }: { data?: Partial<SimulatorState> }) 
   const operationStartTime = useRef<number>(Date.now());
   const [newEasterEgg, setNewEasterEgg] = useState<any>(null);
   
-  // Initialize detector and history
   const detector = getEasterEggDetector();
   const simulatorHistory = useSimulatorHistory();
   
@@ -47,7 +46,6 @@ export function Vector2DSimulator({ data }: { data?: Partial<SimulatorState> }) 
     operation: "none"
   });
 
-  // Sync with external data if provided
   useEffect(() => {
     if (data) {
       setState(prev => ({
@@ -59,12 +57,10 @@ export function Vector2DSimulator({ data }: { data?: Partial<SimulatorState> }) 
     }
   }, [data]);
 
-  // Registrar uso do simulador 2D
   useEffect(() => {
     detector.recordSimulatorUsage("2D");
   }, [detector]);
 
-  // Calculate derived values
   const magA = magnitude2D(state.vectorA);
   const magB = magnitude2D(state.vectorB);
   const dotProduct = dot2D(state.vectorA, state.vectorB);
@@ -90,10 +86,8 @@ export function Vector2DSimulator({ data }: { data?: Partial<SimulatorState> }) 
   const setOperation = (operation: SimulatorState["operation"]) => {
     setState(prev => ({ ...prev, operation }));
     
-    // Registrar operação e verificar easter eggs
     const opDuration = (Date.now() - operationStartTime.current) / 1000;
     
-    // Registrar o tipo de operação realizada
     const operationMap: Record<string, string> = {
       add: "adicao",
       subtract: "subtracao",
@@ -108,7 +102,6 @@ export function Vector2DSimulator({ data }: { data?: Partial<SimulatorState> }) 
       }
       detector.recordOperationSpeed(opDuration);
       
-      // Registrar snapshot para Session Replay
       simulatorHistory.recordSnapshot({
         vectorA: state.vectorA,
         vectorB: state.vectorB,
@@ -120,7 +113,6 @@ export function Vector2DSimulator({ data }: { data?: Partial<SimulatorState> }) 
       });
     }
     
-    // Verificar novos easter eggs desbloqueados
     operationStartTime.current = Date.now();
     const newBadges = detector.checkAllEasterEggs({});
     if (newBadges.length > 0) {
@@ -138,10 +130,9 @@ export function Vector2DSimulator({ data }: { data?: Partial<SimulatorState> }) 
     }));
   };
 
-  // Convert mathematical coordinates to SVG coordinates
   const toSVG = (vec: Vector2D, scale = 20) => ({
     x: 200 + vec.x * scale,
-    y: 200 - vec.y * scale // Flip Y for SVG
+    y: 200 - vec.y * scale
   });
 
   const VectorArrow = ({ vector, color, label, startPoint = { x: 0, y: 0 } }: {
@@ -154,7 +145,7 @@ export function Vector2DSimulator({ data }: { data?: Partial<SimulatorState> }) 
     const end = toSVG({ x: startPoint.x + vector.x, y: startPoint.y + vector.y });
     
     const length = Math.sqrt((end.x - start.x) ** 2 + (end.y - start.y) ** 2);
-    if (length < 5) return null; // Don't draw very small vectors
+    if (length < 5) return null;
 
     const angle = Math.atan2(end.y - start.y, end.x - start.x);
     const arrowSize = 8;
@@ -172,7 +163,6 @@ export function Vector2DSimulator({ data }: { data?: Partial<SimulatorState> }) 
           markerEnd="url(#arrowhead)"
         />
         
-        {/* Arrow head */}
         <polygon
           points={`
             ${end.x},${end.y} 
@@ -182,7 +172,6 @@ export function Vector2DSimulator({ data }: { data?: Partial<SimulatorState> }) 
           fill={color}
         />
 
-        {/* Label */}
         <text
           x={end.x + 10}
           y={end.y - 10}
@@ -197,7 +186,6 @@ export function Vector2DSimulator({ data }: { data?: Partial<SimulatorState> }) 
 
   return (
     <div className="space-y-6 relative">
-      {/* Easter Egg Notification */}
       <AnimatePresence>
         {newEasterEgg && (
           <div className="fixed top-20 left-0 right-0 z-50 flex justify-center pointer-events-none">
@@ -209,7 +197,6 @@ export function Vector2DSimulator({ data }: { data?: Partial<SimulatorState> }) 
         )}
       </AnimatePresence>
 
-      {/* Session Replay Status Indicator */}
       {simulatorHistory.history.length > 0 && (
         <motion.div
           className="sticky top-4 z-40 max-w-fit mx-auto"
@@ -224,7 +211,6 @@ export function Vector2DSimulator({ data }: { data?: Partial<SimulatorState> }) 
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Visualization */}
         <Card className="lg:col-span-2">
           <CardHeader>
             <div className="flex items-center justify-between">
@@ -274,20 +260,15 @@ export function Vector2DSimulator({ data }: { data?: Partial<SimulatorState> }) 
                 )}
               </defs>
 
-              {/* Grid */}
               {state.showGrid && <rect width="100%" height="100%" fill="url(#grid)" />}
 
-              {/* Axes */}
               <line x1="0" y1="200" x2="400" y2="200" stroke="hsl(var(--muted-foreground))" strokeWidth="1" />
               <line x1="200" y1="0" x2="200" y2="400" stroke="hsl(var(--muted-foreground))" strokeWidth="1" />
               
-              {/* Origin */}
               <circle cx="200" cy="200" r="3" fill="hsl(var(--primary))" />
 
-              {/* Component vectors */}
               {state.showComponents && (
                 <g opacity="0.6">
-                  {/* Vector A components */}
                   <line
                     x1="200"
                     y1="200"
@@ -307,7 +288,6 @@ export function Vector2DSimulator({ data }: { data?: Partial<SimulatorState> }) 
                     strokeDasharray="5,5"
                   />
                   
-                  {/* Vector B components */}
                   <line
                     x1="200"
                     y1="200"
@@ -329,7 +309,6 @@ export function Vector2DSimulator({ data }: { data?: Partial<SimulatorState> }) 
                 </g>
               )}
 
-              {/* Main vectors */}
               <VectorArrow 
                 vector={state.vectorA} 
                 color="hsl(var(--vector-blue))" 
@@ -341,7 +320,6 @@ export function Vector2DSimulator({ data }: { data?: Partial<SimulatorState> }) 
                 label="b⃗" 
               />
 
-              {/* Operation results */}
               <AnimatePresence>
                 {state.operation === "add" && (
                   <motion.g
@@ -354,7 +332,6 @@ export function Vector2DSimulator({ data }: { data?: Partial<SimulatorState> }) 
                       color="hsl(var(--vector-purple))" 
                       label="a⃗ + b⃗" 
                     />
-                    {/* Parallelogram construction */}
                     <VectorArrow 
                       vector={state.vectorB} 
                       color="hsl(var(--vector-teal))" 
@@ -389,7 +366,6 @@ export function Vector2DSimulator({ data }: { data?: Partial<SimulatorState> }) 
                       color="hsl(var(--vector-yellow))" 
                       label="proj_b⃗(a⃗)" 
                     />
-                    {/* Projection line */}
                     <line
                       x1={toSVG(state.vectorA).x}
                       y1={toSVG(state.vectorA).y}
@@ -407,13 +383,11 @@ export function Vector2DSimulator({ data }: { data?: Partial<SimulatorState> }) 
           </CardContent>
         </Card>
 
-        {/* Controls */}
         <Card>
           <CardHeader>
             <CardTitle>Controles</CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
-            {/* Vector A Controls */}
             <div>
               <Label className="text-vector-blue font-semibold flex items-center gap-1">Vetor <MathFormula formula="\\vec{a}" /></Label>
               <div className="space-y-3 mt-2">
@@ -444,7 +418,6 @@ export function Vector2DSimulator({ data }: { data?: Partial<SimulatorState> }) 
 
             <Separator />
 
-            {/* Vector B Controls */}
             <div>
               <Label className="text-vector-teal font-semibold flex items-center gap-1">Vetor <MathFormula formula="\\vec{b}" /></Label>
               <div className="space-y-3 mt-2">
@@ -475,7 +448,6 @@ export function Vector2DSimulator({ data }: { data?: Partial<SimulatorState> }) 
 
             <Separator />
 
-            {/* Operations */}
             <div>
               <Label className="font-semibold">Operações</Label>
               <div className="grid grid-cols-2 gap-2 mt-2">
@@ -522,7 +494,6 @@ export function Vector2DSimulator({ data }: { data?: Partial<SimulatorState> }) 
         </Card>
       </div>
 
-      {/* Results Panel */}
       <Card>
         <CardHeader>
           <CardTitle>Resultados e Medidas</CardTitle>

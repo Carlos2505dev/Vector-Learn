@@ -1,4 +1,3 @@
-/** Easter Egg Badges - Desafios ocultos para exploração */
 export const EASTER_EGG_DEFINITIONS = {
   "descobridor-de-atalhos": {
     name: "🔍 Descobridor de Atalhos",
@@ -76,27 +75,16 @@ export const EASTER_EGG_DEFINITIONS = {
 };
 
 export interface EasterEggContext {
-  /** Operações usadas (rastreia não ensinadas) */
   operationsPerformed: string[];
-  /** Métodos alternativos usados em desafios */
   alternativeMethods: number;
-  /** Velocidade total de operações recentes */
-  recentOperationSpeed: number[]; // tempo em segundos
-  /** Páginas lidas completamente */
+  recentOperationSpeed: number[];
   pagesRead: string[];
-  /** Combinações de operações testadas */
-  operationsCombinationsTested: string[]; // Changed from Set to array
-  /** Streak perfeito atual */
+  operationsCombinationsTested: string[];
   perfectStreak: number;
-  /** Timestamp de última atividade */
   lastActivityTime: number;
-  /** Horas estudadas em período noturno */
   nightStudyHours: number;
-  /** Simuladores usados hoje */
-  simulatorsUsedToday: string[]; // Changed from Set to array
-  /** Vezes que compartilhou solução */
+  simulatorsUsedToday: string[];
   shareSolutionCount: number;
-  /** Tempos de reação recentes */
   reactionTimes: number[];
 }
 
@@ -119,11 +107,9 @@ export class EasterEggDetector {
     };
   }
 
-  /** Verifica todos os easter eggs baseado no contexto atual */
   checkAllEasterEggs(userStats: any): EasterEggUnlock[] {
     const unlocked: EasterEggUnlock[] = [];
 
-    // 1. Descobridor de Atalhos
     if (this.detectUntaughtOperation()) {
       unlocked.push({
         badgeId: "descobridor-de-atalhos" as const,
@@ -132,7 +118,6 @@ export class EasterEggDetector {
       });
     }
 
-    // 2. Ninja Matemático
     if (this.context.alternativeMethods >= 3) {
       unlocked.push({
         badgeId: "ninja-matematico" as const,
@@ -141,7 +126,6 @@ export class EasterEggDetector {
       });
     }
 
-    // 3. Relâmpago
     if (this.detectSpeedRun()) {
       unlocked.push({
         badgeId: "relampago" as const,
@@ -150,7 +134,6 @@ export class EasterEggDetector {
       });
     }
 
-    // 4. Pesquisador Insaciável
     if (
       this.context.pagesRead.includes("FAQ") &&
       this.context.pagesRead.includes("Fundamentos")
@@ -162,7 +145,6 @@ export class EasterEggDetector {
       });
     }
 
-    // 5. Experimentador
     if (this.context.operationsCombinationsTested.length >= 6) {
       unlocked.push({
         badgeId: "experimentador" as const,
@@ -171,7 +153,6 @@ export class EasterEggDetector {
       });
     }
 
-    // 6. Perfeccionista
     if (this.context.perfectStreak >= 20) {
       unlocked.push({
         badgeId: "perfeccionista" as const,
@@ -180,7 +161,6 @@ export class EasterEggDetector {
       });
     }
 
-    // 7. Noite Insone
     if (this.context.nightStudyHours >= 2) {
       unlocked.push({
         badgeId: "noite-insone" as const,
@@ -189,7 +169,6 @@ export class EasterEggDetector {
       });
     }
 
-    // 8. Multidimensional
     if (this.context.simulatorsUsedToday.length >= 3) {
       unlocked.push({
         badgeId: "multidimensional" as const,
@@ -198,7 +177,6 @@ export class EasterEggDetector {
       });
     }
 
-    // 9. Mentor
     if (this.context.shareSolutionCount >= 10) {
       unlocked.push({
         badgeId: "mentor" as const,
@@ -207,7 +185,6 @@ export class EasterEggDetector {
       });
     }
 
-    // 10. Zero Hesitação
     if (this.detectFastReactionTime()) {
       unlocked.push({
         badgeId: "zero-hesitacao" as const,
@@ -231,19 +208,17 @@ export class EasterEggDetector {
     if (this.context.recentOperationSpeed.length < 100) return false;
     const total = this.context.recentOperationSpeed.reduce((a, b) => a + b, 0);
     const avgSpeed = total / this.context.recentOperationSpeed.length;
-    return this.context.recentOperationSpeed.length === 100 && avgSpeed < 3; // < 3 seg por operação
+    return this.context.recentOperationSpeed.length === 100 && avgSpeed < 3;
   }
 
   private detectFastReactionTime(): boolean {
     if (this.context.reactionTimes.length < 5) return false;
     const last5 = this.context.reactionTimes.slice(-5);
-    return last5.every((time) => time < 10); // < 10 segundos cada
+    return last5.every((time) => time < 10);
   }
 
-  // Métodos para atualizar contexto
   recordOperation(operation: string) {
     this.context.operationsPerformed.push(operation);
-    // Log para debug
   }
 
   recordAlternativeMethod() {
@@ -252,7 +227,6 @@ export class EasterEggDetector {
 
   recordOperationSpeed(seconds: number) {
     this.context.recentOperationSpeed.push(seconds);
-    // Manter apenas últimas 100
     if (this.context.recentOperationSpeed.length > 100) {
       this.context.recentOperationSpeed.shift();
     }
@@ -303,10 +277,9 @@ export class EasterEggDetector {
 export interface EasterEggUnlock {
   badgeId: keyof typeof EASTER_EGG_DEFINITIONS;
   unlockedAt: string;
-  discoveredAt: string; // Mensagem de descoberta
+  discoveredAt: string;
 }
 
-// Singleton para rastrear easter eggs globalmente
 let detectorInstance: EasterEggDetector | null = null;
 
 export function getEasterEggDetector(): EasterEggDetector {
