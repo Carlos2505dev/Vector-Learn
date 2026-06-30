@@ -131,19 +131,20 @@ const properties = [{
 
 export default function Operacoes() {
   useSEO({
-    title: 'Operações Vetoriais - Soma, Produto Escalar e Vetorial | Vector Learn',
-    description: 'Domine operações vetoriais: soma, subtração, produto escalar, produto vetorial e projeção com exemplos práticos e visualizações.',
-    keywords: 'operações vetoriais, produto escalar, produto vetorial, soma de vetores, física avançada',
-    canonicalUrl: 'https://vectorlearn.com/operacoes',
+    title: 'Operações Vetoriais: Soma, Produto Escalar, Vetorial & Projeção | Vector Learn',
+    description: 'Domine as operações com vetores! Soma, subtração, produto escalar, produto vetorial, projeção e produto misto com fórmulas, exemplos práticos e visualizações.',
+    keywords: 'operações vetoriais, soma de vetores, produto escalar, produto vetorial, projeção vetorial, produto misto, física, matemática',
+    canonicalUrl: 'https://vectorslearn.vercel.app/operacoes',
     breadcrumbSchema: generateBreadcrumbSchema([
-      { name: 'Home', url: 'https://vectorlearn.com' },
-      { name: 'Operações', url: 'https://vectorlearn.com/operacoes' },
+      { name: 'Home', url: 'https://vectorslearn.vercel.app' },
+      { name: 'Operações', url: 'https://vectorslearn.vercel.app/operacoes' },
     ]),
     learningResourceSchema: generateLearningResourceSchema(
       'Operações Vetoriais',
-      'Aprenda todas as operações vetoriais: soma, subtração, produtos escalar e vetorial',
-      ['Undergraduate']
+      'Aprenda todas as operações com vetores: soma, subtração, produtos escalar e vetorial, projeção e produto misto.',
+      ['High School', 'Undergraduate']
     ),
+    ogType: 'course',
   });
 
   return (

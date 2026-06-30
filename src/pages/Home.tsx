@@ -110,10 +110,10 @@ export default function Home() {
   const { stats } = useUserProgress();
 
   useSEO({
-    title: 'Vector Learn - Aprenda Vetores de Forma Visual e Interativa',
-    description: 'Plataforma educacional revolucionária com simuladores 3D interativos, desafios e tutoriais para dominar vetores em matemática e física.',
-    keywords: 'aprenda vetores, simulador vetores, física interativa, matemática visual, educação online, vetores 3D',
-    canonicalUrl: 'https://vectorlearn.com/',
+    title: 'Vetores Matemática: Aprender Soma, Produto Escalar & Simulador 3D | Vector Learn',
+    description: 'Aprenda vetores matemática com simulações 2D/3D interativas! Masterize soma de vetores, produto escalar, produto vetorial e muito mais. Grátis para estudantes e professores.',
+    keywords: 'vetores matemática, soma de vetores, produto escalar, produto vetorial, simulador vetores, vetores 2D, vetores 3D, geometria analítica, álgebra linear, física vetorial, aprender vetores, ensino médio, vestibular, enem',
+    canonicalUrl: 'https://vectorslearn.vercel.app/',
     learningResourceSchema: generateEducationalAppSchema(),
   });
 

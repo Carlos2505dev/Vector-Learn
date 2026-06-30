@@ -2,20 +2,26 @@ import { motion } from "framer-motion";
 import { Code, Cpu, Database, Network, Shield, Search, Terminal, Gamepad2, Brain, Eye, Calculator, Zap, PlayCircle, ArrowRight, Layers, Globe } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { Card, CardContent } from "@/components/ui/card";
-import { useSEO, generateBreadcrumbSchema } from "@/hooks/useSEO";
+import { useSEO, generateBreadcrumbSchema, generateLearningResourceSchema } from "@/hooks/useSEO";
 import { BoatSimulator } from "@/components/BoatSimulator";
 import { InclinedPlaneSimulator } from "@/components/InclinedPlaneSimulator";
 
 export default function Aplicacoes() {
   useSEO({
-    title: 'Aplicações dos Vetores - Engenharia e Tecnologia | Vector Learn',
-    description: 'Descubra como os vetores são aplicados na engenharia de software, ciência da computação e inteligência artificial.',
-    keywords: 'aplicações de vetores, engenharia, computação gráfica, física aplicada, vetores na vida real',
-    canonicalUrl: 'https://vectorlearn.com/aplicacoes',
+    title: 'Aplicações de Vetores na Tecnologia - Engenharia, IA e Mais | Vector Learn',
+    description: 'Veja como vetores são usados na engenharia, computação gráfica, inteligência artificial, física aplicada e jogos! Exemplos práticos e simulações.',
+    keywords: 'aplicações de vetores, vetores na tecnologia, engenharia, computação gráfica, inteligência artificial, física aplicada, vetores em jogos',
+    canonicalUrl: 'https://vectorslearn.vercel.app/aplicacoes',
     breadcrumbSchema: generateBreadcrumbSchema([
-      { name: 'Home', url: 'https://vectorlearn.com' },
-      { name: 'Aplicações', url: 'https://vectorlearn.com/aplicacoes' },
+      { name: 'Home', url: 'https://vectorslearn.vercel.app' },
+      { name: 'Aplicações', url: 'https://vectorslearn.vercel.app/aplicacoes' },
     ]),
+    learningResourceSchema: generateLearningResourceSchema(
+      'Aplicações de Vetores na Tecnologia',
+      'Exemplos práticos de como vetores são usados na engenharia, IA, jogos e física',
+      ['High School', 'Undergraduate']
+    ),
+    ogType: 'website',
   });
 
   return (

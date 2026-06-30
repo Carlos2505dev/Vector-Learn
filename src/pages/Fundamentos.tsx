@@ -87,18 +87,19 @@ const examples = [
 
 export default function Fundamentos() {
   useSEO({
-    title: 'Fundamentos de Vetores - Conceitos Básicos | Vector Learn',
-    description: 'Aprenda os fundamentos de vetores: notação, componentes, magnitude e operações básicas com exemplos práticos e visualizações.',
-    keywords: 'fundamentos vetores, notação vetorial, magnitude, componentes, física básica',
-    canonicalUrl: 'https://vectorlearn.com/fundamentos',
+    title: 'Fundamentos de Vetores: Conceitos Básicos, Notação & Magnitude | Vector Learn',
+    description: 'Aprenda os fundamentos de vetores matemática! Notação vetorial, componentes 2D/3D, magnitude (módulo) e conceitos básicos com exemplos práticos e visualizações.',
+    keywords: 'fundamentos de vetores, notação vetorial, componentes de vetores, magnitude vetorial, módulo de vetor, vetores 2D, vetores 3D, física básica, geometria analítica',
+    canonicalUrl: 'https://vectorslearn.vercel.app/fundamentos',
     breadcrumbSchema: generateBreadcrumbSchema([
-      { name: 'Home', url: 'https://vectorlearn.com' },
-      { name: 'Fundamentos', url: 'https://vectorlearn.com/fundamentos' },
+      { name: 'Home', url: 'https://vectorslearn.vercel.app' },
+      { name: 'Fundamentos', url: 'https://vectorslearn.vercel.app/fundamentos' },
     ]),
     learningResourceSchema: generateLearningResourceSchema(
       'Fundamentos de Vetores',
-      'Conceitos básicos de vetores: notação, componentes e magnitude'
+      'Conceitos básicos de vetores: notação, componentes e magnitude. Ideal para iniciantes em matemática e física.'
     ),
+    ogType: 'course',
   });
 
   return (

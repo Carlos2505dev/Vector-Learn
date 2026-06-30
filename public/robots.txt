@@ -7,7 +7,7 @@ Disallow: /.env
 Disallow: /.git
 
 # Sitemaps
-Sitemap: https://vectorlearn.com/sitemap.xml
+Sitemap: https://vectorslearn.vercel.app/sitemap.xml
 
 # AI Chatbots and LLM Crawlers
 User-agent: GPTBot

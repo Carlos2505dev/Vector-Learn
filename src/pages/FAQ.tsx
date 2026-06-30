@@ -160,10 +160,10 @@ export default function FAQ() {
     title: 'Perguntas Frequentes (FAQ) - Vector Learn',
     description: 'Encontre respostas para as perguntas mais comuns sobre vetores, nossa plataforma e como aproveitar ao máximo o aprendizado interativo.',
     keywords: 'FAQ vetores, perguntas frequentes, ajuda, suporte, Vector Learn',
-    canonicalUrl: 'https://vectorlearn.com/faq',
+    canonicalUrl: 'https://vectorslearn.vercel.app/faq',
     breadcrumbSchema: generateBreadcrumbSchema([
-      { name: 'Home', url: 'https://vectorlearn.com' },
-      { name: 'FAQ', url: 'https://vectorlearn.com/faq' },
+      { name: 'Home', url: 'https://vectorslearn.vercel.app' },
+      { name: 'FAQ', url: 'https://vectorslearn.vercel.app/faq' },
     ]),
     faqSchema: generateFAQSchema(faqData.map(item => ({
       question: item.question,

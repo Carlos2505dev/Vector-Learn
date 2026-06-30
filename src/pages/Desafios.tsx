@@ -12,7 +12,7 @@ import { TestMode, type TestQuestion } from "@/components/TestMode";
 import { BadgeSystem } from "@/components/BadgeSystem";
 import { SkillRadar } from "@/components/SkillRadar";
 import { useUserProgress } from "@/hooks/useUserProgress";
-import { useSEO, generateBreadcrumbSchema } from "@/hooks/useSEO";
+import { useSEO, generateBreadcrumbSchema, generateLearningResourceSchema } from "@/hooks/useSEO";
 import { GamificationDashboard } from "@/components/GamificationDashboard";
 import { enemVestibularQuestions, categoryMap, type QuestionCategory, getRandomQuestions } from "@/lib/questions-enem";
 
@@ -428,6 +428,21 @@ const testQuestions: TestQuestion[] = [
 ];
 
 export default function Desafios() {
+  useSEO({
+    title: 'Desafios de Vetores - Exercícios e Quiz | Vector Learn',
+    description: 'Teste seus conhecimentos de vetores com desafios interativos, quiz e questões de ENEM e vestibular. Aprenda com feedback instantâneo!',
+    keywords: 'exercícios de vetores, quiz vetores, ENEM matemática, vestibular, desafios matemática, questões de vetores',
+    canonicalUrl: 'https://vectorslearn.vercel.app/desafios',
+    breadcrumbSchema: generateBreadcrumbSchema([
+      { name: 'Home', url: 'https://vectorslearn.vercel.app' },
+      { name: 'Desafios', url: 'https://vectorslearn.vercel.app/desafios' },
+    ]),
+    learningResourceSchema: generateLearningResourceSchema(
+      'Desafios de Vetores',
+      'Exercícios e quiz interativos para praticar vetores matemática e física',
+      ['High School', 'Undergraduate']
+    ),
+  });
   const [tabValue, setTabValue] = useState("quiz");
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | number | null>(null);

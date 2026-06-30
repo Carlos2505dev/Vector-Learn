@@ -10,7 +10,7 @@ import { Monitor, Box, Info, Lightbulb, Sparkles, Wind } from "lucide-react";
 import { useUserProgress } from "@/hooks/useUserProgress";
 import { motion as motionF } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
-import { useSEO, generateBreadcrumbSchema } from "@/hooks/useSEO";
+import { useSEO, generateBreadcrumbSchema, generateLearningResourceSchema } from "@/hooks/useSEO";
 import { MathFormula } from "@/components/MathFormula";
 import { EquationSolver } from "@/components/EquationSolver";
 import { type ParsedEquation } from "@/lib/equation-parser";
@@ -73,14 +73,20 @@ export default function Simulador() {
   };
 
   useSEO({
-    title: 'Simulador de Vetores 2D e 3D | Vector Learn',
-    description: 'Explore vetores interativamente com simuladores 2D e 3D em tempo real. Manipule componentes, observe operações geometricamente.',
-    keywords: 'simulador vetores 2D, simulador vetores 3D, visualização vetores, matemática interativa',
-    canonicalUrl: 'https://vectorlearn.com/simulador',
+    title: 'Simulador de Vetores 2D e 3D Interativo | Vector Learn',
+    description: 'Explore vetores matemática com simulador 2D/3D interativo em tempo real! Manipule componentes, visualize soma, produto escalar e veja a geometria dos vetores.',
+    keywords: 'simulador de vetores, vetores 2D, vetores 3D, visualização vetorial, matemática interativa, soma de vetores, produto escalar',
+    canonicalUrl: 'https://vectorslearn.vercel.app/simulador',
     breadcrumbSchema: generateBreadcrumbSchema([
-      { name: 'Home', url: 'https://vectorlearn.com' },
-      { name: 'Simulador', url: 'https://vectorlearn.com/simulador' },
+      { name: 'Home', url: 'https://vectorslearn.vercel.app' },
+      { name: 'Simulador', url: 'https://vectorslearn.vercel.app/simulador' },
     ]),
+    learningResourceSchema: generateLearningResourceSchema(
+      'Simulador de Vetores 2D e 3D',
+      'Simulador interativo de vetores matemática para explorar visualizações 2D e 3D.',
+      ['High School', 'Undergraduate'],
+      ['Simulation', 'Interactive']
+    ),
   });
   const [simulatorAccessTracker, setSimulatorAccessTracker] = useState({ 
     has2D: false, 
