@@ -346,7 +346,7 @@ export function Vector3DSimulator({ data }: { data?: Partial<SimulatorState> }) 
           </CardHeader>
           <CardContent className="space-y-6">
             <div>
-              <Label className="text-vector-blue font-semibold flex items-center gap-1">Vetor <MathFormula formula="\\vec{a}" /></Label>
+              <Label className="text-vector-blue font-semibold flex items-center gap-1">Vetor <MathFormula formula={"\\vec{a}"} /></Label>
               <div className="space-y-3 mt-2">
                 <div>
                   <Label className="text-xs">Componente X: {state.vectorA.x.toFixed(1)}</Label>
@@ -387,7 +387,7 @@ export function Vector3DSimulator({ data }: { data?: Partial<SimulatorState> }) 
             <Separator />
 
             <div>
-              <Label className="text-vector-teal font-semibold flex items-center gap-1">Vetor <MathFormula formula="\\vec{b}" /></Label>
+              <Label className="text-vector-teal font-semibold flex items-center gap-1">Vetor <MathFormula formula={"\\vec{b}"} /></Label>
               <div className="space-y-3 mt-2">
                 <div>
                   <Label className="text-xs">Componente X: {state.vectorB.x.toFixed(1)}</Label>
@@ -434,7 +434,7 @@ export function Vector3DSimulator({ data }: { data?: Partial<SimulatorState> }) 
                   animate={{ opacity: 1, height: "auto" }}
                   exit={{ opacity: 0, height: 0 }}
                 >
-                  <Label className="text-pink-500 font-semibold flex items-center gap-1">Vetor <MathFormula formula="\\vec{c}" /></Label>
+                  <Label className="text-pink-500 font-semibold flex items-center gap-1">Vetor <MathFormula formula={"\\vec{c}"} /></Label>
                   <div className="space-y-3 mt-2">
                     <div>
                       <Label className="text-xs">Componente X: {state.vectorC.x.toFixed(1)}</Label>
@@ -544,7 +544,7 @@ export function Vector3DSimulator({ data }: { data?: Partial<SimulatorState> }) 
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div>
-              <Label className="text-vector-blue font-semibold flex items-center gap-1">Vetor <MathFormula formula="\\vec{a}" /></Label>
+              <Label className="text-vector-blue font-semibold flex items-center gap-1">Vetor <MathFormula formula={"\\vec{a}"} /></Label>
               <div className="mt-2 space-y-1">
                 <Badge variant="outline" className="flex items-center gap-1">
                   <MathFormula formula={`|\\vec{a}| = ${magA.toFixed(2)}`} />
@@ -556,7 +556,7 @@ export function Vector3DSimulator({ data }: { data?: Partial<SimulatorState> }) 
             </div>
             
             <div>
-              <Label className="text-vector-teal font-semibold flex items-center gap-1">Vetor <MathFormula formula="\\vec{b}" /></Label>
+              <Label className="text-vector-teal font-semibold flex items-center gap-1">Vetor <MathFormula formula={"\\vec{b}"} /></Label>
               <div className="mt-2 space-y-1">
                 <Badge variant="outline" className="flex items-center gap-1">
                   <MathFormula formula={`|\\vec{b}| = ${magB.toFixed(2)}`} />
@@ -569,7 +569,7 @@ export function Vector3DSimulator({ data }: { data?: Partial<SimulatorState> }) 
 
             {state.operation === "mixed" && (
               <div>
-                <Label className="text-pink-500 font-semibold flex items-center gap-1">Vetor <MathFormula formula="\\vec{c}" /></Label>
+                <Label className="text-pink-500 font-semibold flex items-center gap-1">Vetor <MathFormula formula={"\\vec{c}"} /></Label>
                 <div className="mt-2 space-y-1">
                   <Badge variant="outline" className="flex items-center gap-1">
                     <MathFormula formula={`|\\vec{c}| = ${magC.toFixed(2)}`} />

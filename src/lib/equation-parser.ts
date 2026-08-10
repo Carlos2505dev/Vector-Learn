@@ -40,9 +40,9 @@ export function parseVectorEquation(input: string): ParsedEquation | null {
   if (normalized.includes(" x ") || normalized.includes("cross") || normalized.includes("vetorial")) {
     operation = "cross";
     opSymbol = normalized.includes("vetorial") ? "vetorial" : normalized.includes("cross") ? "cross" : "x";
-  } else if (normalized.includes(".") || normalized.includes("dot") || normalized.includes("escalar")) {
+  } else if (normalized.includes("·") || normalized.includes("dot") || normalized.includes("escalar") || normalized.includes("ponto")) {
     operation = "dot";
-    opSymbol = normalized.includes("escalar") ? "escalar" : normalized.includes("dot") ? "dot" : ".";
+    opSymbol = normalized.includes("escalar") ? "escalar" : normalized.includes("dot") ? "dot" : normalized.includes("ponto") ? "ponto" : "·";
   } else if (normalized.includes("+") || normalized.includes("soma") || normalized.includes("mais")) {
     operation = "add";
     opSymbol = normalized.includes("soma") ? "soma" : normalized.includes("mais") ? "mais" : "+";

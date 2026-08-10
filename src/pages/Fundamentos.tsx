@@ -286,15 +286,15 @@ export default function Fundamentos() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div>
                 <h3 className="font-semibold mb-2">Magnitude 2D</h3>
-                <MathFormula formula="|\\vec{v}| = \\sqrt{v_x^2 + v_y^2}" block />
+                <MathFormula formula={"|\\vec{v}| = \\sqrt{v_x^2 + v_y^2}"} block />
               </div>
               <div>
                 <h3 className="font-semibold mb-2">Vetor Unitário</h3>
-                <MathFormula formula="\\hat{v} = \\frac{\\vec{v}}{|\\vec{v}|}" block />
+                <MathFormula formula={"\\hat{v} = \\frac{\\vec{v}}{|\\vec{v}|}"} block />
               </div>
               <div>
                 <h3 className="font-semibold mb-2">Componentes</h3>
-                <MathFormula formula="\\vec{v} = v_x\\hat{i} + v_y\\hat{j}" block />
+                <MathFormula formula={"\\vec{v} = v_x\\hat{i} + v_y\\hat{j}"} block />
               </div>
             </div>
           </CardContent>

@@ -25,7 +25,7 @@ interface EquationSolverProps {
 const examples = [
   "(3, 2, 0) + (1, -1, 0)",
   "2i + 3j x 1i - 2k",
-  "(1, 2, 3) . (4, 5, 6)",
+  "(1, 2, 3) · (4, 5, 6)",
   "3i - j + 2k",
 ];
 
@@ -80,7 +80,7 @@ export function EquationSolver({ onSolve }: EquationSolverProps) {
       setShowResult(false);
       const timer = setTimeout(() => {
         setIsProcessing(false);
-        setThoughtIndex(Math.floor(Math.random() * (thoughtMessages.length - 1)));
+        setThoughtIndex(Math.floor(Math.random() * thoughtMessages.length));
       }, 600);
       return () => clearTimeout(timer);
     } else {
@@ -228,8 +228,7 @@ export function EquationSolver({ onSolve }: EquationSolverProps) {
                     <div className="absolute inset-0 bg-gradient-to-r from-vector-blue/5 to-vector-teal/5 opacity-0 group-hover/math:opacity-100 transition-opacity" />
                     <MathFormula 
                       formula={input
-                        .replace(/x/g, "\\times")
-                        .replace(/\./g, "\\cdot")
+                        .replace(/\b(x|X)\b/g, "\\times")
                         .replace(/vetorial/g, "\\times")
                         .replace(/escalar/g, "\\cdot")
                         .replace(/soma/g, "+")
@@ -328,7 +327,7 @@ export function EquationSolver({ onSolve }: EquationSolverProps) {
         <div className="text-sm text-muted-foreground leading-relaxed">
           <strong className="text-vector-blue font-bold">Dica:</strong> O resolvedor inteligente entende componentes cartesianas, 
           notação de versores <code className="bg-vector-blue/10 px-1 rounded text-vector-blue">i, j, k</code> ou até comandos como 
-          <span className="italic"> "soma (1,2) mais (3,4)"</span>. Use <code className="text-vector-blue">x</code> para produto vetorial.
+          <span className="italic"> "soma (1,2) mais (3,4)"</span>. Use <code className="text-vector-blue">x</code> para produto vetorial e <code className="text-vector-blue">·</code> para produto escalar.
         </div>
       </div>
     </div>

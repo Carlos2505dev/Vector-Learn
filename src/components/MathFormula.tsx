@@ -1,4 +1,4 @@
-import { InlineMath, BlockMath } from 'react-katex';
+import katex from 'katex';
 import 'katex/dist/katex.min.css';
 
 interface MathFormulaProps {
@@ -13,18 +13,17 @@ export function MathFormula({ formula, block = false, className = "" }: MathForm
   if (!cleanFormula) return null;
 
   try {
-    if (block) {
-      return (
-        <div className={`math-display ${className}`}>
-          <BlockMath math={cleanFormula} settings={{ strict: false }} />
-        </div>
-      );
-    }
-    
+    const html = katex.renderToString(cleanFormula, {
+      displayMode: block,
+      strict: false,
+      throwOnError: false
+    });
+
     return (
-      <span className={`math-inline ${className}`}>
-        <InlineMath math={cleanFormula} settings={{ strict: false }} />
-      </span>
+      <span 
+        className={`${block ? 'math-display' : 'math-inline'} ${className}`}
+        dangerouslySetInnerHTML={{ __html: html }}
+      />
     );
   } catch (error) {
     return (

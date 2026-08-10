@@ -16,16 +16,16 @@ const operations = [{
   color: "text-vector-blue",
   description: "A soma de vetores pode ser feita usando a regra do paralelogramo ou o método cabeça-cauda.",
   formulas: ["\\vec{c} = \\vec{a} + \\vec{b}", "c_x = a_x + b_x", "c_y = a_y + b_y"],
-  geometricInterpretation: "Posicione o vetor b na ponta do vetor a. O vetor soma vai da origem até a ponta de b.",
+  geometricInterpretation: <>Posicione o vetor <MathFormula formula={"\\vec{b}"} /> na ponta do vetor <MathFormula formula={"\\vec{a}"} />. O vetor soma vai da origem até a ponta de <MathFormula formula={"\\vec{b}"} />.</>,
   applications: ["Velocidades: barco atravessando rio com correnteza", "Forças: múltiplas forças atuando em um objeto", "Deslocamentos: caminhada com várias direções"]
 }, {
   id: "subtracao",
   title: "Subtração de Vetores",
   icon: Minus,
   color: "text-vector-teal",
-  description: "A subtração é equivalente à soma com o vetor oposto: a - b = a + (-b).",
+  description: <>A subtração é equivalente à soma com o vetor oposto: <MathFormula formula={"\\vec{a} - \\vec{b} = \\vec{a} + (-\\vec{b})"} />.</>,
   formulas: ["\\vec{c} = \\vec{a} - \\vec{b}", "c_x = a_x - b_x", "c_y = a_y - b_y"],
-  geometricInterpretation: "Inverta o sentido do vetor b e depois some com a.",
+  geometricInterpretation: <>Inverta o sentido do vetor <MathFormula formula={"\\vec{b}"} /> e depois some com <MathFormula formula={"\\vec{a}"} />.</>,
   applications: ["Velocidade relativa: velocidade de A em relação a B", "Mudança de posição: deslocamento entre dois pontos", "Diferença de forças: força líquida"]
 }, {
   id: "produto-escalar",
@@ -35,7 +35,7 @@ const operations = [{
   description: "O produto escalar mede o quanto dois vetores estão alinhados. Resultado é um escalar.",
   formulas: ["\\vec{a} \\cdot \\vec{b} = |\\vec{a}||\\vec{b}|\\cos(\\theta)", "\\vec{a} \\cdot \\vec{b} = a_x b_x + a_y b_y", "\\cos(\\theta) = \\frac{\\vec{a} \\cdot \\vec{b}}{|\\vec{a}||\\vec{b}|}"],
   geometricInterpretation: "Projeta um vetor sobre o outro e multiplica pelas magnitudes.",
-  applications: ["Trabalho em física: W = F⃗ · d⃗", "Ângulo entre vetores", "Projeção de um vetor sobre outro"]
+  applications: [<>Trabalho em física: <MathFormula formula={"W = \\vec{F} \\cdot \\vec{d}"} /></>, "Ângulo entre vetores", "Projeção de um vetor sobre outro"]
 }, {
   id: "produto-vetorial",
   title: "Produto Vetorial",
@@ -44,7 +44,7 @@ const operations = [{
   description: "O produto vetorial cria um novo vetor perpendicular aos dois vetores originais.",
   formulas: ["\\vec{a} \\times \\vec{b} = |\\vec{a}||\\vec{b}|\\sin(\\theta)\\hat{n}", "\\vec{a} \\times \\vec{b} = (a_y b_z - a_z b_y, a_z b_x - a_x b_z, a_x b_y - a_y b_x)", "|\\vec{a} \\times \\vec{b}| = \\text{área do paralelogramo}"],
   geometricInterpretation: "Regra da mão direita determina a direção. Magnitude = área do paralelogramo.",
-  applications: ["Torque em física: τ⃗ = r⃗ × F⃗", "Campo magnético: F⃗ = q(v⃗ × B⃗)", "Área de polígonos e superfícies"]
+  applications: [<>Torque em física: <MathFormula formula={"\\vec{\\tau} = \\vec{r} \\times \\vec{F}"} /></>, <>Campo magnético: <MathFormula formula={"\\vec{F} = q(\\vec{v} \\times \\vec{B})"} /></>, "Área de polígonos e superfícies"]
 }, {
   id: "projecao",
   title: "Projeção de Vetores",
@@ -52,14 +52,14 @@ const operations = [{
   color: "text-vector-blue",
   description: "A projeção de um vetor sobre outro mede a componente de um vetor na direção do outro.",
   formulas: ["\\text{proj}_{\\vec{b}}(\\vec{a}) = \\frac{\\vec{a} \\cdot \\vec{b}}{|\\vec{b}|^2}\\vec{b}", "\\text{comp}_{\\vec{b}}(\\vec{a}) = \\frac{\\vec{a} \\cdot \\vec{b}}{|\\vec{b}|}", "|\\text{proj}_{\\vec{b}}(\\vec{a})| = |\\vec{a}||\\cos(\\theta)|"],
-  geometricInterpretation: "A projeção é a 'sombra' do vetor a⃗ na direção de b⃗. O componente escalar mede o comprimento dessa sombra.",
+  geometricInterpretation: <>A projeção é a 'sombra' do vetor <MathFormula formula={"\\vec{a}"} /> na direção de <MathFormula formula={"\\vec{b}"} />. O componente escalar mede o comprimento dessa sombra.</>,
   applications: ["Trabalho em física: componente da força na direção do deslocamento", "Decomposição de forças em planos inclinados", "Análise de componentes vetoriais em engenharia"]
 }, {
   id: "produto-misto",
   title: "Produto Misto",
   icon: X,
   color: "text-vector-red",
-  description: "O produto misto combina produto escalar e vetorial: a⃗·(b⃗×c⃗). Seu valor representa o volume do paralelepípedo formado pelos três vetores.",
+  description: <>O produto misto combina produto escalar e vetorial: <MathFormula formula={"\\vec{a} \\cdot (\\vec{b} \\times \\vec{c})"} />. Seu valor representa o volume do paralelepípedo formado pelos três vetores.</>,
   formulas: ["\\vec{a} \\cdot (\\vec{b} \\times \\vec{c}) = \\det\\begin{pmatrix} a_x & a_y & a_z \\\\ b_x & b_y & b_z \\\\ c_x & c_y & c_z \\end{pmatrix}", "|\\vec{a} \\cdot (\\vec{b} \\times \\vec{c})| = \\text{volume do paralelepípedo}", "\\vec{a} \\cdot (\\vec{b} \\times \\vec{c}) = \\vec{b} \\cdot (\\vec{c} \\times \\vec{a}) = \\vec{c} \\cdot (\\vec{a} \\times \\vec{b})"],
   geometricInterpretation: "O valor absoluto do produto misto é o volume do paralelepípedo formado pelos três vetores. Se é zero, os vetores são coplanares.",
   applications: ["Cálculo de volume de sólidos tridimensionais", "Teste de coplanaridade de três vetores", "Análise estrutural: verificação de rigidez espacial"]

@@ -53,7 +53,7 @@ Vector Learn resolve isto através de:
 Vector Learn foi arquitetada com as **tecnologias mais modernas e performáticas** da web:
 
 | Camada | Tecnologias |
-|--------|-------------|
+| -------- | ------------- |
 | **Build & Development** | ![Vite](https://skillicons.dev/icons?i=vite) Vite – Builds 10x mais rápidos e HMR instantâneo |
 | **Frontend Framework** | ![React](https://skillicons.dev/icons?i=react) React 18 – Componentes reativos e otimizados |
 | **Linguagem** | ![TypeScript](https://skillicons.dev/icons?i=ts) TypeScript – Tipagem estática e segurança |
@@ -107,7 +107,7 @@ O servidor estará disponível em **<http://localhost:5173>**
 A Vector Learn oferece múltiplos ambientes de simulação onde os estudantes experimentam conceitos em tempo real:
 
 | Simulador | Descrição | Conceitos |
-|-----------|-----------|-----------|
+| ----------- | ----------- | ----------- |
 | 🚤 **Barco** | Interaja com vetores de propulsão e correnteza em ambiente aquático | Soma vetorial, componentes |
 | 📐 **Plano Inclinado** | Visualize decomposição de forças gravitacionais em objetos em rampa | Decomposição de forças, Normal e Peso |
 | 🏗️ **3D Explorer** | Manipule livremente vetores em 3D com rotação orbital e zoom | Vetores em 3 dimensões, Magnitude |
@@ -194,7 +194,6 @@ src/
 - [ ] **Internacionalização (i18n)**: Suporte completo para EN, ES e PT-BR com `react-i18next`.
 - [ ] **Autenticação**: Integração com Supabase Auth (Social Login e JWT).
 - [ ] **Mind-Bot IA**: Chatbot para tirar dúvidas em tempo real.
-- [ ] **Dashboard de Professor**: Ferramenta para gestão de turmas e acompanhamento de métricas.
 - [x] **Exportação de PDF**: Relatórios detalhados de desempenho e certificados.
 - [x] **Módulo de Cálculo II**: Integração com integrais de linha e campos vetoriais.
 - [ ] **Teste de nível e nivelamento**: Mini quiz para avaliar o conhecimento e adaptar a dificuldade.
