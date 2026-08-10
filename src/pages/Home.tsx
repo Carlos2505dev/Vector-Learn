@@ -244,21 +244,22 @@ export default function Home() {
                 variants={itemVariants}
                 className="group"
               >
-                <Card className="interactive-surface h-full relative overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                  <div className={`absolute top-0 right-0 w-40 h-40 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500 rounded-full -mr-20 -mt-20`} />
+                <Card className="interactive-surface group h-full relative overflow-hidden bg-card/60 backdrop-blur-sm border-white/10 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+                  <div className={`absolute top-0 right-0 w-64 h-64 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-full -mr-32 -mt-32 blur-3xl`} />
+                  <div className={`absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r ${feature.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
 
                   <CardContent className="p-8 relative z-10">
                     <motion.div
-                      className={`w-16 h-16 bg-gradient-to-br ${feature.gradient} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}
+                      className={`w-16 h-16 bg-gradient-to-br ${feature.gradient} rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-500`}
                       whileHover={{ rotate: 10 }}
                     >
                       <Icon className="h-8 w-8 text-white" />
                     </motion.div>
 
-                    <h3 className="text-2xl font-bold mb-3">{feature.title}</h3>
-                    <p className="text-muted-foreground mb-4 leading-relaxed">{feature.description}</p>
+                    <h3 className="text-2xl font-bold mb-3 group-hover:text-primary transition-colors duration-300">{feature.title}</h3>
+                    <p className="text-muted-foreground mb-4 leading-relaxed group-hover:text-foreground transition-colors duration-300">{feature.description}</p>
 
-                    <div className="pt-4 border-t border-white/10">
+                    <div className="pt-4 border-t border-border group-hover:border-primary/20 transition-colors duration-300">
                       <p className="text-sm font-semibold text-vector-teal flex items-center gap-2">
                         <CheckCircle2 className="w-4 h-4" />
                         {feature.highlight}

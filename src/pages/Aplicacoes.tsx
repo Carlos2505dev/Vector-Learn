@@ -247,48 +247,49 @@ export default function Aplicacoes() {
                 <h3 className="text-2xl font-bold text-center text-primary mb-6">Engenharia de Software</h3>
                 
                 <div className="space-y-4">
-                  <div className="bg-muted/50 p-4 rounded-lg">
-                    <div className="flex items-start gap-3 mb-2">
-                      <Layers className="h-5 w-5 text-vector-blue mt-1 flex-shrink-0" />
+                  <div className="group relative bg-muted/30 hover:bg-muted/60 p-4 rounded-xl border border-border/50 hover:border-vector-blue/30 transition-all duration-300 hover:shadow-md overflow-hidden">
+                    <div className="absolute top-0 left-0 w-1 h-full bg-vector-blue opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="flex items-start gap-3 mb-2 relative z-10">
+                      <Layers className="h-5 w-5 text-vector-blue mt-1 flex-shrink-0 group-hover:scale-110 transition-transform duration-300" />
                       <div>
                         <h4 className="font-semibold text-vector-blue mb-1">Soma de Vetores</h4>
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-300">
                           Composição de estados em aplicações e balanceamento de carga distribuída
                         </p>
                       </div>
                     </div>
                   </div>
- 
-                  <div className="bg-muted/50 p-4 rounded-lg">
-                    <div className="flex items-start gap-3 mb-2">
-                      <Terminal className="h-5 w-5 text-vector-teal mt-1 flex-shrink-0" />
+                  <div className="group relative bg-muted/30 hover:bg-muted/60 p-4 rounded-xl border border-border/50 hover:border-vector-teal/30 transition-all duration-300 hover:shadow-md overflow-hidden">
+                    <div className="absolute top-0 left-0 w-1 h-full bg-vector-teal opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="flex items-start gap-3 mb-2 relative z-10">
+                      <Terminal className="h-5 w-5 text-vector-teal mt-1 flex-shrink-0 group-hover:scale-110 transition-transform duration-300" />
                       <div>
                         <h4 className="font-semibold text-vector-teal mb-1">Produto Escalar</h4>
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-300">
                           Análise de similaridade em sistemas de recomendação e busca de código
                         </p>
                       </div>
                     </div>
                   </div>
- 
-                  <div className="bg-muted/50 p-4 rounded-lg">
-                    <div className="flex items-start gap-3 mb-2">
-                      <Globe className="h-5 w-5 text-vector-purple mt-1 flex-shrink-0" />
+                  <div className="group relative bg-muted/30 hover:bg-muted/60 p-4 rounded-xl border border-border/50 hover:border-vector-purple/30 transition-all duration-300 hover:shadow-md overflow-hidden">
+                    <div className="absolute top-0 left-0 w-1 h-full bg-vector-purple opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="flex items-start gap-3 mb-2 relative z-10">
+                      <Globe className="h-5 w-5 text-vector-purple mt-1 flex-shrink-0 group-hover:scale-110 transition-transform duration-300" />
                       <div>
                         <h4 className="font-semibold text-vector-purple mb-1">Produto Vetorial</h4>
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-300">
                           Transformações de UI e renderização de elementos gráficos dinâmicos
                         </p>
                       </div>
                     </div>
                   </div>
- 
-                  <div className="bg-muted/50 p-4 rounded-lg">
-                    <div className="flex items-start gap-3 mb-2">
-                      <ArrowRight className="h-5 w-5 text-vector-orange mt-1 flex-shrink-0" />
+                  <div className="group relative bg-muted/30 hover:bg-muted/60 p-4 rounded-xl border border-border/50 hover:border-vector-orange/30 transition-all duration-300 hover:shadow-md overflow-hidden">
+                    <div className="absolute top-0 left-0 w-1 h-full bg-vector-orange opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="flex items-start gap-3 mb-2 relative z-10">
+                      <ArrowRight className="h-5 w-5 text-vector-orange mt-1 flex-shrink-0 group-hover:scale-110 transition-transform duration-300" />
                       <div>
                         <h4 className="font-semibold text-vector-orange mb-1">Projeção</h4>
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-300">
                           Mapeamento de fluxos de dados e visualização de métricas de performance
                         </p>
                       </div>
@@ -320,48 +321,49 @@ export default function Aplicacoes() {
                 <h3 className="text-2xl font-bold text-center text-primary mb-6">Engenharia da Computação</h3>
                 
                 <div className="space-y-4">
-                  <div className="bg-muted/50 p-4 rounded-lg">
-                    <div className="flex items-start gap-3 mb-2">
-                      <Gamepad2 className="h-5 w-5 text-vector-blue mt-1 flex-shrink-0" />
+                  <div className="group relative bg-muted/30 hover:bg-muted/60 p-4 rounded-xl border border-border/50 hover:border-vector-blue/30 transition-all duration-300 hover:shadow-md overflow-hidden">
+                    <div className="absolute top-0 left-0 w-1 h-full bg-vector-blue opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="flex items-start gap-3 mb-2 relative z-10">
+                      <Gamepad2 className="h-5 w-5 text-vector-blue mt-1 flex-shrink-0 group-hover:scale-110 transition-transform duration-300" />
                       <div>
                         <h4 className="font-semibold text-vector-blue mb-1">Produto Vetorial</h4>
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-300">
                           Calcular normais de superfícies para iluminação 3D realista em jogos
                         </p>
                       </div>
                     </div>
                   </div>
-
-                  <div className="bg-muted/50 p-4 rounded-lg">
-                    <div className="flex items-start gap-3 mb-2">
-                      <Eye className="h-5 w-5 text-vector-teal mt-1 flex-shrink-0" />
+                  <div className="group relative bg-muted/30 hover:bg-muted/60 p-4 rounded-xl border border-border/50 hover:border-vector-teal/30 transition-all duration-300 hover:shadow-md overflow-hidden">
+                    <div className="absolute top-0 left-0 w-1 h-full bg-vector-teal opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="flex items-start gap-3 mb-2 relative z-10">
+                      <Eye className="h-5 w-5 text-vector-teal mt-1 flex-shrink-0 group-hover:scale-110 transition-transform duration-300" />
                       <div>
                         <h4 className="font-semibold text-vector-teal mb-1">Produto Escalar</h4>
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-300">
                           Medida de similaridade em IA, ângulos de visão, detecção de bordas
                         </p>
                       </div>
                     </div>
                   </div>
-
-                  <div className="bg-muted/50 p-4 rounded-lg">
-                    <div className="flex items-start gap-3 mb-2">
-                      <Brain className="h-5 w-5 text-vector-purple mt-1 flex-shrink-0" />
+                  <div className="group relative bg-muted/30 hover:bg-muted/60 p-4 rounded-xl border border-border/50 hover:border-vector-purple/30 transition-all duration-300 hover:shadow-md overflow-hidden">
+                    <div className="absolute top-0 left-0 w-1 h-full bg-vector-purple opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="flex items-start gap-3 mb-2 relative z-10">
+                      <Brain className="h-5 w-5 text-vector-purple mt-1 flex-shrink-0 group-hover:scale-110 transition-transform duration-300" />
                       <div>
                         <h4 className="font-semibold text-vector-purple mb-1">Projeção</h4>
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-300">
                           PCA para redução de dimensionalidade, embeddings em redes neurais
                         </p>
                       </div>
                     </div>
                   </div>
-
-                  <div className="bg-muted/50 p-4 rounded-lg">
-                    <div className="flex items-start gap-3 mb-2">
-                      <Calculator className="h-5 w-5 text-vector-orange mt-1 flex-shrink-0" />
+                  <div className="group relative bg-muted/30 hover:bg-muted/60 p-4 rounded-xl border border-border/50 hover:border-vector-orange/30 transition-all duration-300 hover:shadow-md overflow-hidden">
+                    <div className="absolute top-0 left-0 w-1 h-full bg-vector-orange opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="flex items-start gap-3 mb-2 relative z-10">
+                      <Calculator className="h-5 w-5 text-vector-orange mt-1 flex-shrink-0 group-hover:scale-110 transition-transform duration-300" />
                       <div>
                         <h4 className="font-semibold text-vector-orange mb-1">Soma Vetorial</h4>
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-300">
                           Transformações de coordenadas, translações e composição de movimentos
                         </p>
                       </div>
@@ -393,48 +395,49 @@ export default function Aplicacoes() {
                 <h3 className="text-2xl font-bold text-center text-primary mb-6">Ciência da Computação</h3>
                 
                 <div className="space-y-4">
-                  <div className="bg-muted/50 p-4 rounded-lg">
-                    <div className="flex items-start gap-3 mb-2">
-                      <Search className="h-5 w-5 text-vector-blue mt-1 flex-shrink-0" />
+                  <div className="group relative bg-muted/30 hover:bg-muted/60 p-4 rounded-xl border border-border/50 hover:border-vector-blue/30 transition-all duration-300 hover:shadow-md overflow-hidden">
+                    <div className="absolute top-0 left-0 w-1 h-full bg-vector-blue opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="flex items-start gap-3 mb-2 relative z-10">
+                      <Search className="h-5 w-5 text-vector-blue mt-1 flex-shrink-0 group-hover:scale-110 transition-transform duration-300" />
                       <div>
                         <h4 className="font-semibold text-vector-blue mb-1">Soma Vetorial</h4>
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-300">
                           Agregação de dados em espaços multidimensionais para Big Data
                         </p>
                       </div>
                     </div>
                   </div>
-
-                  <div className="bg-muted/50 p-4 rounded-lg">
-                    <div className="flex items-start gap-3 mb-2">
-                      <Shield className="h-5 w-5 text-vector-teal mt-1 flex-shrink-0" />
+                  <div className="group relative bg-muted/30 hover:bg-muted/60 p-4 rounded-xl border border-border/50 hover:border-vector-teal/30 transition-all duration-300 hover:shadow-md overflow-hidden">
+                    <div className="absolute top-0 left-0 w-1 h-full bg-vector-teal opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="flex items-start gap-3 mb-2 relative z-10">
+                      <Shield className="h-5 w-5 text-vector-teal mt-1 flex-shrink-0 group-hover:scale-110 transition-transform duration-300" />
                       <div>
                         <h4 className="font-semibold text-vector-teal mb-1">Produto Escalar</h4>
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-300">
                           Mecanismos de busca e ranqueamento de documentos por similaridade de cosseno
                         </p>
                       </div>
                     </div>
                   </div>
-
-                  <div className="bg-muted/50 p-4 rounded-lg">
-                    <div className="flex items-start gap-3 mb-2">
-                      <Network className="h-5 w-5 text-vector-purple mt-1 flex-shrink-0" />
+                  <div className="group relative bg-muted/30 hover:bg-muted/60 p-4 rounded-xl border border-border/50 hover:border-vector-purple/30 transition-all duration-300 hover:shadow-md overflow-hidden">
+                    <div className="absolute top-0 left-0 w-1 h-full bg-vector-purple opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="flex items-start gap-3 mb-2 relative z-10">
+                      <Network className="h-5 w-5 text-vector-purple mt-1 flex-shrink-0 group-hover:scale-110 transition-transform duration-300" />
                       <div>
                         <h4 className="font-semibold text-vector-purple mb-1">Produto Vetorial</h4>
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-300">
                           Geometria computacional para detecção de colisões e física de objetos
                         </p>
                       </div>
                     </div>
                   </div>
-
-                  <div className="bg-muted/50 p-4 rounded-lg">
-                    <div className="flex items-start gap-3 mb-2">
-                      <PlayCircle className="h-5 w-5 text-vector-orange mt-1 flex-shrink-0" />
+                  <div className="group relative bg-muted/30 hover:bg-muted/60 p-4 rounded-xl border border-border/50 hover:border-vector-orange/30 transition-all duration-300 hover:shadow-md overflow-hidden">
+                    <div className="absolute top-0 left-0 w-1 h-full bg-vector-orange opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="flex items-start gap-3 mb-2 relative z-10">
+                      <PlayCircle className="h-5 w-5 text-vector-orange mt-1 flex-shrink-0 group-hover:scale-110 transition-transform duration-300" />
                       <div>
                         <h4 className="font-semibold text-vector-orange mb-1">Produto Misto</h4>
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-300">
                           Verificação de consistência em volumes de dados e modelagem espacial
                         </p>
                       </div>

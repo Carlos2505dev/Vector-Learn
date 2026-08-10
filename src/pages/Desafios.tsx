@@ -605,9 +605,9 @@ export default function Desafios() {
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
-      case "básico": return "bg-vector-green text-white";
-      case "intermediário": return "bg-vector-orange text-white";
-      case "avançado": return "bg-vector-red text-white";
+      case "básico": return "bg-green-500 hover:bg-green-600 text-white border-transparent";
+      case "intermediário": return "bg-amber-500 hover:bg-amber-600 text-white border-transparent";
+      case "avançado": return "bg-red-500 hover:bg-red-600 text-white border-transparent";
       default: return "bg-muted";
     }
   };
