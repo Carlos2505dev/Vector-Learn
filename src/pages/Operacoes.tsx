@@ -317,7 +317,7 @@ export default function Operacoes() {
         viewport={{ once: true }}
         className="mb-16"
       >
-        <Card className="bg-gradient-to-br from-[#FF7A59] via-[#FF5733] to-[#8E44AD] text-white overflow-hidden border-none shadow-2xl relative group">
+        <Card className="bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700 dark:from-blue-800 dark:via-indigo-800 dark:to-purple-900 text-white overflow-hidden border-none shadow-2xl relative group">
           <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           <div className="absolute inset-0 bg-grid-white/[0.05] pointer-events-none" />
           <CardHeader className="relative z-10">

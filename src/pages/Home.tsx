@@ -526,7 +526,7 @@ export default function Home() {
           <div className="absolute top-0 right-10 w-72 h-72 bg-[#FF7A59] rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse" />
           <div className="absolute bottom-0 left-10 w-72 h-72 bg-[#5B8CFF] rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse" style={{ animationDelay: "2s" }} />
 
-          <div className="relative z-10 bg-gradient-to-br from-[#FF7A59] via-[#FF5733] to-[#8E44AD] rounded-3xl p-12 md:p-16 text-white overflow-hidden shadow-2xl border border-white/10 group">
+          <div className="relative z-10 bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700 dark:from-blue-800 dark:via-indigo-800 dark:to-purple-900 rounded-3xl p-12 md:p-16 text-white overflow-hidden shadow-2xl border border-white/10 group">
             <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             <div className="absolute top-0 right-0 opacity-10">
               <Rocket className="w-48 h-48" />
@@ -553,14 +553,14 @@ export default function Home() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button asChild size="lg" className="bg-white text-[#FF7A59] hover:bg-gray-100 font-bold text-lg px-8 py-6 rounded-xl group">
+                <Button asChild size="lg" className="bg-white text-blue-600 hover:text-blue-700 hover:bg-gray-100 font-bold text-lg px-8 py-6 rounded-xl group">
                   <Link to="/fundamentos" className="flex items-center">
                     Iniciar Jornada Agora
                     <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </Button>
 
-                <Button asChild variant="outline" size="lg" className="border-white text-white hover:bg-white/10 font-bold text-lg px-8 py-6 rounded-xl">
+                <Button asChild variant="outline" size="lg" className="bg-white/20 border-2 border-white text-white hover:bg-white hover:text-[#FF5733] font-bold text-lg px-8 py-6 rounded-xl backdrop-blur-sm transition-all duration-300 shadow-lg shadow-white/10">
                   <Link to="/simulador" className="flex items-center">
                     <Lightbulb className="mr-2 h-5 w-5" />
                     Explorar Demo
