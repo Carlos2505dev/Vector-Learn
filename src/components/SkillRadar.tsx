@@ -153,7 +153,7 @@ export function SkillRadar() {
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3 pt-4 border-t">
             <div className="text-center">
               <p className="text-2xl font-bold text-vector-teal">
-                {stats.averageAccuracy}%
+                {Math.round(stats.averageAccuracy)}%
               </p>
               <p className="text-xs text-muted-foreground">Acurácia Média</p>
             </div>

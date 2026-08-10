@@ -19,7 +19,7 @@ const instructions = [
   {
     icon: Monitor,
     title: "Simulador 2D",
-    description: "Use os controles deslizantes para ajustar as componentes dos vetores e observe como eles mudam em tempo real."
+    description: "Ajuste as componentes dos vetores e observe as mudanças em tempo real."
   },
   {
     icon: Box,

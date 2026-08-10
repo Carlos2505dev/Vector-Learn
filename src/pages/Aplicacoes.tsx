@@ -186,7 +186,7 @@ export default function Aplicacoes() {
               simulações que processam bilhões de dados em frações de segundo.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Compreender vetores não é apenas aprender matemática — é desenvolver a capacidade de 
+              Compreender vetores não é apenas aprender matemática, é desenvolver a capacidade de 
               modelar, analisar e resolver os desafios mais complexos do mundo real.
             </p>
           </div>
