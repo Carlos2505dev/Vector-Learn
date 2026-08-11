@@ -12,13 +12,13 @@ import {
   ParametricCurve, 
   VectorField2D,
   IntegralChallenge
-} from "@/lib/calculus-types";
+} from "@/lib/math/calculus-types";
 import { 
   lineIntegral, 
   generateCurveVisualization,
   arcLength,
   isConservativeField2D
-} from "@/lib/calculus-engine";
+} from "@/lib/math/calculus-engine";
 import { MathFormula } from "../math/MathFormula";
 
 interface LineIntegralSimulatorProps {

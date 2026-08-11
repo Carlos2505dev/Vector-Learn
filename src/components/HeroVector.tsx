@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
-import { magnitude2D, normalize2D } from "@/lib/vector-math";
-import type { Vector2D } from "@/lib/vector-math";
+import { magnitude2D, normalize2D } from "@/lib/math/vector-math";
+import type { Vector2D } from "@/lib/math/vector-math";
 
 interface HeroVectorProps {
   className?: string;

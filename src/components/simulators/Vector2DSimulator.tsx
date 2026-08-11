@@ -16,7 +16,7 @@ import {
   angleBetween2D, 
   project2D,
   radiansToDegrees 
-} from "@/lib/vector-math";
+} from "@/lib/math/vector-math";
 import { MathFormula } from "../math/MathFormula";
 import { useSimulatorHistory } from "@/hooks/useSimulatorHistory";
 import { getEasterEggDetector } from "@/hooks/gamification/useEasterEggs";

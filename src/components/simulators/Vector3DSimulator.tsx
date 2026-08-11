@@ -20,7 +20,7 @@ import {
   angleBetween3D, 
   project3D,
   radiansToDegrees 
-} from "@/lib/vector-math";
+} from "@/lib/math/vector-math";
 import { MathFormula } from "../math/MathFormula";
 import { getEasterEggDetector } from "@/hooks/gamification/useEasterEggs";
 import { Vector3 } from "three";

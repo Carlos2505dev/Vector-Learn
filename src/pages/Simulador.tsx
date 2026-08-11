@@ -11,7 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { BADGE_DEFINITIONS } from "@/components/gamification/BadgeSystem";
 import { useSEO, generateBreadcrumbSchema, generateLearningResourceSchema } from "@/hooks/useSEO";import { MathFormula } from "@/components/math/MathFormula";
   import { EquationSolver } from "@/components/math/EquationSolver";
-import { type ParsedEquation } from "@/lib/equation-parser";
+import { type ParsedEquation } from "@/lib/math/equation-parser";
 
 const instructions = [
   {

@@ -29,12 +29,12 @@ import {
   Waves,
   Wind,
 } from "lucide-react";
-import { VectorField3D, type CurveVisualizationData, type Vector3D } from "@/lib/calculus-types";
+import { VectorField3D, type CurveVisualizationData, type Vector3D } from "@/lib/math/calculus-types";
 import {
   computeCurl3D,
   computeDivergence3D,
   generateVectorFieldGrid,
-} from "@/lib/calculus-engine";
+} from "@/lib/math/calculus-engine";
 import { cn } from "@/lib/utils";
 
 interface VectorFieldVisualizerProps {

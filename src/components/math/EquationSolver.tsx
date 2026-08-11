@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { parseVectorEquation, type ParsedEquation } from "@/lib/equation-parser";
+import { parseVectorEquation, type ParsedEquation } from "@/lib/math/equation-parser";
 import { MathFormula } from "./MathFormula";
 import { 
   add3D, 
@@ -16,7 +16,7 @@ import {
   mixed3D,
   magnitude3D,
   type Vector3D 
-} from "@/lib/vector-math";
+} from "@/lib/math/vector-math";
 
 interface EquationSolverProps {
   onSolve: (result: ParsedEquation) => void;
