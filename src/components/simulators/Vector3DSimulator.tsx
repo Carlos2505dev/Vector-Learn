@@ -22,7 +22,7 @@ import {
   radiansToDegrees 
 } from "@/lib/vector-math";
 import { MathFormula } from "../math/MathFormula";
-import { getEasterEggDetector } from "@/hooks/useEasterEggs";
+import { getEasterEggDetector } from "@/hooks/gamification/useEasterEggs";
 import { Vector3 } from "three";
 
 interface SimulatorState {

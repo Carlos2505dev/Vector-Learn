@@ -4,7 +4,7 @@ import { ChevronDown, Search, MessageCircle, HelpCircle } from "lucide-react";im
   import { Breadcrumb } from "@/components/layout/Breadcrumb";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { getEasterEggDetector } from "@/hooks/useEasterEggs";
+import { getEasterEggDetector } from "@/hooks/gamification/useEasterEggs";
 import { useSEO, generateBreadcrumbSchema, generateFAQSchema } from "@/hooks/useSEO";
 
 interface FAQItem {

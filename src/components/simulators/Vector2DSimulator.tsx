@@ -19,7 +19,7 @@ import {
 } from "@/lib/vector-math";
 import { MathFormula } from "../math/MathFormula";
 import { useSimulatorHistory } from "@/hooks/useSimulatorHistory";
-import { getEasterEggDetector } from "@/hooks/useEasterEggs";
+import { getEasterEggDetector } from "@/hooks/gamification/useEasterEggs";
 import { EasterEggNotification } from "../gamification/EasterEggBadgeUI";
 
 interface SimulatorState {

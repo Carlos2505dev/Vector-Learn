@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Progress } from "@/components/ui/progress";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Trophy, Star, TrendingUp, Award, Flame } from "lucide-react";
-import { useUserProgress } from "@/hooks/useUserProgress";
+import { useUserProgress } from "@/hooks/gamification/useUserProgress";
 import { BadgeSystem, BADGE_DEFINITIONS } from "./BadgeSystem";
 import { Streaks } from "./Streaks";
 

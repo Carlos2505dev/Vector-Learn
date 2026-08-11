@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { AlertCircle, TrendingUp } from "lucide-react";
-import { useUserProgress } from "@/hooks/useUserProgress";
+import { useUserProgress } from "@/hooks/gamification/useUserProgress";
 
 interface SkillMetric {
   name: string;

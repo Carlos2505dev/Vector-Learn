@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Clock, AlertTriangle, CheckCircle, Coffee } from "lucide-react";
-import { useStudySession } from "@/hooks/useStudySession";
+import { useStudySession } from "@/hooks/gamification/useStudySession";
 
 interface StudySessionUIProps {
   onBreakSuggested?: () => void;

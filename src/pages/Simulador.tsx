@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
   import { Vector3DSimulator } from "@/components/simulators/Vector3DSimulator";
   import { FluidDynamicsSimulator } from "@/components/simulators/FluidDynamicsSimulator";
 import { Monitor, Box, Info, Lightbulb, Sparkles, Wind } from "lucide-react";
-import { useUserProgress } from "@/hooks/useUserProgress";
+import { useUserProgress } from "@/hooks/gamification/useUserProgress";
 import { Badge } from "@/components/ui/badge";
 import { BADGE_DEFINITIONS } from "@/components/gamification/BadgeSystem";
 import { useSEO, generateBreadcrumbSchema, generateLearningResourceSchema } from "@/hooks/useSEO";import { MathFormula } from "@/components/math/MathFormula";

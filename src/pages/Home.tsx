@@ -7,7 +7,7 @@ import { HeroVector } from "@/components/HeroVector";
 import { Layout } from "@/components/layout/Layout";
 import { OnboardingTutorial, type TutorialStep } from "@/components/OnboardingTutorial";
 import { BadgeSystem } from "@/components/gamification/BadgeSystem";
-import { useUserProgress } from "@/hooks/useUserProgress";
+import { useUserProgress } from "@/hooks/gamification/useUserProgress";
 import { useSEO, generateEducationalAppSchema } from "@/hooks/useSEO";
 
 const tutorialSteps: TutorialStep[] = [

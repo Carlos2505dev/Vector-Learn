@@ -5,7 +5,7 @@ import { Download, Share2, Loader2, FileJson } from "lucide-react";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { usePDFExport } from "@/hooks/usePDFExport";
-import { useUserProgress } from "@/hooks/useUserProgress";
+import { useUserProgress } from "@/hooks/gamification/useUserProgress";
 import { ProgressReportData } from "@/lib/pdf-types";
 
 interface UserProgressReport {

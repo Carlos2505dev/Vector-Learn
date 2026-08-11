@@ -8,7 +8,7 @@ import { Separator } from "@/components/ui/separator";
 import { Wind, Droplets, ArrowRight, Info, Play, Pause } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MathFormula } from "../math/MathFormula";
-import { getEasterEggDetector } from "@/hooks/useEasterEggs";
+import { getEasterEggDetector } from "@/hooks/gamification/useEasterEggs";
 
 
 interface FluidParticle {

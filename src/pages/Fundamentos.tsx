@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";import { Layout } from "@/components/layout/Layout";
   import { MathFormula } from "@/components/math/MathFormula";
-import { getEasterEggDetector } from "@/hooks/useEasterEggs";
+import { getEasterEggDetector } from "@/hooks/gamification/useEasterEggs";
 import { useSEO, generateBreadcrumbSchema, generateLearningResourceSchema } from "@/hooks/useSEO";
 
 const concepts = [

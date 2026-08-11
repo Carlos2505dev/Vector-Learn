@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { X, Sparkles } from "lucide-react";
-import { EASTER_EGG_DEFINITIONS, type EasterEggUnlock } from "@/hooks/useEasterEggs";
+import { EASTER_EGG_DEFINITIONS, type EasterEggUnlock } from "@/hooks/gamification/useEasterEggs";
 
 interface EasterEggNotificationProps {
   unlockedBadge: EasterEggUnlock;
