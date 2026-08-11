@@ -81,28 +81,32 @@ const VECTOR_FIELDS_3D: VectorField3D[] = [
     fy: (x, y, z) => -x,
     fz: (x, y, z) => 0,
     description: "Rotação Planar",
-    isConservative: false
+    isConservative: false,
+    formula: "F(x, y, z) = (y, −x, 0)"
   },
   {
     fx: (x, y, z) => x,
     fy: (x, y, z) => y,
     fz: (x, y, z) => z,
     description: "Campo Radial 3D",
-    isConservative: true
+    isConservative: true,
+    formula: "F(x, y, z) = (x, y, z)"
   },
   {
     fx: (x, y, z) => y - z,
     fy: (x, y, z) => z - x,
     fz: (x, y, z) => x - y,
     description: "Campo de Circulação",
-    isConservative: false
+    isConservative: false,
+    formula: "F(x, y, z) = (y − z, z − x, x − y)"
   },
   {
     fx: (x, y, z) => 2 * x,
     fy: (x, y, z) => -y,
     fz: (x, y, z) => 3 * z,
     description: "Gradiente Anisotrópico",
-    isConservative: true
+    isConservative: true,
+    formula: "F(x, y, z) = (2x, −y, 3z)"
   }
 ];
 

@@ -11,6 +11,7 @@ export interface Vector3D {
 }
 
 export interface ParametricCurve {
+  id?: string;
   x: (t: number) => number;
   y: (t: number) => number;
   z?: (t: number) => number;
@@ -24,6 +25,7 @@ export interface VectorField2D {
   fy: (x: number, y: number) => number;
   description: string;
   isConservative?: boolean;
+  formula?: string;
 }
 
 export interface VectorField3D {
@@ -32,6 +34,7 @@ export interface VectorField3D {
   fz: (x: number, y: number, z: number) => number;
   description: string;
   isConservative?: boolean;
+  formula?: string;
 }
 
 export interface LineIntegralCalculation {

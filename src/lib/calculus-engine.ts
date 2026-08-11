@@ -82,7 +82,7 @@ export function lineIntegral(
   steps.push(`Resultado da integral de linha: ${integral.toFixed(4)}`);
 
   return {
-    fieldDescription: (field as any).description || "Campo vetorial",
+    fieldDescription: "description" in field ? field.description : "Campo vetorial",
     curveDescription: curve.description,
     result: integral,
     work: steps,
@@ -165,48 +165,84 @@ export function generateVectorFieldGrid(
   const points: (Vector2D | Vector3D)[] = [];
   const fieldVectors: { position: Vector2D | Vector3D; vector: Vector2D | Vector3D }[] = [];
 
+  const is3D = "fz" in field && zRange !== undefined;
   const xStep = (xRange[1] - xRange[0]) / gridResolution;
   const yStep = (yRange[1] - yRange[0]) / gridResolution;
-  const is3D = 'fz' in field && zRange;
+  const zStep = is3D ? (zRange![1] - zRange![0]) / gridResolution : 0;
+
+  const zValues = is3D
+    ? Array.from({ length: gridResolution + 1 }, (_, k) => zRange![0] + k * zStep)
+    : [0];
 
   for (let i = 0; i <= gridResolution; i++) {
+    const x = xRange[0] + i * xStep;
     for (let j = 0; j <= gridResolution; j++) {
-      const x = xRange[0] + i * xStep;
       const y = yRange[0] + j * yStep;
-      const z = is3D ? ((zRange![0] + zRange![1]) / 2) : 0;
+      for (const z of zValues) {
+        const point = is3D ? { x, y, z } : { x, y };
+        points.push(point);
 
-      const point = is3D
-        ? { x, y, z }
-        : { x, y };
+        let fx: number;
+        let fy: number;
+        let fz: number;
 
-      points.push(point);
+        if (is3D) {
+          const field3D = field as VectorField3D;
+          fx = field3D.fx(x, y, z);
+          fy = field3D.fy(x, y, z);
+          fz = field3D.fz(x, y, z);
+        } else {
+          const field2D = field as VectorField2D;
+          fx = field2D.fx(x, y);
+          fy = field2D.fy(x, y);
+          fz = 0;
+        }
 
-      let fx: number, fy: number, fz: number;
+        // Vetores brutos (sem pré-escala): o visualizador decide comprimento e cor
+        const vector = is3D
+          ? { x: fx, y: fy, z: fz }
+          : { x: fx, y: fy };
 
-      if (is3D) {
-        const field3D = field as VectorField3D;
-        fx = field3D.fx(x, y, z);
-        fy = field3D.fy(x, y, z);
-        fz = field3D.fz(x, y, z);
-      } else {
-        const field2D = field as VectorField2D;
-        fx = field2D.fx(x, y);
-        fy = field2D.fy(x, y);
-        fz = 0;
+        fieldVectors.push({ position: point, vector });
       }
-
-      const magnitude = Math.sqrt(fx * fx + fy * fy + fz * fz);
-      const scale = magnitude > 0 ? 0.4 / magnitude : 0;
-
-      const vector = is3D
-        ? { x: fx * scale, y: fy * scale, z: fz * scale }
-        : { x: fx * scale, y: fy * scale };
-
-      fieldVectors.push({ position: point, vector });
     }
   }
 
-  return { points: points, derivatives: [], fieldVectors };
+  return { points, derivatives: [], fieldVectors };
+}
+
+export function computeDivergence3D(
+  field: VectorField3D,
+  x: number,
+  y: number,
+  z: number,
+  h = 1e-4
+): number {
+  const dfxdx = (field.fx(x + h, y, z) - field.fx(x - h, y, z)) / (2 * h);
+  const dfydy = (field.fy(x, y + h, z) - field.fy(x, y - h, z)) / (2 * h);
+  const dfzdz = (field.fz(x, y, z + h) - field.fz(x, y, z - h)) / (2 * h);
+  return dfxdx + dfydy + dfzdz;
+}
+
+export function computeCurl3D(
+  field: VectorField3D,
+  x: number,
+  y: number,
+  z: number,
+  h = 1e-4
+): Vector3D {
+  const dfzdy = (field.fz(x, y + h, z) - field.fz(x, y - h, z)) / (2 * h);
+  const dfydz = (field.fy(x, y, z + h) - field.fy(x, y, z - h)) / (2 * h);
+  const dfxdz = (field.fx(x, y, z + h) - field.fx(x, y, z - h)) / (2 * h);
+  const dfzdx = (field.fz(x + h, y, z) - field.fz(x - h, y, z)) / (2 * h);
+  const dfydx = (field.fy(x + h, y, z) - field.fy(x - h, y, z)) / (2 * h);
+  const dfxdy = (field.fx(x, y + h, z) - field.fx(x, y - h, z)) / (2 * h);
+
+  return {
+    x: dfzdy - dfydz,
+    y: dfxdz - dfzdx,
+    z: dfydx - dfxdy,
+  };
 }
 
 export function isConservativeField2D(field: VectorField2D): boolean {
