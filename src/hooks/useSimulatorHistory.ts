@@ -13,13 +13,6 @@ export interface SimulatorSnapshot {
   };
 }
 
-export interface SimulatorReplayState {
-  snapshots: SimulatorSnapshot[];
-  currentStepIndex: number;
-  isReplaying: boolean;
-  maxSnapshots: number;
-}
-
 export function useSimulatorHistory(maxSnapshots: number = 50) {
   const [history, setHistory] = useState<SimulatorSnapshot[]>([]);
   const [currentStepIndex, setCurrentStepIndex] = useState(-1);
@@ -188,14 +181,5 @@ export function useSimulatorHistory(maxSnapshots: number = 50) {
     exportHistory,
     importHistory,
     getSessionMetadata,
-  };
-}
-
-export function useSimulatorReplayControls(simulatorHistory: ReturnType<typeof useSimulatorHistory>) {
-  return {
-    canGoBack: simulatorHistory.currentStepIndex > 0,
-    canGoForward: simulatorHistory.currentStepIndex < simulatorHistory.history.length - 1,
-    progress: (simulatorHistory.currentStepIndex + 1) / (simulatorHistory.history.length || 1),
-    ...simulatorHistory,
   };
 }

@@ -22,7 +22,7 @@
 
 ✨ **Visualizar conceitos matemáticos complexos** em tempo real através de simuladores 3D  
 🎮 **Interagir fisicamente** com vetores, forças e operações vetoriais  
-🏆 **Competir e progredir** através de um sistema de gamificação com badges, leaderboards e desafios  
+🏆 **Competir e progredir** através de um sistema de gamificação com badges e desafios  
 📊 **Acompanhar seu aprendizado** com dashboards detalhados de progresso  
 
 ---
@@ -118,9 +118,7 @@ A Vector Learn oferece múltiplos ambientes de simulação onde os estudantes ex
 O aprendizado se transforma em jornada de conquistas com:
 
 - **🎖️ Badges de Desempenho**: Conquistas automáticas ao atingir marcos de aprendizado
-- **🥇 Leaderboard Dinâmico**: Ranking em tempo real incentivando competição saudável  
 - **🔥 Streaks & Consistência**: Contador de dias consecutivos de estudo com recompensas
-- **📜 Certificados**: Geração automática ao completar trilhas de desafios
 - **🎯 Desafios Adaptativos**: Quiz inteligente que se ajusta ao seu nível
 
 ### 📚 Conteúdo Educacional Progressivo
@@ -134,7 +132,6 @@ O aprendizado se transforma em jornada de conquistas com:
 
 - **Dashboard Pessoal**: Visualizando seu desempenho ao longo do tempo
 - **Relatórios Detalhados**: Análise de quais conceitos precisa reforçar
-- **Exportação de Certificados**: Comprovação do aprendizado concluído
 
 ---
 
@@ -152,13 +149,11 @@ src/
 │   │   └── InclinedPlaneSimulator.tsx # Simulação: Decomposição de Forças
 │   ├── gamification/        # Sistema de Engajamento e Recompensas
 │   │   ├── BadgeSystem.tsx         # Sistema de medalhas e conquistas
-│   │   ├── Leaderboard.tsx         # Ranking global de estudantes
 │   │   ├── Streaks.tsx             # Contador de dias consecutivos
 │   │   └── GamificationDashboard.tsx # Dashboard de progresso do aluno
 │   ├── math/                # Ferramentas de Suporte Acadêmico
 │   │   ├── MathFormula.tsx         # Renderizador de LaTeX (KaTeX)
-│   │   ├── EquationSolver.tsx      # Resolutor de operações passo a passo
-│   │   └── VectorComparator.tsx    # Ferramenta de análise visual comparativa
+│   │   └── EquationSolver.tsx      # Resolutor de operações passo a passo
 │   └── layout/              # Estrutura e Experiência do Usuário (UX)
 │       ├── Navigation.tsx          # Navegação inteligente e responsiva
 │       ├── HeroVector.tsx          # Visualização hero interativa na Home
@@ -194,7 +189,6 @@ src/
 - [ ] **Internacionalização (i18n)**: Suporte completo para EN, ES e PT-BR com `react-i18next`.
 - [ ] **Autenticação**: Integração com Supabase Auth (Social Login e JWT).
 - [ ] **Mind-Bot IA**: Chatbot para tirar dúvidas em tempo real.
-- [x] **Exportação de PDF**: Relatórios detalhados de desempenho e certificados.
 - [x] **Módulo de Cálculo II**: Integração com integrais de linha e campos vetoriais.
 - [ ] **Teste de nível e nivelamento**: Mini quiz para avaliar o conhecimento e adaptar a dificuldade.
 - [x] **Inserção de questões de vestibulares e Enem**: Banco de dados de questões oficiais para treinamento.
