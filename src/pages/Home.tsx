@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { HeroVector } from "@/components/HeroVector";
-import { Layout } from "@/components/Layout";
+import { Layout } from "@/components/layout/Layout";
 import { OnboardingTutorial, type TutorialStep } from "@/components/OnboardingTutorial";
-import { BadgeSystem } from "@/components/BadgeSystem";
+import { BadgeSystem } from "@/components/gamification/BadgeSystem";
 import { useUserProgress } from "@/hooks/useUserProgress";
 import { useSEO, generateEducationalAppSchema } from "@/hooks/useSEO";
 

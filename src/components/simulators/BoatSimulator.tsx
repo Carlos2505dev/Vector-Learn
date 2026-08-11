@@ -5,7 +5,7 @@ import { Slider } from "@/components/ui/slider";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Waves, Ship, ArrowRight, Info } from "lucide-react";
-import { MathFormula } from "./MathFormula";
+import { MathFormula } from "../math/MathFormula";
 
 export function BoatSimulator() {
   const [vBoat, setVBoat] = useState(4);

@@ -21,7 +21,7 @@ import {
   project3D,
   radiansToDegrees 
 } from "@/lib/vector-math";
-import { MathFormula } from "./MathFormula";
+import { MathFormula } from "../math/MathFormula";
 import { getEasterEggDetector } from "@/hooks/useEasterEggs";
 import { Vector3 } from "three";
 

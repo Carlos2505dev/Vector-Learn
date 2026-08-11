@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Wind, Droplets, ArrowRight, Info, Play, Pause } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { MathFormula } from "./MathFormula";
+import { MathFormula } from "../math/MathFormula";
 import { getEasterEggDetector } from "@/hooks/useEasterEggs";
 
 

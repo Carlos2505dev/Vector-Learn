@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { BadgeUnlock } from "@/components/BadgeSystem";
+import { BadgeUnlock } from "@/components/gamification/BadgeSystem";
 import { getEasterEggDetector } from "./useEasterEggs";
 
 interface UserStats {

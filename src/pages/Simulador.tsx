@@ -1,18 +1,16 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Layout } from "@/components/Layout";
-import { Vector2DSimulator } from "@/components/Vector2DSimulator";
-import { Vector3DSimulator } from "@/components/Vector3DSimulator";
-import { FluidDynamicsSimulator } from "@/components/FluidDynamicsSimulator";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";import { Layout } from "@/components/layout/Layout";
+  import { Vector2DSimulator } from "@/components/simulators/Vector2DSimulator";
+  import { Vector3DSimulator } from "@/components/simulators/Vector3DSimulator";
+  import { FluidDynamicsSimulator } from "@/components/simulators/FluidDynamicsSimulator";
 import { Monitor, Box, Info, Lightbulb, Sparkles, Wind } from "lucide-react";
 import { useUserProgress } from "@/hooks/useUserProgress";
 import { Badge } from "@/components/ui/badge";
-import { BADGE_DEFINITIONS } from "@/components/BadgeSystem";
-import { useSEO, generateBreadcrumbSchema, generateLearningResourceSchema } from "@/hooks/useSEO";
-import { MathFormula } from "@/components/MathFormula";
-import { EquationSolver } from "@/components/EquationSolver";
+import { BADGE_DEFINITIONS } from "@/components/gamification/BadgeSystem";
+import { useSEO, generateBreadcrumbSchema, generateLearningResourceSchema } from "@/hooks/useSEO";import { MathFormula } from "@/components/math/MathFormula";
+  import { EquationSolver } from "@/components/math/EquationSolver";
 import { type ParsedEquation } from "@/lib/equation-parser";
 
 const instructions = [

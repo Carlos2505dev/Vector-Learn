@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { ChevronDown, Search, MessageCircle, HelpCircle } from "lucide-react";
-import { Layout } from "@/components/Layout";
-import { Breadcrumb } from "@/components/Breadcrumb";
+import { ChevronDown, Search, MessageCircle, HelpCircle } from "lucide-react";import { Layout } from "@/components/layout/Layout";
+  import { Breadcrumb } from "@/components/layout/Breadcrumb";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { getEasterEggDetector } from "@/hooks/useEasterEggs";

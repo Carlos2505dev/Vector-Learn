@@ -5,17 +5,15 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Layout } from "@/components/Layout";
-import { MathFormula } from "@/components/MathFormula";
-import { TestMode, type TestQuestion } from "@/components/TestMode";
-import { BadgeSystem, BADGE_DEFINITIONS } from "@/components/BadgeSystem";
-import { EasterEggBadgeGrid } from "@/components/EasterEggBadgeUI";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";import { Layout } from "@/components/layout/Layout";
+  import { MathFormula } from "@/components/math/MathFormula";
+import { TestMode, type TestQuestion } from "@/components/TestMode";import { BadgeSystem, BADGE_DEFINITIONS } from "@/components/gamification/BadgeSystem";
+  import { EasterEggBadgeGrid } from "@/components/gamification/EasterEggBadgeUI";
 import { getEasterEggDetector } from "@/hooks/useEasterEggs";
-import { SkillRadar } from "@/components/SkillRadar";
+import { SkillRadar } from "@/components/progress/SkillRadar";
 import { useUserProgress } from "@/hooks/useUserProgress";
 import { useSEO, generateBreadcrumbSchema, generateLearningResourceSchema } from "@/hooks/useSEO";
-import { GamificationDashboard } from "@/components/GamificationDashboard";
+import { GamificationDashboard } from "@/components/gamification/GamificationDashboard";
 import { enemVestibularQuestions, categoryMap, type QuestionCategory, getRandomQuestions } from "@/lib/questions-enem";
 
 interface Question {

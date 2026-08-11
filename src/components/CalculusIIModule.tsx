@@ -7,9 +7,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { BookOpen, CheckCircle2, AlertCircle, Zap } from "lucide-react";
-import { MathFormula } from "./MathFormula";
-import { LineIntegralSimulator } from "./LineIntegralSimulator";
-import { VectorFieldVisualizer } from "./VectorFieldVisualizer";
+import { MathFormula } from "./math/MathFormula";
+import { LineIntegralSimulator } from "./simulators/LineIntegralSimulator";
+import { VectorFieldVisualizer } from "./simulators/VectorFieldVisualizer";
 import { ParametricCurve, VectorField2D, VectorField3D, IntegralChallenge } from "@/lib/calculus-types";
 
 const PARAMETRIC_CURVES: ParametricCurve[] = [

@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Clock, CheckCircle, XCircle, AlertCircle, Download, Share2 } from "lucide-react";
-import { MathFormula } from "@/components/MathFormula";
+import { MathFormula } from "@/components/math/MathFormula";
 
 export interface TestQuestion {
   id: string;

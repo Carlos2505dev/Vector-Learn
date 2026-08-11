@@ -19,7 +19,7 @@ import {
   arcLength,
   isConservativeField2D
 } from "@/lib/calculus-engine";
-import { MathFormula } from "./MathFormula";
+import { MathFormula } from "../math/MathFormula";
 
 interface LineIntegralSimulatorProps {
   curves: ParametricCurve[];

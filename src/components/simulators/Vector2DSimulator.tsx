@@ -17,10 +17,10 @@ import {
   project2D,
   radiansToDegrees 
 } from "@/lib/vector-math";
-import { MathFormula } from "./MathFormula";
+import { MathFormula } from "../math/MathFormula";
 import { useSimulatorHistory } from "@/hooks/useSimulatorHistory";
 import { getEasterEggDetector } from "@/hooks/useEasterEggs";
-import { EasterEggNotification } from "./EasterEggBadgeUI";
+import { EasterEggNotification } from "../gamification/EasterEggBadgeUI";
 
 interface SimulatorState {
   vectorA: Vector2D;

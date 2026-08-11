@@ -1,10 +1,9 @@
 import { motion } from "framer-motion";
 import { Code, Cpu, Database, Network, Shield, Search, Terminal, Gamepad2, Brain, Eye, Calculator, Zap, PlayCircle, ArrowRight, Layers, Globe } from "lucide-react";
-import { Layout } from "@/components/Layout";
+import { Layout } from "@/components/layout/Layout";
 import { Card, CardContent } from "@/components/ui/card";
-import { useSEO, generateBreadcrumbSchema, generateLearningResourceSchema } from "@/hooks/useSEO";
-import { BoatSimulator } from "@/components/BoatSimulator";
-import { InclinedPlaneSimulator } from "@/components/InclinedPlaneSimulator";
+import { useSEO, generateBreadcrumbSchema, generateLearningResourceSchema } from "@/hooks/useSEO";import { BoatSimulator } from "@/components/simulators/BoatSimulator";
+  import { InclinedPlaneSimulator } from "@/components/simulators/InclinedPlaneSimulator";
 
 export default function Aplicacoes() {
   useSEO({
