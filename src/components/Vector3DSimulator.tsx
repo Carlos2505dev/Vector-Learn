@@ -22,6 +22,7 @@ import {
   radiansToDegrees 
 } from "@/lib/vector-math";
 import { MathFormula } from "./MathFormula";
+import { getEasterEggDetector } from "@/hooks/useEasterEggs";
 import { Vector3 } from "three";
 
 interface SimulatorState {
@@ -231,6 +232,10 @@ function Scene3D({ state }: { state: SimulatorState }) {
 }
 
 export function Vector3DSimulator({ data }: { data?: Partial<SimulatorState> }) {
+  useEffect(() => {
+    getEasterEggDetector().recordSimulatorUsage("3D");
+  }, []);
+
   const [state, setState] = useState<SimulatorState>({
     vectorA: { x: 2, y: 1.5, z: 1 },
     vectorB: { x: -1, y: 2, z: 1.5 },

@@ -38,6 +38,7 @@ interface TestModeProps {
   questions: TestQuestion[];
   timeLimit?: number;
   onComplete?: (session: TestSession) => void;
+  onShare?: () => void;
   title?: string;
   level?: "básico" | "intermediário" | "avançado";
 }
@@ -46,6 +47,7 @@ export function TestMode({
   questions,
   timeLimit,
   onComplete,
+  onShare,
   title = "Prova de Conhecimento",
   level = "intermediário"
 }: TestModeProps) {
@@ -450,7 +452,7 @@ export function TestMode({
               <Download className="w-4 h-4" />
               Baixar Certificado
             </Button>
-            <Button className="flex-1 gap-2" variant="outline">
+            <Button className="flex-1 gap-2" variant="outline" onClick={onShare}>
               <Share2 className="w-4 h-4" />
               Compartilhar
             </Button>

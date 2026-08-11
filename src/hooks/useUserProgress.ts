@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { BadgeUnlock } from "@/components/BadgeSystem";
+import { getEasterEggDetector } from "./useEasterEggs";
 
 interface UserStats {
   totalCorrectAnswers: number;
@@ -21,6 +22,9 @@ interface UserStats {
   level: number;
   dailyXP: { [date: string]: number };
   averageTime: number;
+  nightAnswers: number;
+  sharesCount: number;
+  simulatorsVisited: string[];
 }
 
 const DEFAULT_STATS: UserStats = {
@@ -37,9 +41,14 @@ const DEFAULT_STATS: UserStats = {
   level: 1,
   dailyXP: {},
   averageTime: 0,
+  nightAnswers: 0,
+  sharesCount: 0,
+  simulatorsVisited: [],
 };
 
 const STORAGE_KEY = "vector-learn-user-progress";
+
+const SIMULATORS = ["2d", "3d", "fluidos"] as const;
 
 export function useUserProgress() {
   const [stats, setStats] = useState<UserStats>(DEFAULT_STATS);
@@ -67,9 +76,16 @@ export function useUserProgress() {
 
   const recordAnswer = useCallback(
     (questionId: string, isCorrect: boolean, timeSpent: number = 0) => {
+      // Feedbacks para os easter eggs (perfeccionista, zero-hesitação, noite insone)
+      const detector = getEasterEggDetector();
+      detector.updatePerfectStreak(isCorrect);
+      if (timeSpent > 0 && timeSpent < 10) {
+        detector.recordReactionTime(timeSpent);
+      }
+      detector.recordNightStudy(timeSpent / 3600);
+
       setStats((prev) => {
         const newStats = { ...prev };
-        const STREAK_THRESHOLD = 5;
         const QUICK_SOLVE_THRESHOLD = 60;
 
         if (!newStats.questionsAnswered[questionId]) {
@@ -88,25 +104,17 @@ export function useUserProgress() {
 
         newStats.totalAnswers += 1;
 
+        // Coruja Noturna: respostas entre 23h e 6h
+        const hour = new Date().getHours();
+        if (hour < 6 || hour >= 23) {
+          newStats.nightAnswers = (newStats.nightAnswers || 0) + 1;
+        }
+
         if (isCorrect) {
           newStats.totalCorrectAnswers += 1;
           newStats.currentStreak += 1;
           if (newStats.currentStreak > newStats.maxStreak) {
             newStats.maxStreak = newStats.currentStreak;
-          }
-
-          if (
-            newStats.totalCorrectAnswers === 1 &&
-            !newStats.unlockedBadges.some((b) => b.badgeId === "first-correct")
-          ) {
-            unlockBadge(newStats, "first-correct");
-          }
-
-          if (
-            newStats.currentStreak >= STREAK_THRESHOLD &&
-            !newStats.unlockedBadges.some((b) => b.badgeId === "5-streak")
-          ) {
-            unlockBadge(newStats, "5-streak");
           }
 
           if (
@@ -129,7 +137,7 @@ export function useUserProgress() {
           const xpGained = 10;
           newStats.xp += xpGained;
           newStats.level = calculateLevel(newStats.xp);
-          
+
           const today = new Date().toISOString().split('T')[0];
           if (!newStats.dailyXP) newStats.dailyXP = {};
           newStats.dailyXP[today] = (newStats.dailyXP[today] || 0) + xpGained;
@@ -143,13 +151,7 @@ export function useUserProgress() {
           }
         }
 
-        if (
-          newStats.averageAccuracy >= 90 &&
-          newStats.totalAnswers >= 10 &&
-          !newStats.unlockedBadges.some((b) => b.badgeId === "master-fundamentals")
-        ) {
-          unlockBadge(newStats, "master-fundamentals");
-        }
+        checkBadges(newStats);
 
         newStats.lastActivity = new Date().toISOString();
         return newStats;
@@ -171,10 +173,7 @@ export function useUserProgress() {
       if (!newStats.dailyXP) newStats.dailyXP = {};
       newStats.dailyXP[today] = (newStats.dailyXP[today] || 0) + testXp;
 
-      const testAccuracy = (score / totalQuestions) * 100;
-
-      if (testAccuracy >= 70) {
-      }
+      checkBadges(newStats);
 
       newStats.lastActivity = new Date().toISOString();
       return newStats;
@@ -186,6 +185,7 @@ export function useUserProgress() {
       const newStats = { ...prev };
       newStats.xp += amount;
       newStats.level = calculateLevel(newStats.xp);
+      checkBadges(newStats);
       return newStats;
     });
   }, []);
@@ -194,6 +194,26 @@ export function useUserProgress() {
     setStats((prev) => {
       const newStats = { ...prev };
       unlockBadge(newStats, badgeId as any);
+      return newStats;
+    });
+  }, []);
+
+  const recordShare = useCallback(() => {
+    setStats((prev) => {
+      const newStats = { ...prev };
+      newStats.sharesCount = (newStats.sharesCount || 0) + 1;
+      checkBadges(newStats);
+      return newStats;
+    });
+  }, []);
+
+  const recordSimulatorVisit = useCallback((simulatorType: string) => {
+    setStats((prev) => {
+      const newStats = { ...prev };
+      if (!newStats.simulatorsVisited.includes(simulatorType)) {
+        newStats.simulatorsVisited = [...newStats.simulatorsVisited, simulatorType];
+      }
+      checkBadges(newStats);
       return newStats;
     });
   }, []);
@@ -226,6 +246,8 @@ export function useUserProgress() {
     recordTestCompletion,
     addXP,
     unlockBadgeManually,
+    recordShare,
+    recordSimulatorVisit,
     checkMasterFundamentals,
     resetProgress,
     isUnlocked,
@@ -251,9 +273,68 @@ function calculateXPForNextLevel(level: number): number {
 function unlockBadge(stats: UserStats, badgeId: string) {
   const existing = stats.unlockedBadges.find((b) => b.badgeId === badgeId as any);
   if (!existing) {
-    stats.unlockedBadges.push({
-      badgeId: badgeId as any,
-      unlockedAt: new Date().toISOString(),
-    });
+    // Cria uma nova referência de array para que efeitos que observam unlockedBadges sejam notificados
+    stats.unlockedBadges = [
+      ...stats.unlockedBadges,
+      {
+        badgeId: badgeId as any,
+        unlockedAt: new Date().toISOString(),
+      },
+    ];
+  }
+}
+
+function checkBadges(newStats: UserStats) {
+  const has = (badgeId: string) =>
+    newStats.unlockedBadges.some((b) => b.badgeId === badgeId as any);
+
+  if (newStats.totalCorrectAnswers >= 1 && !has("first-correct")) {
+    unlockBadge(newStats, "first-correct");
+  }
+  if (newStats.currentStreak >= 5 && !has("5-streak")) {
+    unlockBadge(newStats, "5-streak");
+  }
+  if (newStats.totalCorrectAnswers >= 10 && !has("10-correct")) {
+    unlockBadge(newStats, "10-correct");
+  }
+  if (newStats.totalCorrectAnswers >= 50 && !has("50-correct")) {
+    unlockBadge(newStats, "50-correct");
+  }
+  if (newStats.totalCorrectAnswers >= 100 && !has("100-correct")) {
+    unlockBadge(newStats, "100-correct");
+  }
+  if (newStats.maxStreak >= 10 && !has("10-streak")) {
+    unlockBadge(newStats, "10-streak");
+  }
+  if (newStats.testsCompleted >= 1 && !has("first-test")) {
+    unlockBadge(newStats, "first-test");
+  }
+  if (newStats.testsCompleted >= 5 && !has("5-tests")) {
+    unlockBadge(newStats, "5-tests");
+  }
+  if (newStats.level >= 5 && !has("level-5")) {
+    unlockBadge(newStats, "level-5");
+  }
+  if (newStats.level >= 10 && !has("level-10")) {
+    unlockBadge(newStats, "level-10");
+  }
+  if ((newStats.nightAnswers || 0) >= 10 && !has("night-owl")) {
+    unlockBadge(newStats, "night-owl");
+  }
+  if ((newStats.sharesCount || 0) >= 3 && !has("community-explorer")) {
+    unlockBadge(newStats, "community-explorer");
+  }
+  if (
+    SIMULATORS.every((s) => newStats.simulatorsVisited.includes(s)) &&
+    !has("simulator-master")
+  ) {
+    unlockBadge(newStats, "simulator-master");
+  }
+  if (
+    newStats.averageAccuracy >= 90 &&
+    newStats.totalAnswers >= 10 &&
+    !has("master-fundamentals")
+  ) {
+    unlockBadge(newStats, "master-fundamentals");
   }
 }

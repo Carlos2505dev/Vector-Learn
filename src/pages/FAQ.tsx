@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ChevronDown, Search, MessageCircle, HelpCircle } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { Breadcrumb } from "@/components/Breadcrumb";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { getEasterEggDetector } from "@/hooks/useEasterEggs";
 import { useSEO, generateBreadcrumbSchema, generateFAQSchema } from "@/hooks/useSEO";
 
 interface FAQItem {
@@ -155,6 +156,10 @@ export default function FAQ() {
   const [searchTerm, setSearchTerm] = useState("");
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+
+  useEffect(() => {
+    getEasterEggDetector().recordPageRead("FAQ");
+  }, []);
 
   useSEO({
     title: 'Perguntas Frequentes (FAQ) - Vector Learn',

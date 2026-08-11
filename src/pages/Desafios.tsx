@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle, XCircle, RotateCcw, ArrowRight, Trophy, Target, Brain, Sparkles, TrendingUp, Award, Filter } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -9,7 +9,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Layout } from "@/components/Layout";
 import { MathFormula } from "@/components/MathFormula";
 import { TestMode, type TestQuestion } from "@/components/TestMode";
-import { BadgeSystem } from "@/components/BadgeSystem";
+import { BadgeSystem, BADGE_DEFINITIONS } from "@/components/BadgeSystem";
+import { EasterEggBadgeGrid } from "@/components/EasterEggBadgeUI";
+import { getEasterEggDetector } from "@/hooks/useEasterEggs";
 import { SkillRadar } from "@/components/SkillRadar";
 import { useUserProgress } from "@/hooks/useUserProgress";
 import { useSEO, generateBreadcrumbSchema, generateLearningResourceSchema } from "@/hooks/useSEO";
@@ -486,7 +488,29 @@ export default function Desafios() {
     setEnemScore(0);
   }, [selectedCategory, selectedDifficulty, filteredEnemQuestions.length]);
 
-  const { stats, recordAnswer, recordTestCompletion, isUnlocked } = useUserProgress();
+  const { stats, recordAnswer, recordTestCompletion, recordShare, isLoaded } = useUserProgress();
+
+  // Detecta badges recém-desbloqueados ao responder questões e exibe a notificação
+  const prevBadgesRef = useRef<string[] | null>(null);
+
+  useEffect(() => {
+    if (!isLoaded) return; // aguarda o carregamento inicial para não disparar notificações falsas
+    const current = stats.unlockedBadges.map((b) => b.badgeId);
+    if (prevBadgesRef.current === null) {
+      prevBadgesRef.current = current;
+      return;
+    }
+    const newBadges = current.filter((id) => !prevBadgesRef.current!.includes(id));
+    if (newBadges.length > 0) {
+      const names = newBadges.map((id) => {
+        const definition = BADGE_DEFINITIONS[id as keyof typeof BADGE_DEFINITIONS];
+        return definition ? definition.name : id;
+      });
+      setUnlockedBadgeNotification(names.join(" • "));
+      setTimeout(() => setUnlockedBadgeNotification(null), 5000);
+    }
+    prevBadgesRef.current = current;
+  }, [stats.unlockedBadges, isLoaded]);
 
   useEffect(() => {
     setQuestionStartTime(Date.now());
@@ -559,17 +583,7 @@ export default function Desafios() {
       newCompleted[currentQuestion] = true;
       setCompletedQuestions(newCompleted);
 
-      const previousBadges = stats.unlockedBadges.map(b => b.badgeId);
       recordAnswer(question.id, true, timeSpent);
-
-      setTimeout(() => {
-        const newStats = stats;
-        const newBadges = newStats.unlockedBadges.filter(b => !previousBadges.includes(b.badgeId));
-        if (newBadges.length > 0) {
-          setUnlockedBadgeNotification(newBadges[0].badgeId as string);
-          setTimeout(() => setUnlockedBadgeNotification(null), 5000);
-        }
-      }, 100);
     } else {
       recordAnswer(question.id, false, timeSpent);
     }
@@ -1296,6 +1310,7 @@ export default function Desafios() {
                 recordTestCompletion(session.score, session.questions.length);
               }
             }}
+            onShare={recordShare}
           />
         </TabsContent>
 
@@ -1351,6 +1366,7 @@ export default function Desafios() {
 
         <TabsContent value="badges" className="space-y-8">
           <BadgeSystem unlockedBadges={stats.unlockedBadges} />
+          <EasterEggBadgeGrid unlockedBadges={getEasterEggDetector().getUnlockedEasterEggs()} />
         </TabsContent>
 
         <TabsContent value="perfil" className="space-y-8">
@@ -1372,7 +1388,7 @@ export default function Desafios() {
               </div>
               <div>
                 <p className="text-xs font-semibold uppercase tracking-wider opacity-80">Novo Badge Desbloqueado!</p>
-                <p className="text-lg font-bold">Parabéns pelo progresso!</p>
+                <p className="text-lg font-bold">{unlockedBadgeNotification}</p>
               </div>
             </Card>
           </motion.div>

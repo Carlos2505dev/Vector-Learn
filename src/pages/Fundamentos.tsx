@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Move, Ruler, Navigation, Target } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -5,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Layout } from "@/components/Layout";
 import { MathFormula } from "@/components/MathFormula";
+import { getEasterEggDetector } from "@/hooks/useEasterEggs";
 import { useSEO, generateBreadcrumbSchema, generateLearningResourceSchema } from "@/hooks/useSEO";
 
 const concepts = [
@@ -86,6 +88,10 @@ const examples = [
 ];
 
 export default function Fundamentos() {
+  useEffect(() => {
+    getEasterEggDetector().recordPageRead("Fundamentos");
+  }, []);
+
   useSEO({
     title: 'Fundamentos de Vetores: Conceitos Básicos, Notação & Magnitude | Vector Learn',
     description: 'Aprenda os fundamentos de vetores matemática! Notação vetorial, componentes 2D/3D, magnitude (módulo) e conceitos básicos com exemplos práticos e visualizações.',

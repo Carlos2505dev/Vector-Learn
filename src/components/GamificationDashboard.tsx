@@ -3,7 +3,7 @@ import { Progress } from "@/components/ui/progress";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Trophy, Star, TrendingUp, Award, Flame } from "lucide-react";
 import { useUserProgress } from "@/hooks/useUserProgress";
-import { BadgeSystem } from "./BadgeSystem";
+import { BadgeSystem, BADGE_DEFINITIONS } from "./BadgeSystem";
 import { Streaks } from "./Streaks";
 
 export function GamificationDashboard() {
@@ -113,7 +113,7 @@ export function GamificationDashboard() {
                 Suas Conquistas
               </CardTitle>
               <span className="text-sm font-medium text-muted-foreground">
-                {stats.unlockedBadges.length} de 6 desbloqueadas
+                {stats.unlockedBadges.length} de {Object.keys(BADGE_DEFINITIONS).length} desbloqueadas
               </span>
             </CardHeader>
             <CardContent>

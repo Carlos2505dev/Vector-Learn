@@ -1,3 +1,5 @@
+const STORAGE_KEY = "vector-learn-easter-eggs";
+
 export const EASTER_EGG_DEFINITIONS = {
   "descobridor-de-atalhos": {
     name: "🔍 Descobridor de Atalhos",
@@ -88,8 +90,14 @@ export interface EasterEggContext {
   reactionTimes: number[];
 }
 
+interface EasterEggRecord {
+  unlockedAt: string;
+  discoveredAt: string;
+}
+
 export class EasterEggDetector {
   private context: EasterEggContext;
+  private unlockedRecords: Record<string, EasterEggRecord> = {};
 
   constructor() {
     this.context = {
@@ -105,95 +113,82 @@ export class EasterEggDetector {
       shareSolutionCount: 0,
       reactionTimes: [],
     };
+    this.load();
   }
 
   checkAllEasterEggs(userStats: any): EasterEggUnlock[] {
     const unlocked: EasterEggUnlock[] = [];
 
     if (this.detectUntaughtOperation()) {
-      unlocked.push({
-        badgeId: "descobridor-de-atalhos" as const,
-        unlockedAt: new Date().toISOString(),
-        discoveredAt: "Operação não ensinada executada!",
-      });
+      this.markUnlocked(unlocked, "descobridor-de-atalhos", "Operação não ensinada executada!");
     }
 
     if (this.context.alternativeMethods >= 3) {
-      unlocked.push({
-        badgeId: "ninja-matematico" as const,
-        unlockedAt: new Date().toISOString(),
-        discoveredAt: "3 métodos alternativos usados!",
-      });
+      this.markUnlocked(unlocked, "ninja-matematico", "3 métodos alternativos usados!");
     }
 
     if (this.detectSpeedRun()) {
-      unlocked.push({
-        badgeId: "relampago" as const,
-        unlockedAt: new Date().toISOString(),
-        discoveredAt: "100 operações em menos de 5 minutos!",
-      });
+      this.markUnlocked(unlocked, "relampago", "100 operações em menos de 5 minutos!");
     }
 
     if (
       this.context.pagesRead.includes("FAQ") &&
       this.context.pagesRead.includes("Fundamentos")
     ) {
-      unlocked.push({
-        badgeId: "pesquisador-insaciavel" as const,
-        unlockedAt: new Date().toISOString(),
-        discoveredAt: "100% de documentação lida!",
-      });
+      this.markUnlocked(unlocked, "pesquisador-insaciavel", "100% de documentação lida!");
     }
 
     if (this.context.operationsCombinationsTested.length >= 6) {
-      unlocked.push({
-        badgeId: "experimentador" as const,
-        unlockedAt: new Date().toISOString(),
-        discoveredAt: "Todas as combinações de operações testadas!",
-      });
+      this.markUnlocked(unlocked, "experimentador", "Todas as combinações de operações testadas!");
     }
 
     if (this.context.perfectStreak >= 20) {
-      unlocked.push({
-        badgeId: "perfeccionista" as const,
-        unlockedAt: new Date().toISOString(),
-        discoveredAt: "20 questões perfeitas seguidas!",
-      });
+      this.markUnlocked(unlocked, "perfeccionista", "20 questões perfeitas seguidas!");
     }
 
     if (this.context.nightStudyHours >= 2) {
-      unlocked.push({
-        badgeId: "noite-insone" as const,
-        unlockedAt: new Date().toISOString(),
-        discoveredAt: "2+ horas estudando de madrugada!",
-      });
+      this.markUnlocked(unlocked, "noite-insone", "2+ horas estudando de madrugada!");
     }
 
     if (this.context.simulatorsUsedToday.length >= 3) {
-      unlocked.push({
-        badgeId: "multidimensional" as const,
-        unlockedAt: new Date().toISOString(),
-        discoveredAt: "Todos os simuladores usados no mesmo dia!",
-      });
+      this.markUnlocked(unlocked, "multidimensional", "Todos os simuladores usados no mesmo dia!");
     }
 
     if (this.context.shareSolutionCount >= 10) {
-      unlocked.push({
-        badgeId: "mentor" as const,
-        unlockedAt: new Date().toISOString(),
-        discoveredAt: "10 soluções compartilhadas!",
-      });
+      this.markUnlocked(unlocked, "mentor", "10 soluções compartilhadas!");
     }
 
     if (this.detectFastReactionTime()) {
-      unlocked.push({
-        badgeId: "zero-hesitacao" as const,
-        unlockedAt: new Date().toISOString(),
-        discoveredAt: "5 respostas super rápidas em sequência!",
-      });
+      this.markUnlocked(unlocked, "zero-hesitacao", "5 respostas super rápidas em sequência!");
     }
 
+    this.persist();
     return unlocked;
+  }
+
+  getUnlockedEasterEggs(): EasterEggUnlock[] {
+    return Object.entries(this.unlockedRecords).map(([badgeId, record]) => ({
+      badgeId: badgeId as any,
+      unlockedAt: record.unlockedAt,
+      discoveredAt: record.discoveredAt,
+    }));
+  }
+
+  private markUnlocked(
+    unlocked: EasterEggUnlock[],
+    badgeId: string,
+    discoveredAt: string
+  ) {
+    if (this.unlockedRecords[badgeId]) return;
+    this.unlockedRecords[badgeId] = {
+      unlockedAt: new Date().toISOString(),
+      discoveredAt,
+    };
+    unlocked.push({
+      badgeId: badgeId as any,
+      unlockedAt: this.unlockedRecords[badgeId].unlockedAt,
+      discoveredAt,
+    });
   }
 
   private detectUntaughtOperation(): boolean {
@@ -219,10 +214,12 @@ export class EasterEggDetector {
 
   recordOperation(operation: string) {
     this.context.operationsPerformed.push(operation);
+    this.persist();
   }
 
   recordAlternativeMethod() {
     this.context.alternativeMethods += 1;
+    this.persist();
   }
 
   recordOperationSpeed(seconds: number) {
@@ -230,32 +227,38 @@ export class EasterEggDetector {
     if (this.context.recentOperationSpeed.length > 100) {
       this.context.recentOperationSpeed.shift();
     }
+    this.persist();
   }
 
   recordPageRead(page: string) {
     if (!this.context.pagesRead.includes(page)) {
       this.context.pagesRead.push(page);
     }
+    this.persist();
   }
 
   recordOperationCombination(combo: string) {
     if (!this.context.operationsCombinationsTested.includes(combo)) {
       this.context.operationsCombinationsTested.push(combo);
     }
+    this.persist();
   }
 
   updatePerfectStreak(correct: boolean) {
     this.context.perfectStreak = correct ? this.context.perfectStreak + 1 : 0;
+    this.persist();
   }
 
   recordSimulatorUsage(simulatorType: string) {
     if (!this.context.simulatorsUsedToday.includes(simulatorType)) {
       this.context.simulatorsUsedToday.push(simulatorType);
     }
+    this.persist();
   }
 
   recordShareSolution() {
     this.context.shareSolutionCount += 1;
+    this.persist();
   }
 
   recordReactionTime(seconds: number) {
@@ -263,6 +266,7 @@ export class EasterEggDetector {
     if (this.context.reactionTimes.length > 10) {
       this.context.reactionTimes.shift();
     }
+    this.persist();
   }
 
   recordNightStudy(hours: number) {
@@ -270,6 +274,38 @@ export class EasterEggDetector {
     const isNight = now.getHours() < 6 || now.getHours() >= 23;
     if (isNight) {
       this.context.nightStudyHours += hours;
+    }
+    this.persist();
+  }
+
+  private load() {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed.context) {
+          this.context = { ...this.context, ...parsed.context };
+        }
+        if (parsed.unlockedRecords) {
+          this.unlockedRecords = parsed.unlockedRecords;
+        }
+      }
+    } catch (e) {
+      // Dados corrompidos são ignorados silenciosamente
+    }
+  }
+
+  private persist() {
+    try {
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify({
+          context: this.context,
+          unlockedRecords: this.unlockedRecords,
+        })
+      );
+    } catch (e) {
+      // Falha ao persistir não deve interromper a experiência
     }
   }
 }

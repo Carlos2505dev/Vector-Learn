@@ -5,6 +5,7 @@ import { Download, Share2, Loader2, FileJson } from "lucide-react";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { usePDFExport } from "@/hooks/usePDFExport";
+import { useUserProgress } from "@/hooks/useUserProgress";
 import { ProgressReportData } from "@/lib/pdf-types";
 
 interface UserProgressReport {
@@ -339,6 +340,7 @@ interface ProgressReportExporterProps {
 export function ProgressReportExporter({ data, onExported }: ProgressReportExporterProps) {
   const [isGenerating, setIsGenerating] = useState(false);
   const { exportProgressReport, exportProgressJSON, isLoading, error, clearError } = usePDFExport();
+  const { recordShare } = useUserProgress();
 
   const handleDownloadPDF = async () => {
     setIsGenerating(true);
@@ -432,6 +434,7 @@ export function ProgressReportExporter({ data, onExported }: ProgressReportExpor
 
     const url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent("https://vector-learn.com")}`;
     window.open(url, "_blank");
+    recordShare();
   };
 
   return (

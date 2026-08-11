@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Trophy, Zap, Target, Star, Sparkles, Medal } from "lucide-react";
+import { Trophy, Zap, Target, Star, Medal, CheckCircle2, Flame, Gem, Swords, ClipboardCheck, GraduationCap, Rocket, Crown, Moon, Brain, Share2 } from "lucide-react";
 
 export const BADGE_DEFINITIONS = {
   "first-correct": {
@@ -20,22 +20,82 @@ export const BADGE_DEFINITIONS = {
     icon: Zap,
     rarity: "rare" as const
   },
+  "10-correct": {
+    name: "🎯 Primeira Dezena",
+    description: "Acertou 10 questões no total",
+    icon: CheckCircle2,
+    rarity: "common" as const
+  },
+  "50-correct": {
+    name: "🔥 Metade do Caminho",
+    description: "Acertou 50 questões no total",
+    icon: Flame,
+    rarity: "rare" as const
+  },
+  "100-correct": {
+    name: "💯 Centurião",
+    description: "Acertou 100 questões no total",
+    icon: Gem,
+    rarity: "epic" as const
+  },
+  "10-streak": {
+    name: "⚔️ Fogo Contínuo",
+    description: "Alcançou 10 acertos consecutivos",
+    icon: Swords,
+    rarity: "epic" as const
+  },
+  "first-test": {
+    name: "📝 Primeira Prova",
+    description: "Concluiu sua primeira prova no modo certificado",
+    icon: ClipboardCheck,
+    rarity: "common" as const
+  },
+  "5-tests": {
+    name: "🎓 Veterano de Provas",
+    description: "Concluiu 5 provas no modo certificado",
+    icon: GraduationCap,
+    rarity: "rare" as const
+  },
+  "level-5": {
+    name: "🚀 Ascensão",
+    description: "Alcançou o nível 5",
+    icon: Rocket,
+    rarity: "rare" as const
+  },
+  "level-10": {
+    name: "👑 Domínio Absoluto",
+    description: "Alcançou o nível 10",
+    icon: Crown,
+    rarity: "legendary" as const
+  },
+  "night-owl": {
+    name: "🌙 Coruja Noturna",
+    description: "Respondeu 10 questões entre 23h e 6h",
+    icon: Moon,
+    rarity: "rare" as const
+  },
   "master-fundamentals": {
     name: "🏆 Mestre dos Fundamentos",
     description: "Dominou todos os conceitos fundamentais",
     icon: Medal,
     rarity: "epic" as const
   },
+  "smart-solver": {
+    name: "🧠 Mente Brilhante",
+    description: "Usou o Resolvedor Inteligente do simulador",
+    icon: Brain,
+    rarity: "rare" as const
+  },
   "simulator-master": {
     name: "🌟 Explorador do Simulador",
-    description: "Exploração completa de todos os recursos do simulador",
+    description: "Visitou todos os simuladores (2D, 3D e Fluidos)",
     icon: Star,
     rarity: "legendary" as const
   },
   "community-explorer": {
-    name: "🤝 Explorador da Comunidade",
-    description: "Participou ativamente em 10 discussões",
-    icon: Sparkles,
+    name: "🎤 Embaixador",
+    description: "Compartilhou seu progresso 3 vezes",
+    icon: Share2,
     rarity: "epic" as const
   }
 };

@@ -8,6 +8,7 @@ import { Separator } from "@/components/ui/separator";
 import { Wind, Droplets, ArrowRight, Info, Play, Pause } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MathFormula } from "./MathFormula";
+import { getEasterEggDetector } from "@/hooks/useEasterEggs";
 
 
 interface FluidParticle {
@@ -29,6 +30,10 @@ interface DragObject {
 export function FluidDynamicsSimulator() {
   const svgRef = useRef<SVGSVGElement>(null);
   const animationIdRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    getEasterEggDetector().recordSimulatorUsage("fluidos");
+  }, []);
 
   const [fluidVelocity, setFluidVelocity] = useState(3);
   const [viscosity, setViscosity] = useState(0.5);

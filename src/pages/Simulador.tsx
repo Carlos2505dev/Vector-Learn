@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,8 +8,8 @@ import { Vector3DSimulator } from "@/components/Vector3DSimulator";
 import { FluidDynamicsSimulator } from "@/components/FluidDynamicsSimulator";
 import { Monitor, Box, Info, Lightbulb, Sparkles, Wind } from "lucide-react";
 import { useUserProgress } from "@/hooks/useUserProgress";
-import { motion as motionF } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
+import { BADGE_DEFINITIONS } from "@/components/BadgeSystem";
 import { useSEO, generateBreadcrumbSchema, generateLearningResourceSchema } from "@/hooks/useSEO";
 import { MathFormula } from "@/components/MathFormula";
 import { EquationSolver } from "@/components/EquationSolver";
@@ -54,21 +54,48 @@ const examples = [
 export default function Simulador() {
   const [activeTab, setActiveTab] = useState("2d");
   const [solverResult, setSolverResult] = useState<Partial<ParsedEquation> | null>(null);
-  const { stats, unlockBadgeManually, isUnlocked } = useUserProgress();
+  const { stats, unlockBadgeManually, isUnlocked, recordSimulatorVisit, isLoaded } = useUserProgress();
 
   const [isSolving, setIsSolving] = useState(false);
+  const [badgeNotification, setBadgeNotification] = useState<{ name: string } | null>(null);
+  const prevBadgesRef = useRef<string[] | null>(null);
+
+  // Detecta badges recém-desbloqueados e exibe a notificação com o nome correto
+  useEffect(() => {
+    if (!isLoaded) return; // aguarda o carregamento inicial para não disparar notificações falsas
+    const current = stats.unlockedBadges.map((b) => b.badgeId);
+    if (prevBadgesRef.current === null) {
+      prevBadgesRef.current = current;
+      return;
+    }
+    const newBadges = current.filter((id) => !prevBadgesRef.current!.includes(id));
+    if (newBadges.length > 0) {
+      const names = newBadges.map((id) => {
+        const definition = BADGE_DEFINITIONS[id as keyof typeof BADGE_DEFINITIONS];
+        return definition ? definition.name : id;
+      });
+      setBadgeNotification({ name: names.join(" • ") });
+      setTimeout(() => setBadgeNotification(null), 5000);
+    }
+    prevBadgesRef.current = current;
+  }, [stats.unlockedBadges, isLoaded]);
+
+  // Registra a visita a cada simulador (2D, 3D e Fluidos) para o badge Explorador do Simulador
+  useEffect(() => {
+    if (activeTab === "2d" || activeTab === "3d" || activeTab === "fluidos") {
+      recordSimulatorVisit(activeTab);
+    }
+  }, [activeTab, recordSimulatorVisit]);
 
   const handleSolve = (result: ParsedEquation) => {
     setIsSolving(true);
     setSolverResult(result);
     setActiveTab(result.is3D ? "3d" : "2d");
-    
+
     setTimeout(() => setIsSolving(false), 2000);
 
-    if (!isUnlocked("smart-solver-badge")) {
-      unlockBadgeManually("smart-solver-badge");
-      setShowBadgeNotification(true);
-      setTimeout(() => setShowBadgeNotification(false), 5000);
+    if (!isUnlocked("smart-solver")) {
+      unlockBadgeManually("smart-solver");
     }
   };
 
@@ -88,29 +115,10 @@ export default function Simulador() {
       ['Simulation', 'Interactive']
     ),
   });
-  const [simulatorAccessTracker, setSimulatorAccessTracker] = useState({ 
-    has2D: false, 
-    has3D: false 
-  });
-  const [showBadgeNotification, setShowBadgeNotification] = useState(false);
-
-  useEffect(() => {
-    if (activeTab === "2d" && !simulatorAccessTracker.has2D) {
-      setSimulatorAccessTracker(prev => ({ ...prev, has2D: true }));
-    } else if (activeTab === "3d" && !simulatorAccessTracker.has3D) {
-      setSimulatorAccessTracker(prev => ({ ...prev, has3D: true }));
-      
-      if (simulatorAccessTracker.has2D && !isUnlocked("simulator-master")) {
-        unlockBadgeManually("simulator-master");
-        setShowBadgeNotification(true);
-        setTimeout(() => setShowBadgeNotification(false), 5000);
-      }
-    }
-  }, [activeTab, simulatorAccessTracker, isUnlocked, unlockBadgeManually]);
 
   return (
     <Layout>
-      {showBadgeNotification && (
+      {badgeNotification && (
         <motion.div
           initial={{ opacity: 0, y: -20, scale: 0.8 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -122,7 +130,7 @@ export default function Simulador() {
               <Sparkles className="h-8 w-8 animate-spin" />
               <div>
                 <p className="font-bold text-lg">🎉 Novo Badge Desbloqueado!</p>
-                <p className="text-sm opacity-90">🌟 Explorador do Simulador</p>
+                <p className="text-sm opacity-90">{badgeNotification.name}</p>
               </div>
             </CardContent>
           </Card>
