@@ -82,7 +82,7 @@ export function Streaks({ streakData, onStreakClick }: StreaksProps) {
             <motion.div
               key={index}
               initial={{ height: 0 }}
-              animate={{ height: `${(day.activity / maxActivity) * 100}%` || "10px" }}
+              animate={{ height: day.activity > 0 ? `${(day.activity / maxActivity) * 100}%` : "10px" }}
               transition={{ delay: index * 0.05, duration: 0.5 }}
               className="flex-1 flex flex-col items-center justify-end group relative"
             >

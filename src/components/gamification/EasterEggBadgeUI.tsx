@@ -170,8 +170,8 @@ export function EasterEggBadgeGrid({
 
       <div className="grid grid-cols-3 md:grid-cols-5 gap-2">
         {allBadges.map(([badgeId, badge], idx) => {
-          const isUnlocked = unlockedIds.has(badgeId as any);
-          const unlockedData = unlockedBadges.find((b) => b.badgeId === badgeId as any);
+          const isUnlocked = unlockedIds.has(badgeId as keyof typeof EASTER_EGG_DEFINITIONS);
+          const unlockedData = unlockedBadges.find((b) => b.badgeId === (badgeId as keyof typeof EASTER_EGG_DEFINITIONS));
 
           if (!isUnlocked && !showLocked) return null;
 

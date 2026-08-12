@@ -1,4 +1,8 @@
 import type { Config } from "tailwindcss";
+// tailwindcss-animate usa `export =` (CJS). O import default funciona porque o
+// Tailwind carrega este arquivo com um loader que lida com o interop CJS/ESM.
+// Se este arquivo entrar no `include` de um tsconfig, será preciso `esModuleInterop`.
+import animate from "tailwindcss-animate";
 
 export default {
   darkMode: ["class"],
@@ -198,5 +202,5 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [animate],
 } satisfies Config;

@@ -17,11 +17,11 @@ export interface SEOConfig {
   canonicalUrl?: string;
   keywords?: string;
   robots?: string;
-  breadcrumbSchema?: Record<string, any>;
-  articleSchema?: Record<string, any>;
-  faqSchema?: Record<string, any>;
-  learningResourceSchema?: Record<string, any>;
-  courseSchema?: Record<string, any>;
+  breadcrumbSchema?: Record<string, unknown>;
+  articleSchema?: Record<string, unknown>;
+  faqSchema?: Record<string, unknown>;
+  learningResourceSchema?: Record<string, unknown>;
+  courseSchema?: Record<string, unknown>;
   educationalLevel?: string[];
   learningResourceType?: string;
 }
@@ -97,7 +97,7 @@ function updateLinkTag(rel: string, href: string) {
   element.setAttribute('href', href);
 }
 
-function addSchemaMarkup(schema: Record<string, any>): HTMLScriptElement {
+function addSchemaMarkup(schema: Record<string, unknown>): HTMLScriptElement {
   const script = document.createElement('script');
   script.type = 'application/ld+json';
   script.setAttribute('data-seo-schema', 'true');

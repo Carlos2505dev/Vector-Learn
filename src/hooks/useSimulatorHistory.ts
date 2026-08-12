@@ -6,7 +6,7 @@ export interface SimulatorSnapshot {
   vectorA?: { x: number; y: number; z?: number };
   vectorB?: { x: number; y: number; z?: number };
   operation?: string;
-  result?: any;
+  result?: unknown;
   metadata?: {
     description: string;
     isCheckpoint?: boolean;

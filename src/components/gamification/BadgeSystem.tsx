@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Trophy, Zap, Target, Star, Medal, CheckCircle2, Flame, Gem, Swords, ClipboardCheck, GraduationCap, Rocket, Crown, Moon, Brain, Share2 } from "lucide-react";
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const BADGE_DEFINITIONS = {
   "first-correct": {
     name: "🥇 Primeiro Acerto",
