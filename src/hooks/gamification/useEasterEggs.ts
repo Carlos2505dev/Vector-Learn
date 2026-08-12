@@ -116,7 +116,7 @@ export class EasterEggDetector {
     this.load();
   }
 
-  checkAllEasterEggs(userStats: any): EasterEggUnlock[] {
+  checkAllEasterEggs(): EasterEggUnlock[] {
     const unlocked: EasterEggUnlock[] = [];
 
     if (this.detectUntaughtOperation()) {
@@ -168,7 +168,7 @@ export class EasterEggDetector {
 
   getUnlockedEasterEggs(): EasterEggUnlock[] {
     return Object.entries(this.unlockedRecords).map(([badgeId, record]) => ({
-      badgeId: badgeId as any,
+      badgeId: badgeId as keyof typeof EASTER_EGG_DEFINITIONS,
       unlockedAt: record.unlockedAt,
       discoveredAt: record.discoveredAt,
     }));
@@ -176,7 +176,7 @@ export class EasterEggDetector {
 
   private markUnlocked(
     unlocked: EasterEggUnlock[],
-    badgeId: string,
+    badgeId: keyof typeof EASTER_EGG_DEFINITIONS,
     discoveredAt: string
   ) {
     if (this.unlockedRecords[badgeId]) return;
@@ -185,7 +185,7 @@ export class EasterEggDetector {
       discoveredAt,
     };
     unlocked.push({
-      badgeId: badgeId as any,
+      badgeId,
       unlockedAt: this.unlockedRecords[badgeId].unlockedAt,
       discoveredAt,
     });
@@ -287,7 +287,13 @@ export class EasterEggDetector {
           this.context = { ...this.context, ...parsed.context };
         }
         if (parsed.unlockedRecords) {
-          this.unlockedRecords = parsed.unlockedRecords;
+          // Descarta chaves desconhecidas vindas de localStorage (dados antigos ou corrompidos),
+          // mantendo apenas easter eggs que ainda existem nas definições.
+          const validKeys = new Set(Object.keys(EASTER_EGG_DEFINITIONS));
+          this.unlockedRecords = Object.fromEntries(
+            Object.entries(parsed.unlockedRecords as Record<string, EasterEggRecord>)
+              .filter(([badgeId]) => validKeys.has(badgeId))
+          );
         }
       }
     } catch (e) {

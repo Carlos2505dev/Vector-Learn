@@ -19,7 +19,7 @@ import {
 } from "@/lib/math/vector-math";
 import { MathFormula } from "../math/MathFormula";
 import { useSimulatorHistory } from "@/hooks/useSimulatorHistory";
-import { getEasterEggDetector } from "@/hooks/gamification/useEasterEggs";
+import { getEasterEggDetector, type EasterEggUnlock } from "@/hooks/gamification/useEasterEggs";
 import { EasterEggNotification } from "../gamification/EasterEggBadgeUI";
 
 interface SimulatorState {
@@ -33,7 +33,16 @@ interface SimulatorState {
 export function Vector2DSimulator({ data }: { data?: Partial<SimulatorState> }) {
   const svgRef = useRef<SVGSVGElement>(null);
   const operationStartTime = useRef<number>(Date.now());
-  const [newEasterEgg, setNewEasterEgg] = useState<any>(null);
+  const [newEasterEgg, setNewEasterEgg] = useState<EasterEggUnlock | null>(null);
+  const easterEggTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (easterEggTimerRef.current) {
+        clearTimeout(easterEggTimerRef.current);
+      }
+    };
+  }, []);
   
   const detector = getEasterEggDetector();
   const simulatorHistory = useSimulatorHistory();
@@ -114,10 +123,13 @@ export function Vector2DSimulator({ data }: { data?: Partial<SimulatorState> }) 
     }
     
     operationStartTime.current = Date.now();
-    const newBadges = detector.checkAllEasterEggs({});
+    const newBadges = detector.checkAllEasterEggs();
     if (newBadges.length > 0) {
       setNewEasterEgg(newBadges[0]);
-      setTimeout(() => setNewEasterEgg(null), 5000);
+      if (easterEggTimerRef.current) {
+        clearTimeout(easterEggTimerRef.current);
+      }
+      easterEggTimerRef.current = setTimeout(() => setNewEasterEgg(null), 5000);
     }
   };
 

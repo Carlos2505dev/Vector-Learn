@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -59,12 +59,13 @@ export function TestMode({
   const [testSession, setTestSession] = useState<TestSession | null>(null);
   const [showExplanation, setShowExplanation] = useState(false);
   const [currentSelection, setCurrentSelection] = useState<number | null>(null);
+  const handleFinishRef = useRef<(finalResults?: TestResult[]) => void>(() => {});
 
   useEffect(() => {
     if (testState !== "taking" || timeRemaining === undefined) return;
 
     if (timeRemaining <= 0) {
-      handleFinish();
+      handleFinishRef.current();
       return;
     }
 
@@ -106,7 +107,7 @@ export function TestMode({
     }
   };
 
-  const handleFinish = (finalResults?: TestResult[]) => {
+  const handleFinish = useCallback((finalResults?: TestResult[]) => {
     const currentResults = finalResults || results;
     const correctAnswers = currentResults.filter(r => r.correct).length;
     const score = Math.round((correctAnswers / questions.length) * 100);
@@ -126,7 +127,15 @@ export function TestMode({
     setTestSession(session);
     setTestState("results");
     onComplete?.(session);
-  };
+  }, [results, questions, timeLimit, timeRemaining, level, onComplete]);
+
+  // Mantém o ref sempre apontando para a versão mais recente de handleFinish,
+  // sem escrever em ref durante o render. useLayoutEffect garante que a
+  // atualização aconteça antes dos efeitos passivos (como o timer), evitando
+  // que o timer leia um ref desatualizado quando o tempo chega a zero.
+  useLayoutEffect(() => {
+    handleFinishRef.current = handleFinish;
+  }, [handleFinish]);
 
   const formatTime = (seconds: number | undefined) => {
     if (seconds === undefined) return "--:--";

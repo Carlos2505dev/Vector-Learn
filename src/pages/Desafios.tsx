@@ -499,15 +499,16 @@ export default function Desafios() {
       return;
     }
     const newBadges = current.filter((id) => !prevBadgesRef.current!.includes(id));
-    if (newBadges.length > 0) {
-      const names = newBadges.map((id) => {
-        const definition = BADGE_DEFINITIONS[id as keyof typeof BADGE_DEFINITIONS];
-        return definition ? definition.name : id;
-      });
-      setUnlockedBadgeNotification(names.join(" • "));
-      setTimeout(() => setUnlockedBadgeNotification(null), 5000);
-    }
     prevBadgesRef.current = current;
+    if (newBadges.length === 0) return;
+
+    const names = newBadges.map((id) => {
+      const definition = BADGE_DEFINITIONS[id as keyof typeof BADGE_DEFINITIONS];
+      return definition ? definition.name : id;
+    });
+    setUnlockedBadgeNotification(names.join(" • "));
+    const timer = setTimeout(() => setUnlockedBadgeNotification(null), 5000);
+    return () => clearTimeout(timer);
   }, [stats.unlockedBadges, isLoaded]);
 
   useEffect(() => {

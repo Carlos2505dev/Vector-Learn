@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
+import { z } from "zod";
 import { BadgeUnlock } from "@/components/gamification/BadgeSystem";
 import { getEasterEggDetector } from "./useEasterEggs";
 
@@ -48,6 +49,31 @@ const DEFAULT_STATS: UserStats = {
 
 const STORAGE_KEY = "vector-learn-user-progress";
 
+// Valida o payload salvo no localStorage: campos ausentes são aceitos (padrões preenchem),
+// mas tipos inválidos fazem a validação falhar e o progresso volta ao estado inicial,
+// evitando estados corrompidos silenciosos.
+const userStatsSchema = z.object({
+  totalCorrectAnswers: z.number(),
+  totalAnswers: z.number(),
+  currentStreak: z.number(),
+  maxStreak: z.number(),
+  questionsAnswered: z.record(
+    z.string(),
+    z.object({ correct: z.boolean(), timeSpent: z.number(), attempts: z.number() })
+  ),
+  testsCompleted: z.number(),
+  averageAccuracy: z.number(),
+  unlockedBadges: z.array(z.object({ badgeId: z.string(), unlockedAt: z.string() })),
+  lastActivity: z.string(),
+  xp: z.number(),
+  level: z.number(),
+  dailyXP: z.record(z.string(), z.number()),
+  averageTime: z.number(),
+  nightAnswers: z.number(),
+  sharesCount: z.number(),
+  simulatorsVisited: z.array(z.string()),
+}).partial();
+
 const SIMULATORS = ["2d", "3d", "fluidos"] as const;
 
 export function useUserProgress() {
@@ -58,8 +84,8 @@ export function useUserProgress() {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
       try {
-        const parsed = JSON.parse(saved);
-        setStats({ ...DEFAULT_STATS, ...parsed });
+        const parsed = userStatsSchema.parse(JSON.parse(saved));
+        setStats({ ...DEFAULT_STATS, ...parsed } as UserStats);
       } catch (e) {
         console.error("Failed to load user progress:", e);
         setStats(DEFAULT_STATS);
@@ -190,10 +216,10 @@ export function useUserProgress() {
     });
   }, []);
 
-  const unlockBadgeManually = useCallback((badgeId: string) => {
+  const unlockBadgeManually = useCallback((badgeId: BadgeUnlock["badgeId"]) => {
     setStats((prev) => {
       const newStats = { ...prev };
-      unlockBadge(newStats, badgeId as any);
+      unlockBadge(newStats, badgeId);
       return newStats;
     });
   }, []);
@@ -234,8 +260,8 @@ export function useUserProgress() {
   }, []);
 
   const isUnlocked = useCallback(
-    (badgeId: string) => {
-      return stats.unlockedBadges.some((b) => b.badgeId === badgeId as any);
+    (badgeId: BadgeUnlock["badgeId"]) => {
+      return stats.unlockedBadges.some((b) => b.badgeId === badgeId);
     },
     [stats.unlockedBadges]
   );
@@ -270,14 +296,14 @@ function calculateXPForNextLevel(level: number): number {
   return Math.pow(level, 2) * 100;
 }
 
-function unlockBadge(stats: UserStats, badgeId: string) {
-  const existing = stats.unlockedBadges.find((b) => b.badgeId === badgeId as any);
+function unlockBadge(stats: UserStats, badgeId: BadgeUnlock["badgeId"]) {
+  const existing = stats.unlockedBadges.find((b) => b.badgeId === badgeId);
   if (!existing) {
     // Cria uma nova referência de array para que efeitos que observam unlockedBadges sejam notificados
     stats.unlockedBadges = [
       ...stats.unlockedBadges,
       {
-        badgeId: badgeId as any,
+        badgeId,
         unlockedAt: new Date().toISOString(),
       },
     ];
@@ -285,8 +311,8 @@ function unlockBadge(stats: UserStats, badgeId: string) {
 }
 
 function checkBadges(newStats: UserStats) {
-  const has = (badgeId: string) =>
-    newStats.unlockedBadges.some((b) => b.badgeId === badgeId as any);
+  const has = (badgeId: BadgeUnlock["badgeId"]) =>
+    newStats.unlockedBadges.some((b) => b.badgeId === badgeId);
 
   if (newStats.totalCorrectAnswers >= 1 && !has("first-correct")) {
     unlockBadge(newStats, "first-correct");

@@ -67,15 +67,16 @@ export default function Simulador() {
       return;
     }
     const newBadges = current.filter((id) => !prevBadgesRef.current!.includes(id));
-    if (newBadges.length > 0) {
-      const names = newBadges.map((id) => {
-        const definition = BADGE_DEFINITIONS[id as keyof typeof BADGE_DEFINITIONS];
-        return definition ? definition.name : id;
-      });
-      setBadgeNotification({ name: names.join(" • ") });
-      setTimeout(() => setBadgeNotification(null), 5000);
-    }
     prevBadgesRef.current = current;
+    if (newBadges.length === 0) return;
+
+    const names = newBadges.map((id) => {
+      const definition = BADGE_DEFINITIONS[id as keyof typeof BADGE_DEFINITIONS];
+      return definition ? definition.name : id;
+    });
+    setBadgeNotification({ name: names.join(" • ") });
+    const timer = setTimeout(() => setBadgeNotification(null), 5000);
+    return () => clearTimeout(timer);
   }, [stats.unlockedBadges, isLoaded]);
 
   // Registra a visita a cada simulador (2D, 3D e Fluidos) para o badge Explorador do Simulador
@@ -250,7 +251,7 @@ export default function Simulador() {
               vectorB: solverResult.vectorB,
               operation: (solverResult.operation === "cross" || solverResult.operation === "mixed") 
                 ? "none" 
-                : solverResult.operation as any
+                : solverResult.operation
             } : undefined} />
           </TabsContent>
 
@@ -259,7 +260,7 @@ export default function Simulador() {
               vectorA: solverResult.vectorA,
               vectorB: solverResult.vectorB,
               vectorC: solverResult.vectorC,
-              operation: solverResult.operation as any
+              operation: solverResult.operation
             } : undefined} />
           </TabsContent>
 

@@ -13,10 +13,14 @@ export function MathFormula({ formula, block = false, className = "" }: MathForm
   if (!cleanFormula) return null;
 
   try {
+    // trust: false (padrão do KaTeX) garante que a entrada é tratada como dados e
+    // nunca como HTML executável — importante pois a fórmula pode vir de input do usuário.
+    // Não alterar para trust: true, pois habilitaria HTML arbitrário (risco de XSS).
     const html = katex.renderToString(cleanFormula, {
       displayMode: block,
       strict: false,
-      throwOnError: false
+      throwOnError: false,
+      trust: false,
     });
 
     return (
