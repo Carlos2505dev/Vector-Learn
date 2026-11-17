@@ -385,6 +385,17 @@ npx tsc --noEmit
 
 </details>
 
+## ⚠️ Limitações técnicas conhecidas
+
+Estas limitações descrevem o comportamento atual da plataforma e ajudam a definir o escopo adequado para seu uso:
+
+| Área | Limitação atual |
+| ---- | --------------- |
+| **Persistência** | O progresso é salvo no `localStorage` do navegador. Ele não é sincronizado entre dispositivos e pode ser perdido ao limpar os dados do site; ainda não há conta ou recuperação em nuvem. |
+| **Cálculo numérico** | Derivadas e integrais de linha são aproximadas numericamente. A precisão depende da função e da resolução usada, portanto os resultados têm finalidade didática e não substituem ferramentas de cálculo científico. |
+| **Entrada de operações** | O resolvedor reconhece formatos específicos de vetores e operações; não é um sistema algébrico simbólico de propósito geral. Expressões fora dos formatos suportados podem não ser interpretadas. |
+| **Verificação automatizada** | O projeto oferece lint e verificação de tipos, mas ainda não possui scripts de testes unitários ou E2E. Essas verificações não garantem, por si só, a correção matemática nem o comportamento completo da interface. |
+
 ## 📚 Documentação
 
 | Documento                               | Descrição          |
